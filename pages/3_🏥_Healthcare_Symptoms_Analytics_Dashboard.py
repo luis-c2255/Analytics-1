@@ -78,7 +78,7 @@ with st.container():
 st.subheader(f"Most Common Symptoms for {selected_disease}")
 all_symptoms_disease = []
 for symptoms in disease_df['Symptoms']:
-all_symptoms_disease.extend([s.strip() for s in symptoms.split(',')])
+    all_symptoms_disease.extend([s.strip() for s in symptoms.split(',')])
 
 symptom_counts = pd.Series(all_symptoms_disease).value_counts().head(10)
 fig = px.bar(symptom_counts, orientation='h',
@@ -93,7 +93,7 @@ st.header("💊 Symptom Analysis")
 # Extract all symptoms
 all_symptoms = []
 for symptoms in df['Symptoms']:
-all_symptoms.extend([s.strip() for s in symptoms.split(',')])
+    all_symptoms.extend([s.strip() for s in symptoms.split(',')])
 
 symptom_counts = pd.Series(all_symptoms).value_counts()
 
@@ -137,11 +137,11 @@ selected_symptoms = st.multiselect("Select Symptoms (choose multiple)",
 all_unique_symptoms[:50]) # Show first 50 for usability
 
 if st.button("🔍 Predict Disease"):
-if len(selected_symptoms) > 0:
-# Make prediction using the function we created earlier
-predicted_disease, confidence, top_3 = predict_disease(
-input_age, input_gender, selected_symptoms
-)
+    if len(selected_symptoms) > 0:
+        # Make prediction using the function we created earlier
+        predicted_disease, confidence, top_3 = predict_disease(
+        input_age, input_gender, selected_symptoms
+    )
 
 st.success("Prediction Complete!")
 
