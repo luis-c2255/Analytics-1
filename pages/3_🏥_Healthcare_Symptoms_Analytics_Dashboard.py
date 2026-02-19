@@ -127,14 +127,14 @@ st.write("Enter patient information to predict the most likely disease")
 col1, col2 = st.columns(2)
 
 with col1:
-input_age = st.number_input("Patient Age", min_value=0, max_value=120, value=45)
-input_gender = st.selectbox("Gender", ["Male", "Female"])
+    input_age = st.number_input("Patient Age", min_value=0, max_value=120, value=45)
+    input_gender = st.selectbox("Gender", ["Male", "Female"])
 
 with col2:
-# Get all unique symptoms
-all_unique_symptoms = sorted(list(set(all_symptoms)))
-selected_symptoms = st.multiselect("Select Symptoms (choose multiple)",
-all_unique_symptoms[:50]) # Show first 50 for usability
+    # Get all unique symptoms
+    all_unique_symptoms = sorted(list(set(all_symptoms)))
+    selected_symptoms = st.multiselect("Select Symptoms (choose multiple)",
+    all_unique_symptoms[:50]) # Show first 50 for usability
 
 if st.button("🔍 Predict Disease"):
     if len(selected_symptoms) > 0:
@@ -148,14 +148,14 @@ st.success("Prediction Complete!")
 col1, col2 = st.columns(2)
 
 with col1:
-st.subheader("Primary Diagnosis")
-st.metric("Predicted Disease", predicted_disease)
-st.metric("Confidence", f"{confidence*100:.2f}%")
+    st.subheader("Primary Diagnosis")
+    st.metric("Predicted Disease", predicted_disease)
+    st.metric("Confidence", f"{confidence*100:.2f}%")
 
 with col2:
-st.subheader("Top 3 Possible Diagnoses")
-prediction_df = pd.DataFrame(top_3, columns=['Disease', 'Probability'])
-prediction_df['Probability'] = prediction_df['Probability'] * 100
+    st.subheader("Top 3 Possible Diagnoses")
+    prediction_df = pd.DataFrame(top_3, columns=['Disease', 'Probability'])
+    prediction_df['Probability'] = prediction_df['Probability'] * 100
 
 fig = px.bar(prediction_df, x='Probability', y='Disease',
 orientation='h',
