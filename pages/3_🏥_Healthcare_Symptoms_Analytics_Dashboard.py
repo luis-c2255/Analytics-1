@@ -34,7 +34,6 @@ disease_counts = df['Disease'].value_counts().head(15)
 fig = px.bar(disease_counts, orientation='h',
 labels={'value': 'Number of Patients', 'index': 'Disease'},
 title='Top 15 Most Common Diseases', color='count', color_continuous_scale='Viridis')
-fig.update_layout(showlegend=False)
 st.plotly_chart(fig, width="stretch", height=600)
 
 with st.container():
