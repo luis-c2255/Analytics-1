@@ -139,7 +139,7 @@ with col2:
 if st.button("🔍 Predict Disease"):
     if len(selected_symptoms) > 0:
         # Make prediction using the function we created earlier
-        predict_disease, confidence, top_3 = predict_disease(
+        p_disease, confidence, top_3 = predict_disease(
         input_age, input_gender, selected_symptoms
     )
 
@@ -149,7 +149,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Primary Diagnosis")
-    st.metric("Predicted Disease", predicted_disease)
+    st.metric("Predicted Disease", p_disease)
     st.metric("Confidence", f"{confidence*100:.2f}%")
 
 with col2:
@@ -157,20 +157,22 @@ with col2:
     prediction_df = pd.DataFrame(top_3, columns=['Disease', 'Probability'])
     prediction_df['Probability'] = prediction_df['Probability'] * 100
 
-fig = px.bar(prediction_df, x='Probability', y='Disease',
-orientation='h',
-labels={'Probability': 'Probability (%)'},
-title='Probability Distribution')
-st.plotly_chart(fig, width="stretch", height=600)
+    fig = px.bar(prediction_df, x='Probability', y='Disease',
+        orientation='h',
+        labels={'Probability': 'Probability (%)'},
+        title='Probability Distribution')
+    st.plotly_chart(fig, width="stretch", height=600)
 
 # Show relevant statistics for predicted disease
-st.subheader(f"Statistics for {predicted_disease}")
-disease_stats = df[df['Disease'] == predicted_disease]
+st.subheader(f"Statistics for {p_disease}")
+disease_stats = df[df['Disease'] == p_disease]
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Cases in Dataset", len(disease_stats))
 col2.metric("Avg Age of Patients", f"{disease_stats['Age'].mean():.1f}")
 col3.metric("Avg Symptom Count", f"{disease_stats['Symptom_Count'].mean():.2f}")
+else:
+    st.warning("Please select at least one symptom.")
 
 # ============================================
 # FOOTER
