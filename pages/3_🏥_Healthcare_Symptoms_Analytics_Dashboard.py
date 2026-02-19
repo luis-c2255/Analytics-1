@@ -46,7 +46,7 @@ with st.container():
 with st.container():
     st.subheader("Gender Distribution")
     fig_gender = px.pie(df, names='Gender',
-    title='Gender Distribution')
+    title='Gender Distribution', color_discrete_sequence=px.colors.sequential.RdBu)
     st.plotly_chart(fig_gender, width="stretch", height=600)
 
 # Page 2: Disease Analysis
@@ -72,7 +72,7 @@ with st.container():
     st.subheader("Gender Distribution for This Disease")
     gender_dist = disease_df['Gender'].value_counts()
     fig = px.pie(values=gender_dist.values, names=gender_dist.index,
-    title=f'Gender Distribution - {selected_disease}')
+    title=f'Gender Distribution - {selected_disease}', hole=0.4, color_discrete_sequence=px.colors.sequential.Greens)
     st.plotly_chart(fig, width="stretch", height=600)
 
 # Most common symptoms for this disease
