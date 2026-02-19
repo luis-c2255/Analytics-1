@@ -117,7 +117,7 @@ with st.container():
     # Relationship between age and symptom count
     fig = px.scatter(df.sample(1000), x='Age', y='Symptom_Count',
     color='Gender', opacity=0.5,
-    title='Age vs Symptom Count (Sample)', color_continuous_scale='PuBuGn'
+    title='Age vs Symptom Count (Sample)', color_continuous_scale=px.colors.sequential.PuBuGn,   
     trendline='lowess')
     st.plotly_chart(fig, width="stretch", height=600)
 
