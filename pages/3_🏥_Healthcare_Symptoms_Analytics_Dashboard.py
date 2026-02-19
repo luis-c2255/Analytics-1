@@ -8,13 +8,13 @@ st.set_page_config(page_title="Healthcare Analytics Dashboard", layout="wide")
 # Load data and model
 @st.cache_data
 def load_data():
-df = pd.read_csv('Healthcare_symptoms_cleaned.csv')
+    df = pd.read_csv('Healthcare_symptoms_cleaned.csv')
 return df
 
 @st.cache_resource
 def load_model():
-model = joblib.load('disease_prediction_model.pkl')
-gender_enc = joblib.load('gender_encoder.pkl')
+    model = joblib.load('disease_prediction_model.pkl')
+    gender_enc = joblib.load('gender_encoder.pkl')
 return model, gender_enc
 
 df = load_data()
