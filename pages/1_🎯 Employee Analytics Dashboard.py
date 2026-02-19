@@ -64,7 +64,7 @@ with st.container():
     st.subheader("📊 Satisfaction Distribution")
     fig1 = px.histogram(df_filtered, x='satisfaction_level', nbins=30,
     color='salary', barmode='overlay',
-    title="Satisfaction by Salary Level", color_continuous_scale='Blues')
+    title="Satisfaction by Salary Level")
     st.plotly_chart(fig1, width="stretch", height=800)
 
 with st.container():
