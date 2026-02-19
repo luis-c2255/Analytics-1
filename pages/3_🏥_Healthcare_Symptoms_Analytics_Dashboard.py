@@ -33,7 +33,9 @@ st.subheader("Disease Distribution")
 disease_counts = df['Disease'].value_counts().head(15)
 fig = px.bar(disease_counts, orientation='h',
 labels={'value': 'Number of Patients', 'index': 'Disease'},
-title='Top 15 Most Common Diseases')
+title='Top 15 Most Common Diseases', color_discrete_sequence=['aquamarine', 'coral', 'cyan', 'deeppink', 'green', 'gold',
+                                            'indigo', 'ivory', 'lavender', 'lightblue', 'lime', 'purplpe', 'steelblue', 'teal', 'yellow'])
+fig.update_layout(showlegend=False)
 st.plotly_chart(fig, width="stretch", height=600)
 
 with st.container():
