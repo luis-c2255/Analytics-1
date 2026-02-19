@@ -64,7 +64,7 @@ top_products = filtered_df.groupby("Product Name")["Total Revenue"].sum().sort_v
 top_10_df = top_products.reset_index().head(10)
 top_10_df.columns = ['Product Name', 'Revenue']
 with st.container():
-    fig5 = px.bar(top_10_df, y="Product Name", y="Revenue", orientation="h", title="Top 10 Products by Revenue",
+    fig5 = px.bar(top_10_df, x="Product Name", y="Revenue", orientation="h", title="Top 10 Products by Revenue",
                   text="Revenue", color="Revenue")
     fig5.update_traces(texttemplate="$%{text:,.0f}", textposition='outside')
     fig5.update_layout(showlegend=False)
