@@ -39,6 +39,8 @@ st.set_page_config(
 
 st.title("Multiple Analysis Dashboard")
 
+st.image("image.svg", width="stretch")
+
 # ============================================
 # FOOTER
 # ============================================
