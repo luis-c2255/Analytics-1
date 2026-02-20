@@ -29,7 +29,11 @@ st.markdown(
         "🌤️ Madrid Daily Weather Analysis Dashboard"
     ), unsafe_allow_html=True
 )
-st.markdown("### Comprehensive weather data from 1997-2015")
+st.markdown("""
+<div style='text-align: center;'>
+    <p>Comprehensive weather data from 1997-2015</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("---")
 # Filters
