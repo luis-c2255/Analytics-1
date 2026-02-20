@@ -6,6 +6,13 @@ from utils.theme import Components, Colors, apply_chart_theme, init_page
 
 init_page("Sales Performance Dashboard", "📊")
 
+# Load custom CSS
+try:
+    with open('style.css') as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+except FileNotFoundError:
+    st.warning("Custom CSS file not found. Using default styling.")
+
 st.markdown(
     Components.page_header(
         "📊 Sales Performance Dashboard"
