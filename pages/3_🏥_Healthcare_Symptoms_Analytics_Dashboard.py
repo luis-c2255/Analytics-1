@@ -79,8 +79,7 @@ with st.container():
         disease_counts, 
         orientation='h',
         labels={'value': 'Number of Patients', 'index': 'Disease'},
-        title='Top 15 Most Common Diseases', 
-        color='count'
+        title='Top 15 Most Common Diseases'
     )
     fig = apply_chart_theme(fig)
     st.plotly_chart(fig, width="stretch", height=600)
