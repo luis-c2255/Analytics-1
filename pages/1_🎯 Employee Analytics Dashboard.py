@@ -120,7 +120,7 @@ with st.container():
         title="Satisfaction by Salary Level"
     )
     fig1 = apply_chart_theme(fig1)
-    st.plotly_chart(fig1, width="stretch", height=800)
+    st.plotly_chart(fig1, width="stretch", height=600)
 
 with st.container():
     st.subheader("🏢 Department Satisfaction")
@@ -132,7 +132,7 @@ with st.container():
     )
     fig2 = apply_chart_theme(fig2)
     fig2.update_layout(showlegend=False, yaxis_title="", xaxis_title="Satisfaction")
-    st.plotly_chart(fig2, width="stretch", height=800)
+    st.plotly_chart(fig2, width="stretch", height=600)
 
 
 
@@ -150,7 +150,7 @@ with st.container():
     fig3 = apply_chart_theme(fig3)
     fig3.add_hline(y=250, line_dash="dash", line_color="red",
     annotation_text="Overwork Threshold")
-    st.plotly_chart(fig3, width="stretch", height=800)
+    st.plotly_chart(fig3, width="stretch", height=600)
 
 with st.container():
     st.subheader("🎯 Performance vs Satisfaction")
@@ -162,7 +162,7 @@ with st.container():
     )
     fig4 = apply_chart_theme(fig4)
     fig4.update_traces(contours_coloring="fill", contours_showlabels=True)
-    st.plotly_chart(fig4, width="stretch", height=800)
+    st.plotly_chart(fig4, width="stretch", height=600)
 
 with st.container():
     st.subheader("Satisfaction by Department & Salary")
@@ -175,7 +175,7 @@ with st.container():
     )
     fig5 = apply_chart_theme(fig5)
     fig5.update_layout(xaxis_title='Department', yaxis_title='Satisfaction Level')
-    st.plotly_chart(fig5, width='stretch', height=800)
+    st.plotly_chart(fig5, width='stretch', height=600)
      
 with st.container():
     fig6 = px.scatter_3d(
