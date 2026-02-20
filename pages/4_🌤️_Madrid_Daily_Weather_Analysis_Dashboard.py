@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 from utils.theme import Components, Colors, apply_chart_theme, init_page
 
 init_page("Madrid Weather Dashboard", "🌤️")
