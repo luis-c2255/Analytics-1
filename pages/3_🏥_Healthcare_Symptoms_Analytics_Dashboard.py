@@ -73,7 +73,7 @@ st.markdown("---")
 st.markdown(
     Components.section_header("Disease Distribution", "📈"), unsafe_allow_html=True
 )
-with.st.container():
+with st.container():
     disease_counts = df['Disease'].value_counts().head(15)
     fig = px.bar(
         disease_counts, 
