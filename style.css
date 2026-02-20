@@ -131,7 +131,7 @@ section[data-testid="stSidebar"] {
 /* Download button */
 .stDownloadButton > button {
     background-color: #4cc9a6;
-    color: white;
+    color: darkgreen;
 }
 .stDownloadButton > button:hover {
     background-color: #3A8DFF;
