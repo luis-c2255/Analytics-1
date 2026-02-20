@@ -165,8 +165,8 @@ with st.container():
     st.plotly_chart(fig4, width="stretch", height=800)
 
 with st.container():
-     st.subheader("Satisfaction by Department & Salary")
-     fig5 = px.box(
+    st.subheader("Satisfaction by Department & Salary")
+    fig5 = px.box(
         df_filtered, 
         x='dept', 
         y='satisfaction_level', 
