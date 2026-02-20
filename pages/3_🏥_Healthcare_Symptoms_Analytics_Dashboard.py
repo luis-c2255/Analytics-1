@@ -228,6 +228,7 @@ with st.container():
         title='Top 20 Most Common Symptoms'
     )
     fig = apply_chart_theme(fig)
+    fig.update_layout(showlegend=False)
     st.plotly_chart(fig, width="stretch", height=600)
 
 st.markdown("---")
