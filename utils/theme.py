@@ -45,7 +45,7 @@ class Components:
     
     @staticmethod
     def metric_card(title: str, value: str, delta: str = "",
-                    card_type: str = "primary") -> str:
+                    delta_positive: bool = True, card_type: str = "primary") -> str:
         """Create a styled metric card"""
         # Color mapping
         colors = {
