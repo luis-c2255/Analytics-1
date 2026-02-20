@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 import joblib
 
+from utils.theme import Components, Colors, apply_chart_theme, init_page
+
 st.set_page_config(page_title="Healthcare Analytics Dashboard", layout="wide")
 
 # Load data and model

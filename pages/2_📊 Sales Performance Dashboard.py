@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+from utils.theme import Components, Colors, apply_chart_theme, init_page
+
 st.set_page_config(page_title="Sales Dashboard", layout="wide")
 st.title("📊 Sales Performance Dashboard")
 

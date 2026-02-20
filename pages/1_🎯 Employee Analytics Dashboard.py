@@ -3,9 +3,9 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from theme import 
+from utils.theme import Components, Colors, apply_chart_theme, init_page
 
-st.set_page_config(page_title="Employee Analytics Dashboard", layout="wide")
+init_page("Employee Analytics Dashboard", "📊")
 
 # Load data
 @st.cache_data
@@ -21,36 +21,83 @@ def load_data():
 df = load_data()
 
 # Title
-st.title("🎯 Employee Analytics Dashboard")
+st.markdown(
+    Components.page_header(
+        "📊 Employee Analytics Dashboard"
+    ), unsafe_allow_html=True
+)
+
 st.markdown("---")
 
 # KPI Row
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
-    st.metric("Total Employees", f"{len(df):,}")
+    st.markdown(
+        Components.metric_card(
+            title="Total Employees",
+            value= f"{len(df):,}",
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 
 with col2:
     avg_sat = df['satisfaction_level'].mean()
-    st.metric("Avg Satisfaction", f"{avg_sat:.2f}",
-    delta=f"{(avg_sat-0.5):.2f}" if avg_sat >= 0.5 else f"{(avg_sat-0.5):.2f}")
+    st.markdown(
+        Components.metric_card(
+            title="Avg Satisfaction",
+            value= f"{avg_sat:.2f}",
+            delta=f"{(avg_sat-0.5):.2f}" if avg_sat >= 0.5 else f"{(avg_sat-0.5):.2f}",
+            card_type="success"
+        ),
+        unsafe_allow_html=True
+    )
 
 with col3:
     overworked_pct = (df['overworked'].sum() / len(df)) * 100
-    st.metric("Overworked %", f"{overworked_pct:.1f}%")
+    st.markdown(
+        Components.metric_card(
+            title="Overworked %",
+            value= f"{overworked_pct:.1f}%",
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 
 with col4:
     promotion_rate = df['promotion_last_5years'].mean() * 100
-    st.metric("Promotion Rate", f"{promotion_rate:.1f}%")
+    st.markdown(
+        Components.metric_card(
+            title="Promotion Rate",
+            value= f"{promotion_rate:.1f}%",
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 
 with col5:
     high_risk = len(df[(df['satisfaction_level'] < 0.4) & (df['last_evaluation'] > 0.7)])
-    st.metric("High-Risk Employees", high_risk, delta=f"{(high_risk/len(df)*100):.1f}%")
+    st.markdown(
+        Components.metric_card(
+            title="High-Risk Employees",
+            value="high_risk", 
+            delta=f"{(high_risk/len(df)*100):.1f}%",
+            card_type="warning"
+        ),
+        unsafe_allow_html=True
+    )
 
     st.markdown("---")
 
 # Filters
-st.header("🔍 Filters")
+st.markdown(
+    Components.section_header("Filters", "🔍"),
+    unsafe_allow_html=True
+)
 dept_filter = st.multiselect("Department", options=df['dept'].unique(),
 default=df['dept'].unique())
 salary_filter = st.multiselect("Salary Level",
@@ -64,16 +111,26 @@ df_filtered = df[(df['dept'].isin(dept_filter)) & (df['salary'].isin(salary_filt
 
 with st.container():
     st.subheader("📊 Satisfaction Distribution")
-    fig1 = px.histogram(df_filtered, x='satisfaction_level', nbins=30,
-    color='salary', barmode='overlay',
-    title="Satisfaction by Salary Level")
+    fig1 = px.histogram(
+        df_filtered, 
+        x='satisfaction_level', 
+        nbins=30,
+        color='salary', 
+        barmode='overlay',
+        title="Satisfaction by Salary Level"
+    )
+    fig1 = apply_chart_theme(fig1)
     st.plotly_chart(fig1, width="stretch", height=800)
 
 with st.container():
     st.subheader("🏢 Department Satisfaction")
     dept_sat = df_filtered.groupby('dept')['satisfaction_level'].mean().sort_values()
-    fig2 = px.bar(dept_sat, orientation='h',
-    title="Average Satisfaction by Department", color_continuous_scale='viridis')
+    fig2 = px.bar(
+        dept_sat, 
+        orientation='h',
+        title="Average Satisfaction by Department"
+    )
+    fig2 = apply_chart_theme(fig2)
     fig2.update_layout(showlegend=False, yaxis_title="", xaxis_title="Satisfaction")
     st.plotly_chart(fig2, width="stretch", height=800)
 
@@ -81,38 +138,65 @@ with st.container():
 
 with st.container():
     st.subheader("⚡ Workload Analysis")
-    fig3 = px.scatter(df_filtered, x='number_project', y='average_montly_hours',
-    color='satisfaction_level', size='last_evaluation',
-    hover_data=['dept', 'salary'],
-    color_continuous_scale='RdYlGn',
-    title="Projects vs Hours (sized by evaluation)")
+    fig3 = px.scatter(
+        df_filtered, 
+        x='number_project', 
+        y='average_montly_hours',
+        color='satisfaction_level', 
+        size='last_evaluation',
+        hover_data=['dept', 'salary'],
+        title="Projects vs Hours (sized by evaluation)"
+    )
+    fig3 = apply_chart_theme(fig3)
     fig3.add_hline(y=250, line_dash="dash", line_color="red",
     annotation_text="Overwork Threshold")
     st.plotly_chart(fig3, width="stretch", height=800)
 
 with st.container():
     st.subheader("🎯 Performance vs Satisfaction")
-    fig4 = px.density_contour(df_filtered, x='last_evaluation',
-    y='satisfaction_level',
-    title="Performance-Satisfaction Density")
+    fig4 = px.density_contour(
+        df_filtered, 
+        x='last_evaluation',
+        y='satisfaction_level',
+        title="Performance-Satisfaction Density"
+    )
+    fig4 = apply_chart_theme(fig4)
     fig4.update_traces(contours_coloring="fill", contours_showlabels=True)
     st.plotly_chart(fig4, width="stretch", height=800)
 
 with st.container():
      st.subheader("Satisfaction by Department & Salary")
-     fig5 = px.box(df_filtered, x='dept', y='satisfaction_level', color='salary',
-                   title='Satisfaction by Department & Salary', color_discrete_sequence=px.colors.qualitative.Set2)
-     fig5.update_layout(xaxis_title='Department', yaxis_title='Satisfaction Level')
-     st.plotly_chart(fig5, width='stretch', height=800)
+     fig5 = px.box(
+        df_filtered, 
+        x='dept', 
+        y='satisfaction_level', 
+        color='salary',
+        title='Satisfaction by Department & Salary'
+    )
+    fig5 = apply_chart_theme(fig5)
+    fig5.update_layout(xaxis_title='Department', yaxis_title='Satisfaction Level')
+    st.plotly_chart(fig5, width='stretch', height=800)
      
 with st.container():
-    fig6 = px.scatter_3d(df_filtered, x='number_project', y='average_montly_hours', z='satisfaction_level', color='salary',
-                         title='Employee Performance 3D View', labels={'number_project': 'Projects', 'average_montly_hours': 'Monthly Hours',
-                                                                   'satisfaction_level': 'Satisfaction'}, opacity=0.7)
+    fig6 = px.scatter_3d(
+        df_filtered, 
+        x='number_project', 
+        y='average_montly_hours', 
+        z='satisfaction_level', 
+        color='salary',
+        title='Employee Performance 3D View', 
+        labels={'number_project': 'Projects', 'average_montly_hours': 'Monthly Hours',
+                        'satisfaction_level': 'Satisfaction'}, 
+        opacity=0.7
+    )
+    fig6 = apply_chart_theme(fig6)
     st.plotly_chart(fig6, width='stretch', height=800)
 # High-risk employees table
 st.markdown("---")
-st.subheader("⚠️ High-Risk Employees (Low Satisfaction + High Performance)")
+st.markdown(
+    Components.section_header("High-Risk Employees (Low Satisfaction + High Performance)", "⚠️"),
+    unsafe_allow_html=True
+)
 
 at_risk = df_filtered[(df_filtered['satisfaction_level'] < 0.4) &
 (df_filtered['last_evaluation'] > 0.7)][
@@ -121,32 +205,63 @@ at_risk = df_filtered[(df_filtered['satisfaction_level'] < 0.4) &
 ].sort_values('satisfaction_level')
 
 st.dataframe(at_risk, use_container_width=True)
-st.download_button("📥 Download High-Risk List",
-at_risk.to_csv(index=False).encode('utf-8'),
-"high_risk_employees.csv", "text/csv")
+# Download Button
+csv = at_risk.to_csv(index=False).encode('utf-8')
+st.download_button(
+    label="📥 Download High-Risk List",
+    data=csv,
+    file_name="high_risk_employees.csv",
+    mime="text/csv"
+)
 
 # Department deep dive
 st.markdown("---")
-st.subheader("🔬 Department Deep Dive")
+st.markdown(
+    Components.section_header("Department Deep Dive", "🔬"), unsafe_allow_html=True)
 
 selected_dept = st.selectbox("Select Department", df_filtered['dept'].unique())
 dept_data = df_filtered[df_filtered['dept'] == selected_dept]
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.metric("Employees", len(dept_data))
+    st.markdown(
+        Components.metric_card(
+            title="Employees",
+            value="(len(dept_data))", 
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 with col2:
-    st.metric("Avg Satisfaction", f"{dept_data['satisfaction_level'].mean():.2f}")
+    st.markdown(
+        Components.metric_card(
+            title="Avg Satisfaction",
+            value= f"{dept_data['satisfaction_level'].mean():.2f}",
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 with col3:
-    st.metric("Avg Evaluation", f"{dept_data['last_evaluation'].mean():.2f}")
+    st.markdown(
+        Components.metric_card(
+            title="Avg Evaluation",
+            value= f"{dept_data['last_evaluation'].mean():.2f}",
+            delta="",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+    )
 
 # Department metrics
-fig5 = go.Figure()
+fig = go.Figure()
 metrics = ['satisfaction_level', 'last_evaluation', 'promotion_last_5years']
 for metric in metrics:
-    fig5.add_trace(go.Box(y=dept_data[metric], name=metric.replace('_', ' ').title()))
-    fig5.update_layout(title=f"{selected_dept.title()} - Key Metrics Distribution")
-    st.plotly_chart(fig5, use_container_width=True)
+    fig.add_trace(go.Box(y=dept_data[metric], name=metric.replace('_', ' ').title()))
+    fig.update_layout(title=f"{selected_dept.title()} - Key Metrics Distribution")
+    fig = apply_chart_theme(fig)
+    st.plotly_chart(fig, width="stretch")
 
 
 # ============================================

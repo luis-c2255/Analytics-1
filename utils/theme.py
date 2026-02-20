@@ -46,7 +46,6 @@ class Components:
     
     @staticmethod
     def metric_card(title: str, value: str, delta: str = "",
-                    delta_positive: bool = True, icon: str = "📊",
                     card_type: str = "primary") -> str:
         """Create a styled metric card"""
         # Color mapping
@@ -59,12 +58,13 @@ class Components:
         }
         border_color = colors.get(card_type, Colors.BLUE_ENERGY)
         delta_color = Colors.MINT_LEAF if delta_positive else Colors.CORAL_RED
-
+        
         delta_html = f"""
         <p style='color: {delta_color}; margin: 0.5rem 0 0 0; font-size: 0.85rem;'>
             {delta}
         </p>
         """ if delta else ""
+
         return f"""
         <div style='background-color: {Colors.CHARCOAL};
                     border: 1px solid {Colors.SLATE_GRAY};
