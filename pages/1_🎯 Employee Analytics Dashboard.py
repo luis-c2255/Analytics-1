@@ -204,7 +204,7 @@ at_risk = df_filtered[(df_filtered['satisfaction_level'] < 0.4) &
 'average_montly_hours', 'dept', 'salary', 'promotion_last_5years']
 ].sort_values('satisfaction_level')
 
-st.dataframe(at_risk, use_container_width=True)
+st.dataframe(at_risk, width="stretch")
 # Download Button
 csv = at_risk.to_csv(index=False).encode('utf-8')
 st.download_button(
