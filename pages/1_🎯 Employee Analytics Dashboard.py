@@ -124,7 +124,7 @@ with st.container():
         nbins=30,
         color='salary', 
         barmode='overlay',
-        pattern_shape='count',
+        pattern_shape='salary',
         title="Satisfaction by Salary Level"
     )
     fig1 = apply_chart_theme(fig1)
