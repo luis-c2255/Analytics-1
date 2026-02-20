@@ -37,7 +37,7 @@ with col1:
         Components.metric_card(
             title="Total Employees",
             value= f"{len(df):,}",
-            delta="",
+            delta="Employees",
             card_type="info"
         ),
         unsafe_allow_html=True
@@ -61,7 +61,7 @@ with col3:
         Components.metric_card(
             title="Overworked %",
             value= f"{overworked_pct:.1f}%",
-            delta="",
+            delta="Overworked",
             card_type="info"
         ),
         unsafe_allow_html=True
@@ -73,7 +73,7 @@ with col4:
         Components.metric_card(
             title="Promotion Rate",
             value= f"{promotion_rate:.1f}%",
-            delta="",
+            delta="Promotion Rate",
             card_type="info"
         ),
         unsafe_allow_html=True
@@ -227,8 +227,8 @@ with col1:
     st.markdown(
         Components.metric_card(
             title="Employees",
-            value="(len(dept_data))", 
-            delta="",
+            value=f"{len(dept_data)}", 
+            delta="Employees",
             card_type="info"
         ),
         unsafe_allow_html=True
@@ -238,7 +238,7 @@ with col2:
         Components.metric_card(
             title="Avg Satisfaction",
             value= f"{dept_data['satisfaction_level'].mean():.2f}",
-            delta="",
+            delta="Satisfaction",
             card_type="info"
         ),
         unsafe_allow_html=True
@@ -248,7 +248,7 @@ with col3:
         Components.metric_card(
             title="Avg Evaluation",
             value= f"{dept_data['last_evaluation'].mean():.2f}",
-            delta="",
+            delta="Evaluation",
             card_type="info"
         ),
         unsafe_allow_html=True
