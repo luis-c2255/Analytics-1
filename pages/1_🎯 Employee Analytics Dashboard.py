@@ -91,7 +91,7 @@ with col5:
         unsafe_allow_html=True
     )
 
-    st.markdown("---")
+st.markdown("---")
 
 # Filters
 st.markdown(
