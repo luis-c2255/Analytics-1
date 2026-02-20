@@ -34,13 +34,12 @@ class Colors:
 class Components:
     """Reusable UI components"""
     @staticmethod
-    def page_header(title:str, subtitle:str) -> str:
+    def page_header(title:str) -> str:
         """Create a styled page header"""
         return f"""
         <div style='background: linear-gradient(135deg, {Colors.BLUE_ENERGY} 0%, {Colors.PRUSSIAN_BLUE} 100%);
             padding: 2rem; border-radius: 10px; margin-bottom: 2rem;'>
             <h1 style='color: white; margin: 0; font-size: 2.5rem;'>{title}</h1>
-            <p style='color: {Colors.PLATINUM}; margin: 0.5rem 0 0 0; font-size: 1.1rem;'>{subtitle}</p>
         </div>
         """
     
