@@ -128,7 +128,8 @@ with st.container():
     fig2 = px.bar(
         dept_sat, 
         orientation='h',
-        title="Average Satisfaction by Department"
+        title="Average Satisfaction by Department",
+        color="dept"
     )
     fig2 = apply_chart_theme(fig2)
     fig2.update_layout(showlegend=False, yaxis_title="", xaxis_title="Satisfaction")
@@ -253,6 +254,8 @@ with col3:
         ),
         unsafe_allow_html=True
     )
+
+st.markdown("---")
 
 # Department metrics
 fig = go.Figure()
