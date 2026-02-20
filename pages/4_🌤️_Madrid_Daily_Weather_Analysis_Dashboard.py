@@ -30,7 +30,7 @@ st.markdown(
     ), unsafe_allow_html=True
 )
 st.markdown("""
-<div style='text-align: center;'>
+<div style='text-align: center; font-size: 1.8rem'>
     <p>Comprehensive weather data from 1997-2015</p>
 </div>
 """, unsafe_allow_html=True)
