@@ -30,7 +30,7 @@ df = load_data()
 # Title
 st.markdown(
     Components.page_header(
-        "📊 Employee Analytics Dashboard"
+        "🎯 Employee Analytics Dashboard"
     ), unsafe_allow_html=True
 )
 

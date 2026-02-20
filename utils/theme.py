@@ -47,7 +47,7 @@ class Components:
         return f"""
         <div style='background: linear-gradient(135deg, {Colors.BLUE_ENERGY} 0%, {Colors.PRUSSIAN_BLUE} 100%);
             padding: 2rem; border-radius: 10px; margin-bottom: 2rem;'>
-            <h1 style='color: white; margin: 0; font-size: 2.5rem;'>{title}</h1>
+            <h1 style='color: white; margin: 0; text-align: center; font-size: 2.5rem;'>{title}</h1>
         </div>
         """
     @staticmethod
