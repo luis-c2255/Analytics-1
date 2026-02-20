@@ -177,7 +177,7 @@ st.markdown(
     Components.section_header("Transaction Details", "📋"), unsafe_allow_html=True
 )
 
-st.dataframe(filtered_df, use_container_width=True)
+st.dataframe(filtered_df, width="stretch")
 
 # Download Button
 csv = filtered_df.to_csv(index=False).encode('utf-8')
