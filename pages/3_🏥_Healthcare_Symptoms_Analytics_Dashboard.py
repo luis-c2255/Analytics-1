@@ -201,6 +201,7 @@ with st.container():
         title=f'Top 10 Symptoms for {selected_disease}'
     )
     fig2 = apply_chart_theme(fig2)
+    fig2.update_layout(showlegend=False)
     st.plotly_chart(fig2, width="stretch", height=600)
 
 st.markdown("---")
