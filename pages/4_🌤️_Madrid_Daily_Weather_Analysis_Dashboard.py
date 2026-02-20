@@ -138,7 +138,7 @@ with st.container():
         x='Month',
         y='Mean TemperatureC',
         title='Average Temperature by Month',
-        color='Mean Temperature C',
+        color='Mean TemperatureC',
         color_continuous_scale=Colors.CHART_COLORS)
     fig2 = apply_chart_theme(fig2)
     st.plotly_chart(fig2, width="stretch", height=500)
