@@ -131,7 +131,7 @@ with col1:
         Components.metric_card(
             title="Total Cases",
             value=f"{len(disease_df)}",
-            delta="Cases"
+            delta="Cases",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -140,7 +140,7 @@ with col2:
         Components.metric_card(
             title="Avg Age",
             value=f"{disease_df['Age'].mean():.1f}",
-            delta="Age"
+            delta="Age",
             card_type="warning"
         ), unsafe_allow_html=True
     )
@@ -149,7 +149,7 @@ with col3:
         Components.metric_card(
             title="Avg Symptoms",
             value=f"{disease_df['Symptom_Count'].mean():.2f}",
-            delta="Symptoms"
+            delta="Symptoms",
             card_type="success"
         ), unsafe_allow_html=True
     )
