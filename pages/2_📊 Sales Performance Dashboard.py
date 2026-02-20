@@ -111,7 +111,7 @@ with st.container():
     fig1 = apply_chart_theme(fig1)
     fig1.update_traces(texttemplate='$%{text:,.0f}', textposition='outside')
     fig1.update_layout(showlegend=False)
-    st.plotly_chart(fig1, width="stretch", height=800)
+    st.plotly_chart(fig1, width="stretch", height=600)
 
 st.markdown("---")
 with st.container():
@@ -124,7 +124,7 @@ with st.container():
     )
     fig2 = apply_chart_theme(fig2)
     fig2.update_traces(textposition='inside', textinfo='percent+label')
-    st.plotly_chart(fig2, width="stretch", height=800)
+    st.plotly_chart(fig2, width="stretch", height=600)
 
 st.markdown("---")
 with st.container():
@@ -138,7 +138,7 @@ with st.container():
         title="Monthly Revenue Trend"
     )
     fig3 = apply_chart_theme(fig3)
-    st.plotly_chart(fig3, width="stretch", height=800)
+    st.plotly_chart(fig3, width="stretch", height=600)
     
 payment_analysis = filtered_df.groupby('Payment Method').agg(
     total_revenue = ('Total Revenue', 'sum'),
@@ -179,7 +179,7 @@ with st.container():
     fig5 = apply_chart_theme(fig5)
     fig5.update_traces(texttemplate="$%{text:,.0f}", textposition='outside')
     fig5.update_layout(showlegend=False)
-    st.plotly_chart(fig5, width="stretch", height=800)
+    st.plotly_chart(fig5, width="stretch", height=600)
 
 st.markdown("---")
 
