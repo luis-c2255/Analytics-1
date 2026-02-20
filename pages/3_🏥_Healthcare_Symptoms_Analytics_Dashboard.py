@@ -175,7 +175,6 @@ with st.container():
         title=f'Age Distribution - {selected_disease}'
     )
     fig = apply_chart_theme(fig)
-    fig.update_traces(marker_color=Colors.CHART_COLORS)
     st.plotly_chart(fig, width="stretch", height=600)
 
 st.markdown("---")

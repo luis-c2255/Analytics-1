@@ -28,7 +28,14 @@ class Colors:
         "#1ABC9C",  # Turquoise
         "#34495E",  # Dark Gray
         "#C19AB7",  # Lilac
-        "#F8FA90"   # Lime
+        "#F8FA90",  # Lime
+        "#EDC9B2",  # Appricot
+        "#BAFFDF",  # Aquamarine
+        "#C1FFF2",  # Icy Aqua
+        "#839788",  # Muted Teal
+        "#F68EB0",  # Bubblegum
+        "#9A955B",  # Leaf
+        "#F4978E"   # Salmon
     ]
 
 class Components:

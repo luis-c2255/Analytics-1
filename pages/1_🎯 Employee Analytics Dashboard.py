@@ -127,6 +127,7 @@ with st.container():
         title="Satisfaction by Salary Level"
     )
     fig1 = apply_chart_theme(fig1)
+    fig1.update_traces(marker_color=Colors.CHART_COLORS)
     st.plotly_chart(fig1, width="stretch", height=600)
 
 with st.container():
