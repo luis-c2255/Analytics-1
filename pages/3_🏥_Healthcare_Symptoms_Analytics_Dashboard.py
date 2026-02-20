@@ -230,21 +230,7 @@ with st.container():
     fig = apply_chart_theme(fig)
     st.plotly_chart(fig, width="stretch", height=600)
 
-# Symptom count distribution
 st.markdown("---")
-st.markdown(
-    Components.section_header("Symptom Count Distribution", "📉"), unsafe_allow_html=True
-)
-
-with st.container():
-    fig1 = px.histogram(
-        df, 
-        x='Symptom_Count',
-        title='Distribution of Number of Symptoms per Patient',
-        labels={'Symptom_Count': 'Number of Symptoms'}
-    )
-    fig1 = apply_chart_theme(fig1)
-    st.plotly_chart(fig1, width="stretch", height=600)
 
 with st.container():
     # Relationship between age and symptom count
