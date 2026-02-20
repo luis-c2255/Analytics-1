@@ -123,8 +123,8 @@ def apply_chart_theme(fig: go.Figure) -> go.Figure:
     """Apply consistent dark theme to Plotly charts"""
     
     fig.update_layout(
-        paper_bgcolor="transparent",
-        plot_bgcolor="transparent",
+        paper_bgcolor="black",
+        plot_bgcolor="black",
         font=dict(
             family="Roboto, sans-serif",
             size=12,
