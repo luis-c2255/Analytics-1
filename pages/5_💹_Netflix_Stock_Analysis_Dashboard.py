@@ -313,7 +313,7 @@ with col1:
     volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
     high_volume_days = df[df['Volume'] > volume_threshold][['Date', 'Close', 'Volume', 'Daily_Return']]
 
-    st.dataframe(high_volume_days, width="content", hide_index=True)
+    st.markdown(style_table(high_volume_days, color_theme="#FFB84D"), unsafe_allow_html=True)
 
 with col2:
     st.markdown("Monthly Performance Summary")
@@ -327,9 +327,36 @@ with col2:
         }).reset_index()
 
     monthly_performance.columns=['Year', 'Month', 'Open_Price', 'Close_Price', 'Low', 'High', 'Total_Volume', 'Monthly_Return']
-
     monthly_performance['Monthly_Return_Pct'] = ((monthly_performance['Close_Price']-monthly_performance['Open_Price'])/monthly_performance['Open_Price'])*100
-    st.dataframe(monthly_performance, width='content', hide_index=True)
+
+    html = (
+        monthly_performance.style
+        .hide()
+        .format({
+            "Open_Price": "${:.2f}",
+            "Close_Price": "${:.2f}",
+            "Low": "${:.2f}",
+            "High": "${:.2f}",
+            "Total_Volume": "{:,.0f}",
+            "Monthly_Return": "{:.2%}",
+            "Monthly_Return_Pct": "{:.2f}%",
+        })
+        .applymap(
+            lambda v: "color: green; font-weight: bold;" if isinstance(v, float) and v > 0 else "color: red; font-weight: bold;" if isinstance(v, float) and v < 0 else "",
+            subset=["Monthly_Return_Pct"]
+        )
+        .set_table_styles([
+            {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
+            {"selector": "th", "props": "background-color: #264653; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
+            {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
+            {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
+        ])
+        .to_html()
+    )
+     st.markdown(
+        f'<div style="height: 400px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>',
+        unsafe_allow_html=True
+    )
 
 st.markdown(
     Components.section_header("Volatility Analysis", "📇"),
