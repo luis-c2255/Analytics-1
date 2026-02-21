@@ -451,10 +451,10 @@ with col2:
 )
 
 st.markdown("Monthly Performance Summary")
-    df['Year'] = df['Date'].apply(lambda x: x.year)
-    df['Month'] = df['Date'].apply(lambda x: x.month)
+df['Year'] = df['Date'].apply(lambda x: x.year)
+df['Month'] = df['Date'].apply(lambda x: x.month)
 
-    monthly_performance = df.groupby(['Year', 'Month']).agg({
+monthly_performance = df.groupby(['Year', 'Month']).agg({
         'Close': ['first', 'last', 'min', 'max'],
         'Volume': 'sum',
         'Daily_Return': 'sum'
