@@ -400,6 +400,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Returns & Volatility", "📇"),
+    unsafe_allow_html=True
+)
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -459,6 +466,33 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Monthly Returns", "↩"),
+    unsafe_allow_html=True
+)
+with st.container():
+    colors = ['green' if x > 0 else 'red' for x in monthly_performance['Monthly_Return_Pct']]
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=list(range(len(monthly_performance))),
+        y=monthly_performance['Monthly_Return_Pct'],
+        marker=dict(color=colors, opacity=0.7),
+        showlegend=False
+    ))
+    fig.add_hline(y=0, line=dict(color='black', width=0.8))
+
+    fig.update_layout(
+        title=dict(text='Netflix Monthly Returns (%)', font=dict(size=16, family='Arial Black')),
+        xaxis_title='Month Index',
+        yaxis_title='Monthly Return (%)',
+        width=1400,
+        height=600,
+        yaxis=dict(gridcolor='rgba(128, 128, 128, 0.3)', showgrid=True),
+        xaxis=dict(showgrid=False)
+    )
+    st.plotly_chart(fig, width="stretch")
 
 st.markdown("---")
 st.markdown(
