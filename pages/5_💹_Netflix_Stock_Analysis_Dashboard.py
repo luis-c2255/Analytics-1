@@ -460,8 +460,8 @@ monthly_performance = df.groupby(['Year', 'Month']).agg({
         'Daily_Return': 'sum'
         }).reset_index()
 
-    monthly_performance.columns=['Year', 'Month', 'Open_Price', 'Close_Price', 'Low', 'High', 'Total_Volume', 'Monthly_Return']
-    monthly_performance['Monthly_Return_Pct'] = ((monthly_performance['Close_Price']-monthly_performance['Open_Price'])/monthly_performance['Open_Price'])*100
+monthly_performance.columns=['Year', 'Month', 'Open_Price', 'Close_Price', 'Low', 'High', 'Total_Volume', 'Monthly_Return']
+monthly_performance['Monthly_Return_Pct'] = ((monthly_performance['Close_Price']-monthly_performance['Open_Price'])/monthly_performance['Open_Price'])*100
 
 with st.container():
     colors = ['green' if x > 0 else 'red' for x in monthly_performance['Monthly_Return_Pct']]
