@@ -175,7 +175,7 @@ with st.container():
     )
     fig4.update_traces(
         marker_line_color='black',
-        marker_line_width=1,
+        marker_line_width=3,
         opacity=0.7
     )
     mean_val = df['Daily_Return'].mean()
