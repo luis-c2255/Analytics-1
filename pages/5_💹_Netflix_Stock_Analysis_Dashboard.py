@@ -179,7 +179,7 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
-
+st.markdown("---")
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -195,8 +195,8 @@ with col2:
     st.markdown(
         Components.metric_card(
         title="Highest Price",
-        value=f"${df['High'].max():.2f} on {df.loc[df['High'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
-        delta="",
+        value=f"${df['High'].max():.2f}",
+        delta=f"{df.loc[df['High'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
         card_type="warning"
     ), unsafe_allow_html=True)
 
@@ -204,8 +204,8 @@ with col3:
     st.markdown(
         Components.metric_card(
             title="Lowest Price",
-            value=f"${df['Low'].min():.2f} on {df.loc[df['Low'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
-            delta="",
+            value=f"${df['Low'].min():.2f}",
+            delta=f"{df.loc[df['Low'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
             card_type="success"
         ), unsafe_allow_html=True
     )
@@ -245,7 +245,7 @@ with col3:
             card_type="warning"
         ), unsafe_allow_html=True
     )
-
+st.markdown("---")
 col1, col2, col3 = st.columns(3)
 
 with col1:
