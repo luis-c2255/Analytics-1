@@ -621,7 +621,7 @@ with col2:
     st.markdown(
         Components.metric_card(
         title="Daily_Volatility_Pct",
-        value=f"{df['Daily_Return'].std()}",
+        value=f"{df['Daily_Return'].std():.2f}",
         delta="PCT",
         card_type="info"
     ), unsafe_allow_html=True)
