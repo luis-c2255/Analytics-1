@@ -98,6 +98,41 @@ with st.container():
 
 st.markdown("---")
 st.markdown(
+    Components.section_header("Price Statistics", "💰"),
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Starting Price",
+        value=f"${df['Close'].iloc[0]:.2f}",
+        delta="Start Price",
+        card_type="success"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Ending Price",
+        value=f"${df['Close'].iloc[-1]:.2f}",
+        delta="End Price",
+        card_type="warning"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Average Close",
+            value=f"${df['Close'].mean():.2f}",
+            delta="Close Price",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+st.markdown("---")
+st.markdown(
     Components.section_header("Volume Analysis", "📇"),
     unsafe_allow_html=True
 )
@@ -146,10 +181,207 @@ with st.container():
 
 st.markdown("---")
 st.markdown(
+    Components.section_header("Volume vs. Daily Correlation", "💱"),
+    unsafe_allow_html=True
+)
+with st.container():
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=df['Volume'],
+        y=df['Daily_Return'],
+        mode='markers',
+        marker=dict(
+            size=10,
+            color='steelblue',
+            opacity=0.3
+        ),
+        name='Data'
+    ))
+    fig.add_hline(y=0, line=dict(color='red', dash='dash', width=1))
+    fig.update_layout(
+        width=1000,
+        height=600,
+        xaxis_title=dict(text='Trading Volume', font=dict(size=12)),
+        yaxis_title=dict(text='Daily_Return (%)', font=dict(size=12)),
+        title=dict(text='Volume vs. Daily Return Correlation', font=dict(size=16, family='Arial', sans-serif), x=0.5, xanchor='center'),
+        xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+        plot_bgcolor='white',
+        showlegend=False
+    )
+    st.plotly_chart(fig, width="stretch")
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Key Volume Metrics", "💹"),
+    unsafe_allow_html=True
+)
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Average Daily Volume",
+            value=f"{df['Volume'].mean():,.0f}",
+            delta="Average",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Highest Volume",
+            value=f"{df['Volume'].max():,.0f}",
+            delta=f"{df.loc[df['Volume'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Lowest Volume",
+            value=f"{df['Volume'].min():,.0f}",
+            delta=f"{df.loc[df['Volume'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("RSI (Relative Strength Index)", "📈"),
+    unsafe_allow_html=True
+)
+def calculate_rsi(data, window=14):
+    delta = data.diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=window).mean()
+    rs = gain / loss
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+df['RSI'] = calculate_rsi(df['Close'])
+
+with st.container():
+    # Plot RSI
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.03,
+        row_heights=[0.67, 0.33],
+        subplot_titles=('', '')
+    )
+    # Price chart
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['Close'],
+            mode='lines',
+            line=dict(color='#E50914', width=1.5),
+            name='Close Price',
+            showlegend=False
+        ),
+        row=1, col=1
+    )
+    # RSI chart
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['RSI'],
+            mode='lines',
+            line=dict(color='purple', width=1.5),
+            name='RSI'
+        ),
+        row=2, col=1
+    )
+    # Overbought line
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=[70] * len(df),
+            mode='lines',
+            line=dict(color='red', width=1, dash='dash'),
+            name='Overbought (70)'
+        ),
+        row=2, col=1    
+    )
+    # Oversold line
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=[30] * len(df),
+            mode='lines',
+            line=dict(color='green', width=1, dash='dash'),
+            name='Oversold (30)'
+        ),
+        row=2, col=1
+    )
+    # Fill between 30 and 70
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'].tolist() + df['Date'].tolist()[::-1],
+            y=[70] * len(df) + [30] * len(df),
+            fill='toself',
+            fillcolor='rgba(128, 128, 128, 0.1)',
+            line=dict(width=0),
+            showlegend=False,
+            hoverinfo='skip'
+        ),
+        row=2, col=1
+    )
+    # Update layout
+    fig.update_xaxes(title_text='Date', title_font=dict(size=12), row=2, col=1)
+    fig.update_yaxes(title_text='Close Price (USD)', title_font=dict(size=12), row=1, col=1)
+    fig.update_yaxes(title_text='RSI', title_font=dict(size=12), range=[0, 100], row=2, col=1)
+
+    fig.update_layout(
+        title=dict(
+            text='Netflix Stock Price with RSI Indicator',
+            font=dict(size=16, family='Arial, sans-serif'),
+            x=0.5,
+            xanchor='center'
+        ),
+        height=800,
+        width=1400,
+        showlegend=True,
+        legend=dict(x=0.01, y=0.35, xanchor='left', yanchor='top'),
+        hovermode='x unified',
+        plot_bgcolor='white',
+        xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+        xaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+        yaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)')    
+    )
+    st.plotly_chart(fig, width="stretch")
+
+col1, col2, = st.columns(2)
+
+overbought = df[df['RSI'] > 70][['Date', 'Close', 'RSI']]
+oversold = df[df['RSI'] < 30][['Date', 'Close', 'RSI']]
+
+with col1:
+    st.markdown(
+        Components.insight_box(
+            title=f"\nOverbought periods (RSI > 70): {len(overbought)} days",
+            content=f"(overbought.head(10))",
+            box_type="warning"
+        ), unsafe_allow_html=True
+    )
+
+with col2:
+    st.markdown(
+        Components.insight_box(
+            title=f"\nOversold periods (RSI < 30): {len(oversold)} days",
+            content=f"(oversold.head(10))",
+            box_type="success"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown(
     Components.section_header("Volatility Analysis", "📇"),
     unsafe_allow_html=True
 )
-
 with st.container():
     fig3 = px.line(
     df,
@@ -196,42 +428,6 @@ with st.container():
     fig4 = apply_chart_theme(fig4)
     st.plotly_chart(fig4, width="stretch")
 
-
-st.markdown("---")
-st.markdown(
-    Components.section_header("Price Statistics", "💰"),
-    unsafe_allow_html=True
-)
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown(
-        Components.metric_card(
-        title="Starting Price",
-        value=f"${df['Close'].iloc[0]:.2f}",
-        delta="Start Price",
-        card_type="success"
-    ), unsafe_allow_html=True)
-
-with col2:
-    st.markdown(
-        Components.metric_card(
-        title="Ending Price",
-        value=f"${df['Close'].iloc[-1]:.2f}",
-        delta="End Price",
-        card_type="warning"
-    ), unsafe_allow_html=True)
-
-with col3:
-    st.markdown(
-        Components.metric_card(
-            title="Average Close",
-            value=f"${df['Close'].mean():.2f}",
-            delta="Close Price",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
 
 st.markdown("---")
 st.markdown(
@@ -313,8 +509,9 @@ with col3:
 
 st.divider()
 
+col1, col2 = st.columns(2)
 
-with st.container():
+with col1:
     st.markdown("Monthly Performance Summary")
     df['Year'] = df['Date'].apply(lambda x: x.year)
     df['Month'] = df['Date'].apply(lambda x: x.month)
@@ -356,6 +553,17 @@ with st.container():
         f'<div style="height: 400px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>',
         unsafe_allow_html=True
     )
+
+with col2:
+    volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
+    st.markdown(
+        Components.insight_box(
+            title="Days with Volume Spikes:",
+            content=f"(>{volume_threshold:,.0f})",
+            box_type="info"
+        ), unsafe_allow_html=True
+    )
+
     st.markdown("---")
     st.markdown(
     Components.section_header("Monthly Returns", "↩"),
