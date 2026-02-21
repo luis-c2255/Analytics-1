@@ -244,16 +244,55 @@ with st.container():
 
     fig5 = px.imshow(
         corr_data,
-        text_auto='.2f', # Añade los números de correlación automáticamente
-        color_continuous_scale='viridis', # Nombre correcto del parámetro
+        text_auto='.2f', 
+        color_continuous_scale='viridis', 
         aspect="auto",
         title='Feature Correlation Heatmap',
-        labels=dict(color="Correlation") # Etiqueta para la barra de color
+        labels=dict(color="Correlation") 
     )
     fig5.update_xaxes(side='bottom')
 
     fig5 = apply_chart_theme(fig5)
     st.plotly_chart(fig5, width="stretch")
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Advanced Analysis & Insights", "✨"),
+    unsafe_allow_html=True
+)
+
+col1, col2 = st.columns(2)
+
+st.markdown("Top 10 Days with Highest Positive Returns")
+
+with col1:
+    top_volatile = df.nlargest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
+    top_volatile = top_volatile.sort_values('Date', ascending=False)
+
+    st.dataframe(
+        top_volatile.head(10).style.format({
+            'Date',
+            'Close',
+            'Daily_Return',
+            'Volume'
+        }).background_gradient(subset=['Daily_Return'], cmap='Greens'), width='content', height=400
+    )
+
+st.markdown("Top 10 Days with Highest Negative Returns")
+
+with col2:
+    bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
+    bottom_volatile = bottom_volatile.sort_values('Date', ascending=False)
+    st.dataframe(
+        bottom_volatile.head(10).style.format({
+            'Date',
+            'Close',
+            'Daily_Return',
+            'Volume'
+        }).background_gradient(subset=['Daily_Return'], cmap='Greens'), width='content', height=400
+    )
+
+
 
 st.markdown("---")
 st.markdown(
