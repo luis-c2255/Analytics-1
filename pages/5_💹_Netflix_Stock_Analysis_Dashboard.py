@@ -505,14 +505,105 @@ with col3:
 
 st.markdown("---")
 st.markdown(
-    Components.section_header("Returns & Volatility", "📇"),
+    Components.section_header("Returns Distribution", "📉"),
     unsafe_allow_html=True
 )
+df['DayOfWeek'] = df['Date'].dt.day_name()
+df['DayOfWeek_Num'] = df['Date'].dt.dayofweek
+
+# Average return by day of week
+dow_performance = df.groupby('DayOfWeek')['Daily_Return'].agg(['mean', 'median', 'std', 'count']).reset_index()
+dow_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+dow_performance['DayOfWeek'] = pd.Categorical(dow_performance['DayOfWeek'], categories=dow_order, ordered=True)
+dow_performance = dow_performance.sort_values('DayOfWeek')
+
+col1, col2 = st.columns(2)
+
+with col1:
+    colors = ['green' if x > 0 else 'red' for x in dow_performance['mean']]
+
+    fig_bar = go.Figure()
+
+    fig_bar.add_trace(go.Bar(
+        x=dow_performance['DayOfWeek'],
+        y=dow_performance['mean'],
+        marker=dict(
+            color=colors,
+            opacity=0.7,
+            line=dict(color='black', width=1)
+        )
+    ))
+
+    fig_bar.add_hline(y=0, line=dict(color='black', width=0.8))
+
+    fig_bar.update_layout(
+        title=dict(
+            text='Average Daily Return by Day of Week',
+            font=dict(size=16, family='Arial, sans-serif'),
+            x=0.5,
+            xanchor='center'
+        ),
+        xaxis_title='Day of Week',
+        yaxis_title='Average Return (%)',
+        yaxis=dict(gridcolor='rgba(128, 128, 128, 0.3)'),
+        xaxis=dict(showgrid=False),
+        width=1000,
+        height=600,
+        plot_bgcolor='white',
+        showlegend=False
+    )
+    st.plotly_chart(fig_bar, width="stretch")
+
+# Monthly seasonality
+df['Month_Name'] = df['Date'].dt.month_name()
+month_performance = df.groupby('Month_Name')['Daily_Return'].agg(['mean', 'median', 'std', 'count']).reset_index()
+
+month_order = ['January', 'February', 'March', 'April', 'May', 'June',
+'July', 'August', 'September', 'October', 'November', 'December']
+month_performance['Month_Name'] = pd.Categorical(month_performance['Month_Name'], categories=month_order, ordered=True)
+month_performance = month_performance.sort_values('Month_Name')
+
+with col2:
+    colors = ['green' if x > 0 else 'red' for x in month_performance['mean']]
+
+    fig_bar2 = go.Figure()
+
+    fig_bar2.add_trace(go.Bar(
+        x=month_performance['Month_Name'],
+        y=month_performance['mean'],
+        marker=dict(
+            color=colors,
+            opacity=0.7,
+            line=dict(color='black', width=1)
+        )
+    ))
+
+    fig_bar2.add_hline(y=0, line=dict(color='black', width=0.8))
+
+    fig_bar2.update_layout(
+        title=dict(
+            text='Average Daily Return by Month',
+            font=dict(size=16, family='Arial, sans-serif')
+        ),
+        xaxis=dict(
+            title='Month',
+            tickangle=-45
+        ),
+        yaxis=dict(
+            title='Average Return (%)',
+            gridcolor='rgba(128, 128, 128, 0.3)'
+        ),
+        width=1200,
+        height=600,
+        showlegend=False
+    )
+    st.plotly_chart(fig_bar2, width="stretch")
+
 
 
 st.markdown("---")
 st.markdown(
-    Components.section_header("Returns & Volatility", "📇"),
+    Components.section_header("Returns & Volatility Metrics", "📇"),
     unsafe_allow_html=True
 )
 
