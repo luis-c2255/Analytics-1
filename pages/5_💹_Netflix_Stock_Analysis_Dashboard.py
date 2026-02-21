@@ -262,40 +262,37 @@ st.markdown(
 )
 
 col1, col2 = st.columns(2)
-st.markdown("""
-    <style>
-        /* Change the background color of headers of all tables*/
-        thead tr th {
-            background-color: #E50914 !important;
-            color: white !important;
-        }
-        /* Change the color of letter on the cells for better reading */
-        tbody tr td {
-            color: #f0f0f0;
-        }
-    </style>
-    """, unsafe_allow_html=True)
+def style_table(df,color_theme):
+    html = (
+        df.style
+        .hide()
+        .format({
+            "Close": "${:.2f}",
+            "Daily_Return": "{:.2%}",
+            "Volume": "{:,.0f}"
+        })
+        .applymap(
+            lambda v: f"color: {'green' if v > 0 else 'red'}; font-weight: bold;"
+            if isinstance(v, float) else "",
+            subset=["Daily_Return"]
+        )
+        .set_table_styles([
+            {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
+            {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
+            {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
+            {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
+        ])
+        .to_html()
+    )
+    return f'<div style="height: 380px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
 
 
 with col1:
-    st.markdown("""
-    <style>
-        /* Change the background color of headers of all tables*/
-        thead tr th {
-            background-color: #E50914 !important;
-            color: white !important;
-        }
-        /* Change the color of letter on the cells for better reading */
-        tbody tr td {
-            color: #f0f0f0;
-        }
-    </style>
-    """, unsafe_allow_html=True)
     st.markdown("Top 10 Days with Highest Positive Returns")
     top_volatile = df.nlargest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     top_volatile = top_volatile.sort_values('Date', ascending=True)
 
-    st.dataframe(top_volatile.head(10), width="content", hide_index=True)
+    st.markdown(style_table(top_volatile, color_theme="#2e7d32"), unsafe_allow_html=True)
 
 
 
@@ -304,7 +301,7 @@ with col2:
     bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     bottom_volatile = bottom_volatile.sort_values('Date', ascending=False)
 
-    st.dataframe(bottom_volatile.head(10), width="content", hide_index=True)
+    st.markdown(style_table(bottom_volatile, color_theme="#c62828"), unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
