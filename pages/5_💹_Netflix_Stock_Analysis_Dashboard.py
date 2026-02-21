@@ -304,6 +304,8 @@ with col2:
 
     st.markdown(style_table(bottom_volatile, color_theme="#c62828"), unsafe_allow_html=True)
 
+st.divider()
+
 col1, col2 = st.columns(2)
 
 with col1:
