@@ -268,11 +268,8 @@ with col1:
     top_volatile = df.nlargest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     top_volatile = top_volatile.sort_values('Date', ascending=True)
 
-<<<<<<< HEAD
     st.dataframe(top_volatile.head(10), width='content', hide_index=True)
-=======
-    st.dataframe(top_volatile.head(10), width='content')
->>>>>>> 214c6958ee61bae7e4c9a407ce3bbaca824c9600
+
 
 
 with col2:
