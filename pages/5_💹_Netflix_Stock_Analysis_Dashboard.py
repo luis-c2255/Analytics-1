@@ -299,7 +299,6 @@ with col1:
 
 with col2:
     st.markdown("Top 10 Days with Highest Negative Returns")
-    df['Date'] = df['Date'].dt.date
     bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     bottom_volatile = bottom_volatile.sort_values('Date', ascending=False)
 
