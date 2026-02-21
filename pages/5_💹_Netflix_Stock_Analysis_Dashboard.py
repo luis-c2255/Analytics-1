@@ -279,7 +279,31 @@ with col2:
 
     st.dataframe(bottom_volatile.head(10), width='content', hide_index=True)
 
-st.markdown("---")
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("Days with Volume Spikes")
+    volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
+    high_volume_days = df[df['Volume'] > volume_threshold][['Date', 'Close', 'Volume', 'Daily_Return']]
+
+    st.dataframe(high_volume_days, width='content', hide_index=True)
+
+with col2:
+    st.markdown("Monthly Performance Summary")
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+
+    monthly_performance = df.groupby(['Year', 'Month']).agg({
+        'Close': ['first', 'last', 'min', 'max'],
+        'Volume': 'sum',
+        'Daily_Return': 'sum'
+        }).reset_index()
+
+    monthly_performance.columns=['Year', 'Month', 'Open_Price', 'Close_Price', 'Low', 'High', 'Total_Volume', 'Monthly_Return']
+
+    monthly_performance['Monthly_Return_Pct'] = ((monthly_performance['Close_Price']-monthly_performance['Open_Price'])/monthly_performance['Open_Price'])*100
+    st.dataframe(monthly_performance, width='content', hide_index=True)
+    
 st.markdown(
     Components.section_header("Volatility Analysis", "📇"),
     unsafe_allow_html=True
