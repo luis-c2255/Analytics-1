@@ -262,24 +262,20 @@ st.markdown(
 )
 
 col1, col2 = st.columns(2)
-def style_financial_table(df):
-    return df.style\
-        .set_table_styles([
-            {'selector': 'th', 'props': [
-                ('background-color', '#E50914'),
-                ('color', 'white'),
-                ('font-family', 'Arial'),
-                ('text-align', 'center')
-            ]}
-        ])\
-        .format({'Daily_Return': '{:.2f}%', 'Close': '${:.2f}', 'Volume': '{:,}'})
+def highlight_financials(df):
+    return df.style.set_table_styles([
+        {'selector': 'th', 'props': [('background-color', '#E50914'), ('color', 'white')]}
+    ]).highlight_max(subset=['Daily_Return'], color="#22c55e")\
+      .highlight_min(subset=['Daily_Return'], color="#ef4444")\
+      .format({'Daily_Return': '{:.2f}%'})
+
 
 with col1:
     st.markdown("Top 10 Days with Highest Positive Returns")
     top_volatile = df.nlargest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     top_volatile = top_volatile.sort_values('Date', ascending=True)
 
-    st.dataframe(style_financial_table(top_volatile.head(10)), width='content', hide_index=True)
+    st.table(highlight_financials(top_volatile.head(10)), width='content', hide_index=True)
 
 
 
@@ -288,7 +284,7 @@ with col2:
     bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     bottom_volatile = bottom_volatile.sort_values('Date', ascending=False)
 
-    st.dataframe(style_financial_table(bottom_volatile.head(10)), width='content', hide_index=True)
+    st.table(highlight_financials(bottom_volatile.head(10)), width='content', hide_index=True)
 
 col1, col2 = st.columns(2)
 
@@ -297,7 +293,7 @@ with col1:
     volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
     high_volume_days = df[df['Volume'] > volume_threshold][['Date', 'Close', 'Volume', 'Daily_Return']]
 
-    st.dataframe(style_financial_table(high_volume_days), width='content', hide_index=True)
+    st.table(highlight_financials(high_volume_days), width='content', hide_index=True)
 
 with col2:
     st.markdown("Monthly Performance Summary")
