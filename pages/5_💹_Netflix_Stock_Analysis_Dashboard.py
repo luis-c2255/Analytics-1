@@ -190,7 +190,7 @@ with st.container():
     fig4.update_layout(
         xaxis_title='Daily Return (%)',
         yaxis_title='Frequency',
-        showlegend=False,
+        showlegend=True,
         height=500
     )
     fig4 = apply_chart_theme(fig4)
