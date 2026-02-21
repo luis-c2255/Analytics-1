@@ -143,3 +143,217 @@ with st.container():
     )
     fig2 = apply_chart_theme(fig2)
     st.plotly_chart(fig2, width="stretch", height=600)
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Price Statistics", "💰"),
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Starting Price",
+        value=f"${df['Close'].iloc[0]:.2f}",
+        delta="Start Price",
+        card_type="success"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Ending Price",
+        value=f"${df['Close'].iloc[-1]:.2f}",
+        delta="End Price",
+        card_type="warning"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Average Close",
+            value=f"${df['Close'].mean():.2f}",
+            delta="Close Price",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Overall Return",
+        value=f"{((df['Close'].iloc[-1] - df['Close'].iloc[0]) / df['Close'].iloc[0] * 100):.2f}%",
+        delta="",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Highest Price",
+        value=f"${df['High'].max():.2f} on {df.loc[df['High'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
+        delta="",
+        card_type="warning"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Lowest Price",
+            value=f"${df['Low'].min():.2f} on {df.loc[df['Low'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
+            delta="",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Returns & Volatility", "📇"),
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Average Daily Returns",
+        value=f"{df['Daily_Return'].mean():.3f}%",
+        delta="Average",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Median Daily Return",
+        value=f"{df['Daily_Return'].median():.3f}%",
+        delta="Median",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Daily Return Std Dev",
+            value=f"{df['Daily_Return'].std():.3f}%",
+            delta="Standard Deviation",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Best Day",
+        value=f"+{df['Daily_Return'].max():.2f}% on {df.loc[df['Daily_Return'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
+        delta="wednesday",
+        card_type="success"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Worst Day",
+        value=f"{df['Daily_Return'].min():.2f}% on {df.loc[df['Daily_Return'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
+        delta="wednesday",
+        card_type="error"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Average 30-Day Volatility",
+            value=f"{df['Volatility_30'].mean():.3f}%",
+            delta="",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Volume Statistics", "📊"),
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Average Daily Volume",
+        value=f"{df['Volume'].mean():,.0f}",
+        delta="Average",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="Highest Volume",
+        value=f"{df['Volume'].max():,.0f} on {df.loc[df['Volume'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
+        delta="Highest",
+        card_type="success"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Lowest Volume",
+            value=f"{df['Volume'].min():,.0f} on {df.loc[df['Volume'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
+            delta="Lowest",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+
+
+st.markdown("---")
+st.markdown(
+    Components.section_header("Technical Indicators", "🎯"),
+    unsafe_allow_html=True
+)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+        title="Current RSI",
+        value=f"{df['RSI'].iloc[-1]:.2f}",
+        delta="RSI",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col2:
+    st.markdown(
+        Components.metric_card(
+        title="7-Day MA",
+        value=f"${df['MA_7'].iloc[-1]:.2f}",
+        delta="7-Day",
+        card_type="info"
+    ), unsafe_allow_html=True)
+
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="30-Day MA",
+            value=f"${df['MA_30'].iloc[-1]:.2f}",
+            delta="30-Day",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="90-Day MA",
+            value=f"${df['MA_90'].iloc[-1]:.2f}",
+            delta="90-Day",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
