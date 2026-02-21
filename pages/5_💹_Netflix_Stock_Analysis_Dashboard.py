@@ -262,12 +262,19 @@ st.markdown(
 )
 
 col1, col2 = st.columns(2)
-def highlight_financials(df):
-    return df.style.set_table_styles([
-        {'selector': 'th', 'props': [('background-color', '#E50914'), ('color', 'white')]}
-    ]).highlight_max(subset=['Daily_Return'], color="#22c55e")\
-      .highlight_min(subset=['Daily_Return'], color="#ef4444")\
-      .format({'Daily_Return': '{:.2f}%'})
+st.markdown("""
+    <style>
+        /* Change the background color of headers of all tables*/
+        thead tr th {
+            background-color: #E50914 !important;
+            color: white !important;
+        }
+        /* Change the color of letter on the cells for better reading */
+        tbody tr td {
+            color: #f0f0f0;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 
 with col1:
@@ -275,7 +282,7 @@ with col1:
     top_volatile = df.nlargest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     top_volatile = top_volatile.sort_values('Date', ascending=True)
 
-    st.table(highlight_financials(top_volatile.head(10)))
+    st.dataframe(top_volatile.head(10), width="content", hide_index=True)
 
 
 
@@ -284,7 +291,7 @@ with col2:
     bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
     bottom_volatile = bottom_volatile.sort_values('Date', ascending=False)
 
-    st.table(highlight_financials(bottom_volatile.head(10)))
+    st.dataframe(bottom_volatile.head(10), width="content", hide_index=True)
 
 col1, col2 = st.columns(2)
 
@@ -293,7 +300,7 @@ with col1:
     volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
     high_volume_days = df[df['Volume'] > volume_threshold][['Date', 'Close', 'Volume', 'Daily_Return']]
 
-    st.table(highlight_financials(high_volume_days))
+    st.dataframe(high_volume_days, width="content", hide_index=True)
 
 with col2:
     st.markdown("Monthly Performance Summary")
@@ -309,7 +316,7 @@ with col2:
     monthly_performance.columns=['Year', 'Month', 'Open_Price', 'Close_Price', 'Low', 'High', 'Total_Volume', 'Monthly_Return']
 
     monthly_performance['Monthly_Return_Pct'] = ((monthly_performance['Close_Price']-monthly_performance['Open_Price'])/monthly_performance['Open_Price'])*100
-    st.dataframe(style_financial_table(monthly_performance), width='content', hide_index=True)
+    st.dataframe(monthly_performance, width='content', hide_index=True)
 
 st.markdown(
     Components.section_header("Volatility Analysis", "📇"),
