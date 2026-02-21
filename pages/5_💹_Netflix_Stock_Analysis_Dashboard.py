@@ -69,19 +69,31 @@ st.markdown(
 
 with st.container():
     fig = go.Figure()
-    fig.add_trace(go.Scatter(df, x='Date', y='Close', name='Close Price',
-                                line=dict(color='#E50914', width=1.5)))
-    fig.add_trace(go.Scatter(df, x='Date', y='MA_30', name='30-Day MA',
-                                line=dict(color='orange', dash='dash')))
-    fig.add_trace(go.Scatter(df, x='Date', y='MA_90', name='90-Day MA',
-                                line=dict(color='green', dash='dot')))
+    fig.add_trace(go.Scatter(
+        x=df['Date'], 
+        y=df['Close'], 
+        name='Close Price',
+        line=dict(color='#E50914', width=1.5)
+    ))
+    fig.add_trace(go.Scatter(
+        x=df['Date'],
+        y=df['MA_30'], 
+        name='30-Day MA',
+        line=dict(color='orange', dash='dash')
+    ))
+    fig.add_trace(go.Scatter(
+        x=df['Date'], 
+        y=df['MA_90'], 
+        name='90-Day MA',
+        line=dict(color='green', dash='dot')
+    ))
                                 
-    fig.update_layout(title=dict(text='Netflix Stock Price Over Time'),
-                        xaxis=dict(title=dict(text='Date')),
-                        yaxis=dict(title=dict(text='Price (USD)')),
-                        )
+    fig.update_layout(
+        title='Netflix Stock Price Over Time',
+        xaxis_title='Date',
+        yaxis_title='Price (USD)'
+    )
     fig = apply_chart_theme(fig)
-    fig.show()
     st.plotly_chart(fig, width='stretch', height=500)
 
 st.markdown("---")
@@ -91,27 +103,43 @@ st.markdown(
 )
 
 with st.container():
-    fig2 = make_subplots(rows=2, cols=1,
-                        shared_xaxes=True,
-                        vertical_spacing=0.02)
+    fig2 = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.1,
+        subplot_titles=("Price", "Volume")
+    )
     
-    fig2.add_trace(go.Scatter(
-        df,
-        x='Date',
-        y='Close'), row=1, col=1)
-    fig2.add_traces(go.Scatter(
-        df,
-        x='Date',
-        y='Volume',
-        color='orange',
-        width=1.5), row=2, col=1)
-    fig2.add_trace(go.Scatter(
-        df,
-        x='Date',
-        y='Volume_MA_30',
-        color='blue',
-        width=1,
-        dash='dash'), row=2, col=1)
-    fig2.update_layout(title_text="Netflix Stock Price and Trading Volume")
+    fig2.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['Close'],
+            name="Close Price",
+            line=dict(color="#E50914")
+        ),
+        row=1, col=1
+    )
+    fig2.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['Volume'],
+            name="Volume",
+            line=dict(color='orange', width=1.5)
+        ),
+        row=2, col=1
+    )
+    fig2.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['Volume_MA_30'],
+            name="Vol MA 30",
+            line=dict(color='blue', width=1, dash='dash')
+        ),
+        row=2, col=1
+    )
+    fig2.update_layout(
+        title_text="Netflix Stock Price and Trading Volume",
+        showlegend=True
+    )
     fig2 = apply_chart_theme(fig2)
     st.plotly_chart(fig2, width="stretch", height=600)
