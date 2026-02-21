@@ -197,7 +197,7 @@ with col2:
         title="Highest Price",
         value=f"${df['High'].max():.2f}",
         delta=f"{df.loc[df['High'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
-        card_type="warning"
+        card_type="error"
     ), unsafe_allow_html=True)
 
 with col3:
@@ -252,8 +252,8 @@ with col1:
     st.markdown(
         Components.metric_card(
         title="Best Day",
-        value=f"+{df['Daily_Return'].max():.2f}% on {df.loc[df['Daily_Return'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
-        delta="wednesday",
+        value=f"+{df['Daily_Return'].max():.2f}%",
+        delta=f"{df.loc[df['Daily_Return'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
         card_type="success"
     ), unsafe_allow_html=True)
 
@@ -261,8 +261,8 @@ with col2:
     st.markdown(
         Components.metric_card(
         title="Worst Day",
-        value=f"{df['Daily_Return'].min():.2f}% on {df.loc[df['Daily_Return'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
-        delta="wednesday",
+        value=f"{df['Daily_Return'].min():.2f}%",
+        delta=f"{df.loc[df['Daily_Return'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
         card_type="error"
     ), unsafe_allow_html=True)
 
@@ -271,7 +271,7 @@ with col3:
         Components.metric_card(
             title="Average 30-Day Volatility",
             value=f"{df['Volatility_30'].mean():.3f}%",
-            delta="",
+            delta="Average",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -297,8 +297,8 @@ with col2:
     st.markdown(
         Components.metric_card(
         title="Highest Volume",
-        value=f"{df['Volume'].max():,.0f} on {df.loc[df['Volume'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
-        delta="Highest",
+        value=f"{df['Volume'].max():,.0f}",
+        delta=f"{df.loc[df['Volume'].idxmax(), 'Date'].strftime('%Y-%m-%d')}",
         card_type="success"
     ), unsafe_allow_html=True)
 
@@ -306,8 +306,8 @@ with col3:
     st.markdown(
         Components.metric_card(
             title="Lowest Volume",
-            value=f"{df['Volume'].min():,.0f} on {df.loc[df['Volume'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
-            delta="Lowest",
+            value=f"{df['Volume'].min():,.0f}",
+            delta=f"{df.loc[df['Volume'].idxmin(), 'Date'].strftime('%Y-%m-%d')}",
             card_type="error"
         ), unsafe_allow_html=True
     )
