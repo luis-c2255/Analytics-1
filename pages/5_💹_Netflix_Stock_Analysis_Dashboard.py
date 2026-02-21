@@ -187,7 +187,7 @@ with col1:
         Components.metric_card(
         title="Overall Return",
         value=f"{((df['Close'].iloc[-1] - df['Close'].iloc[0]) / df['Close'].iloc[0] * 100):.2f}%",
-        delta="",
+        delta="Return",
         card_type="info"
     ), unsafe_allow_html=True)
 
