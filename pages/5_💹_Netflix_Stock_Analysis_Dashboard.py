@@ -185,8 +185,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 with st.container():
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
+    fig3 = go.Figure()
+    fig3.add_trace(go.Scatter(
         x=df['Volume'],
         y=df['Daily_Return'],
         mode='markers',
@@ -197,8 +197,8 @@ with st.container():
         ),
         name='Data'
     ))
-    fig.add_hline(y=0, line=dict(color='red', dash='dash', width=1))
-    fig.update_layout(
+    fig3.add_hline(y=0, line=dict(color='red', dash='dash', width=1))
+    fig3.update_layout(
         width=1000,
         height=600,
         xaxis_title=dict(text='Trading Volume', font=dict(size=12)),
@@ -209,7 +209,7 @@ with st.container():
         plot_bgcolor='white',
         showlegend=False
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig3, width="stretch")
 
 st.markdown("---")
 st.markdown(
@@ -264,7 +264,7 @@ df['RSI'] = calculate_rsi(df['Close'])
 
 with st.container():
     # Plot RSI
-    fig = make_subplots(
+    fig4 = make_subplots(
         rows=2, cols=1,
         shared_xaxes=True,
         vertical_spacing=0.03,
@@ -272,7 +272,7 @@ with st.container():
         subplot_titles=('', '')
     )
     # Price chart
-    fig.add_trace(
+    fig4.add_trace(
         go.Scatter(
             x=df['Date'],
             y=df['Close'],
@@ -284,7 +284,7 @@ with st.container():
         row=1, col=1
     )
     # RSI chart
-    fig.add_trace(
+    fig4.add_trace(
         go.Scatter(
             x=df['Date'],
             y=df['RSI'],
@@ -295,7 +295,7 @@ with st.container():
         row=2, col=1
     )
     # Overbought line
-    fig.add_trace(
+    fig4.add_trace(
         go.Scatter(
             x=df['Date'],
             y=[70] * len(df),
@@ -306,7 +306,7 @@ with st.container():
         row=2, col=1    
     )
     # Oversold line
-    fig.add_trace(
+    fig4.add_trace(
         go.Scatter(
             x=df['Date'],
             y=[30] * len(df),
@@ -317,7 +317,7 @@ with st.container():
         row=2, col=1
     )
     # Fill between 30 and 70
-    fig.add_trace(
+    fig4.add_trace(
         go.Scatter(
             x=df['Date'].tolist() + df['Date'].tolist()[::-1],
             y=[70] * len(df) + [30] * len(df),
@@ -330,11 +330,11 @@ with st.container():
         row=2, col=1
     )
     # Update layout
-    fig.update_xaxes(title_text='Date', title_font=dict(size=12), row=2, col=1)
-    fig.update_yaxes(title_text='Close Price (USD)', title_font=dict(size=12), row=1, col=1)
-    fig.update_yaxes(title_text='RSI', title_font=dict(size=12), range=[0, 100], row=2, col=1)
+    fig4.update_xaxes(title_text='Date', title_font=dict(size=12), row=2, col=1)
+    fig4.update_yaxes(title_text='Close Price (USD)', title_font=dict(size=12), row=1, col=1)
+    fig4.update_yaxes(title_text='RSI', title_font=dict(size=12), range=[0, 100], row=2, col=1)
 
-    fig.update_layout(
+    fig4.update_layout(
         title=dict(
             text='Netflix Stock Price with RSI Indicator',
             font=dict(size=16, family='Arial, sans-serif'),
@@ -352,7 +352,7 @@ with st.container():
         xaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
         yaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)')    
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig4, width="stretch")
 
 col1, col2, = st.columns(2)
 
@@ -383,15 +383,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 with st.container():
-    fig3 = px.line(
+    fig5 = px.line(
     df,
     x='Date',
     y='Volatility_30',
     title="Netflix Stock Volatility (30-Day Rolling Std)")
 
-    fig3.update_traces(line_color=Colors.CORAL_RED, line_width=3)
-    fig3 = apply_chart_theme(fig3)
-    st.plotly_chart(fig3, width="stretch", height=350)
+    fig5.update_traces(line_color=Colors.CORAL_RED, line_width=3)
+    fig5 = apply_chart_theme(fig5)
+    st.plotly_chart(fig5, width="stretch", height=350)
 
 st.markdown("---")
 st.markdown(
@@ -399,34 +399,34 @@ st.markdown(
     unsafe_allow_html=True
 )
 with st.container():
-    fig4 = px.histogram(
+    fig6 = px.histogram(
         df,
         x='Daily_Return',
         nbins=50,
         title="Distribution of Daily Returns"
     )
-    fig4.update_traces(
+    fig6.update_traces(
         marker_line_color='black',
         marker_line_width=3,
         opacity=0.7
     )
     mean_val = df['Daily_Return'].mean()
 
-    fig4.add_vline(
+    fig6.add_vline(
         x=mean_val,
         line_dash='dash',
         line_color='green',
         annotation_text=f"Mean: {mean_val:.2f}%",
         annotation_position="top right"
     )
-    fig4.update_layout(
+    fig6.update_layout(
         xaxis_title='Daily Return (%)',
         yaxis_title='Frequency',
         showlegend=True,
         height=500
     )
-    fig4 = apply_chart_theme(fig4)
-    st.plotly_chart(fig4, width="stretch")
+    fig6 = apply_chart_theme(fig6)
+    st.plotly_chart(fig6, width="stretch")
 
 
 st.markdown("---")
@@ -438,7 +438,7 @@ st.markdown(
 with st.container():
     corr_data = df[['Open', 'High', 'Low', 'Close', 'Volume', 'Daily_Return', 'Volatility_30']].corr()
 
-    fig5 = px.imshow(
+    fig7 = px.imshow(
         corr_data,
         text_auto='.2f', 
         color_continuous_scale='viridis', 
@@ -446,10 +446,10 @@ with st.container():
         title='Feature Correlation Heatmap',
         labels=dict(color="Correlation") 
     )
-    fig5.update_xaxes(side='bottom')
+    fig7.update_xaxes(side='bottom')
 
-    fig5 = apply_chart_theme(fig5)
-    st.plotly_chart(fig5, width="stretch")
+    fig7 = apply_chart_theme(fig7)
+    st.plotly_chart(fig7, width="stretch")
 
 st.markdown("---")
 st.markdown(
@@ -571,16 +571,16 @@ with col2:
 )
 with st.container():
     colors = ['green' if x > 0 else 'red' for x in monthly_performance['Monthly_Return_Pct']]
-    fig = go.Figure()
-    fig.add_trace(go.Bar(
+    fig8 = go.Figure()
+    fig8.add_trace(go.Bar(
         x=list(range(len(monthly_performance))),
         y=monthly_performance['Monthly_Return_Pct'],
         marker=dict(color=colors, opacity=0.7),
         showlegend=False
     ))
-    fig.add_hline(y=0, line=dict(color='black', width=0.8))
+    fig8.add_hline(y=0, line=dict(color='black', width=0.8))
 
-    fig.update_layout(
+    fig8.update_layout(
         title=dict(text='Netflix Monthly Returns (%)', font=dict(size=16, family='Arial Black')),
         xaxis_title='Month Index',
         yaxis_title='Monthly Return (%)',
@@ -589,7 +589,7 @@ with st.container():
         yaxis=dict(gridcolor='rgba(128, 128, 128, 0.3)', showgrid=True),
         xaxis=dict(showgrid=False)
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig8, width="stretch")
 
     st.markdown(
     Components.section_header("Volatility Analysis", "📇"),
@@ -707,14 +707,14 @@ st.markdown(
 )
 with st.container():
     colors = ['green' if x > 0 else 'red' for x in monthly_performance['Monthly_Return_Pct']]
-    fig = go.Figure()
-    fig.add_trace(go.Bar(
+    fig9 = go.Figure()
+    fig9.add_trace(go.Bar(
         x=list(range(len(monthly_performance))),
         y=monthly_performance['Monthly_Return_Pct'],
         marker=dict(color=colors, opacity=0.7),
         showlegend=False
     ))
-    fig.add_hline(y=0, line=dict(color='black', width=0.8))
+    fig9.add_hline(y=0, line=dict(color='black', width=0.8))
 
     fig.update_layout(
         title=dict(text='Netflix Monthly Returns (%)', font=dict(size=16, family='Arial Black')),
@@ -725,7 +725,7 @@ with st.container():
         yaxis=dict(gridcolor='rgba(128, 128, 128, 0.3)', showgrid=True),
         xaxis=dict(showgrid=False)
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig9, width="stretch")
 
 st.markdown("---")
 st.markdown(
