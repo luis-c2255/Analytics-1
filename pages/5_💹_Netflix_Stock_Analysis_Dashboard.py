@@ -368,7 +368,7 @@ with col1:
     st.markdown(
         Components.insight_box(
             title=f"Overbought periods (RSI > 70): {len(overbought)} days",
-            content=f"overbought.head(10)",
+            content=f"Date: 2018-03-06,\nClose: 325.22,\nRSI: 89.23",
             box_type="warning"
         ), unsafe_allow_html=True
     )
@@ -377,7 +377,7 @@ with col2:
     st.markdown(
         Components.insight_box(
             title=f"\nOversold periods (RSI < 30): {len(oversold)} days",
-            content=f"(oversold.head(10))",
+            content=f"Date: 2018-07-31,\nClose: 334.95,\nRSI: 13.60",
             box_type="success"
         ), unsafe_allow_html=True
     )
