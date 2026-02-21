@@ -433,18 +433,6 @@ with st.container():
     fig6 = apply_chart_theme(fig6)
     st.plotly_chart(fig6, width="stretch")
 
-
-with col2:
-    volume_threshold = df['Volume'].mean() + 2 * df['Volume'].std()
-    st.markdown(
-        Components.insight_box(
-            title="Days with Volume Spikes:",
-            content=f"(>{volume_threshold:,.0f})",
-            box_type="info"
-        ), unsafe_allow_html=True
-    )
-
-
 st.markdown("Monthly Performance Summary")
 df['Year'] = df['Date'].apply(lambda x: x.year)
 df['Month'] = df['Date'].apply(lambda x: x.month)
