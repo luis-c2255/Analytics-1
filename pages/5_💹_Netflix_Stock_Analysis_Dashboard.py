@@ -270,12 +270,9 @@ with col1:
     top_volatile = top_volatile.sort_values('Date', ascending=False)
 
     st.dataframe(
-        top_volatile.head(10)({
-            'Date',
-            'Close',
-            'Daily_Return',
-            'Volume'
-        }).background_gradient(subset=['Daily_Return'], cmap='Greens'), width='content', height=400
+        top_volatile.head(10),
+        style.background_gradient(subset=['Daily_Return'], 
+        cmap='Greens'), width='content', height=400
     )
 
 st.markdown("Top 10 Days with Highest Negative Returns")
