@@ -1010,23 +1010,23 @@ st.plotly_chart(fig11, width="stretch")
 
 with col2:
     def style_table(df,color_theme):
-    html = (
-        df.style
-        .hide()
-        .format({
-            "yhat": "${:.3f}",
-            "yhat_lower": "{:.3f}",
-            "yhat_upper": "{:.3f}"
-        })
-        .set_table_styles([
-            {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
-            {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
-            {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
-            {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
-        ])
-        .to_html()
-    )
-    return f'<div style="height: 380px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
+        html = (
+            df.style
+            .hide()
+            .format({
+                yhat": "${:.3f}",
+                yhat_lower": "{:.3f}",
+                "yhat_upper": "{:.3f}"
+            })
+            .set_table_styles([
+                {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
+                {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
+                {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
+                {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
+            ])
+            to_html()
+        )
+        return f'<div style="height: 380px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
 st.markdown(style_table(df_forecast, color_theme="#2e7d32"), unsafe_allow_html=True)
 
 
