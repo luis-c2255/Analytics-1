@@ -914,9 +914,8 @@ st.markdown(
 )
 from prophet import Prophet
 
-col1, col2 = st.columns(2)
 
-with col1:
+with st.container():
     # Prepare data for Prophet (requires 'ds' and 'y' columns)
         prophet_df = df[['Date', 'Close']].rename(columns={'Date': 'ds', 'Close': 'y'})
 
@@ -1008,7 +1007,7 @@ for i, component in enumerate(components, 1):
 fig11.update_layout(height=300*len(components), showlegend=False)
 st.plotly_chart(fig11, width="stretch")
 
-with col2:
+with st.container(horizontal=True, horizontal_alignment="center"):
     def style_table(df_forecast,color_theme):
         html = (
             df_forecast.style
