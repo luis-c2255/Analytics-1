@@ -1515,7 +1515,7 @@ st.markdown(
     Components.page_header("🎯 Actionable Insights & Recommendations"),
     unsafe_allow_html=True
 )
-st.markdown("# 📍 CURRENT MARKET POSITION:")
+st.markdown("### 📍 CURRENT MARKET POSITION:")
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(
@@ -1542,7 +1542,7 @@ with col3:
         ), unsafe_allow_html=True
 )
 st.markdown("---")
-st.markdown("# 💡 STRATEGIC RECOMMENDATIONS:")
+st.markdown("### 💡 STRATEGIC RECOMMENDATIONS:")
 st.markdown(
     Components.insight_box(
         title="Overall Signal Strength: 2/5",
@@ -1552,7 +1552,7 @@ st.markdown(
 )
 
 st.markdown("---")
-st.markdown("# 📋 ACTION ITEMS:")
+st.markdown("### 📋 ACTION ITEMS:")
 
 # Current market position
 current_price = df['Close'].iloc[-1]
@@ -1585,8 +1585,8 @@ with col3:
     st.markdown(
         Components.metric_card(
             title="Set stop-loss at:",
-            value=f"${current_price * 0.95:.2f} (5% below current)",
-            delta="⬆",
+            value=f"${current_price * 0.95:.2f}",
+            delta="(5% below current)",
             card_type="success"
         ), unsafe_allow_html=True
     )
@@ -1594,14 +1594,14 @@ with col4:
     st.markdown(
         Components.metric_card(
             title="Target price (short-term):",
-            value=f"${current_price * 1.05:.2f} (5% above current)",
-            delta="⬇",
+            value=f"${current_price * 1.05:.2f}",
+            delta="(5% above current)",
             card_type="warning"
         ), unsafe_allow_html=True
     )
 
 st.markdown("---")
-st.markdown("# 📅 TIMING INSIGHTS:")
+st.markdown("### 📅 TIMING INSIGHTS:")
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown(
