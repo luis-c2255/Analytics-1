@@ -1160,20 +1160,215 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, c = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown(
         Components.insight_box(
-            title="Current RSI",
-            content=f"{df['RSI'].iloc[-1]:.2f}",
+            title="Assessments",
+            content=f"⚠️ Trend: BEARISH - Price below both moving averages"\n
+                    f"🟡 RSI (32.7): NEUTRAL - No extreme conditions"\n
+                    f"✅ MACD: BULLISH - MACD above signal line"\n
+                    f"🟡 Bollinger Bands: Price within normal range",
             box_type="info"
     ),
     unsafe_allow_html=True
 )
 
+with col2:
+    st.markdown(
+        Components.insight_box(
+            title="Volatility Analysis",
+            content=f"⚠️ Current volatility (5.34%) is HIGH - Increased risk",
+            box_type="error"
+    ),
+    unsafe_allow_html=True
+)
 
+with col3:
+    st.markdown(
+        Components.insight_box(
+            title="Volume Analysis",
+            content=f"⚡ Recent volume is ELEVATED - Strong interest/momentum",
+            box_type="success"
+    ),
+    unsafe_allow_html=True
+)
 
+with col4:
+    st.markdown(
+        Components.insight_box(
+            title="Risk Assessment",
+            content=f"🟡 Sharpe Ratio (0.03): MODERATE - Returns compensate for risk"\n
+                    f"⚠️ Max Drawdown (-48.0%): HIGH - Significant downside risk experienced",
+            box_type="warning"
+    ),
+    unsafe_allow_html=True
+)
 
+st.markdown("---")
+st.markdown(
+    Components.section_header("Advanced Analytics", "🚀"),
+    unsafe_allow_html=True
+)
+with st.container():
+    st.markdown("Bollinger Bands")
+    
+    # Calculate Bollinger Bands
+    df['BB_Middle'] = df['Close'].rolling(window=20).mean()
+    df['BB_Std'] = df['Close'].rolling(window=20).std()
+    df['BB_Upper'] = df['BB_Middle'] + (df['BB_Std'] * 2)
+    df['BB_Lower'] = df['BB_Middle'] - (df['BB_Std'] * 2)
+
+fig14 = go.Figure()
+
+# Add filled area between upper and lower bands
+fig14.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['BB_Upper'],
+    mode='lines',
+    line=dict(color='red', dash='dash', width=2),
+    opacity=0.7,
+    name='Upper Band',
+    showlegend=True
+))
+
+fig14.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['BB_Lower'],
+    mode='lines',
+    line=dict(color='green', dash='dash', width=2),
+    opacity=0.7,
+    name='Lower Band',
+    fill='tonexty',
+    fillcolor='rgba(128, 128, 128, 0.1)',
+    showlegend=True
+))
+
+# Add middle band
+fig14.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['BB_Middle'],
+    mode='lines',
+    line=dict(color='blue', dash='dash', width=2),
+    opacity=0.7,
+    name='Middle Band (20-Day SMA)'
+))
+
+# Add close price
+fig14.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['Close'],
+    mode='lines',
+    line=dict(color='#E50914', width=2),
+    name='Close Price'
+))
+
+fig14.update_layout(
+    title=dict(
+        text='Netflix Stock with Bollinger Bands',
+        font=dict(size=16, family='Arial, bold')
+    ),
+    xaxis_title='Date',
+    yaxis_title='Price (USD)',
+    width=1400,
+    height=700,
+    hovermode='x unified',
+    legend=dict(orientation='v'),
+    xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)')
+)
+st.plotly_chart(fig14, width="stretch")
+
+st.markdown("---")
+
+with st.container():
+    st.markdown("MACD (Moving Average Convergence Divergence)")
+    # Calculate MACD
+    exp1 = df['Close'].ewm(span=12, adjust=False).mean()
+    exp2 = df['Close'].ewm(span=26, adjust=False).mean()
+    df['MACD'] = exp1 - exp2
+    df['Signal_Line'] = df['MACD'].ewm(span=9, adjust=False).mean()
+    df['MACD_Histogram'] = df['MACD'] - df['Signal_Line']
+
+# Create subplots with height ratios
+fig17 = make_subplots(
+    rows=2, cols=1,
+    shared_xaxes=True,
+    vertical_spacing=0.05,
+    row_heights=[0.67, 0.33],
+    subplot_titles=('', '')
+)
+
+# Price chart
+fig17.add_trace(
+    go.Scatter(
+        x=df['Date'],
+        y=df['Close'],
+        mode='lines',
+        name='Close Price',
+        line=dict(color='#E50914', width=2)
+    ),
+    row=1, col=1
+)
+
+# MACD line
+fig17.add_trace(
+    go.Scatter(
+        x=df['Date'],
+        y=df['MACD'],
+        mode='lines',
+        name='MACD',
+        line=dict(color='blue', width=1.5)
+    ),
+    row=2, col=1
+)
+
+# Signal line
+fig17.add_trace(
+    go.Scatter(
+        x=df['Date'],
+        y=df['Signal_Line'],
+        mode='lines',
+        name='Signal Line',
+        line=dict(color='red', width=1.5)
+    ),
+    row=2, col=1
+)
+
+# MACD Histogram
+fig17.add_trace(
+    go.Bar(
+        x=df['Date'],
+        y=df['MACD_Histogram'],
+        name='MACD Histogram',
+        marker=dict(color='gray', opacity=0.3)
+    ),
+    row=2, col=1
+)
+
+# Add horizontal line at y=0 for MACD subplot
+fig17.add_hline(y=0, line=dict(color='black', width=0.8), row=2, col=1)
+
+# Update layout
+fig17.update_xaxes(title_text='Date', title_font=dict(size=12), row=2, col=1)
+fig17.update_yaxes(title_text='Price (USD)', title_font=dict(size=12), row=1, col=1)
+fig17.update_yaxes(title_text='MACD', title_font=dict(size=12), row=2, col=1)
+
+fig17.update_layout(
+    title=dict(
+        text='Netflix Stock with MACD Indicator',
+        font=dict(size=16, family='Arial, sans-serif')
+    ),
+    height=800,
+    width=1400,
+    showlegend=True,
+    hovermode='x unified',
+    xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    xaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    yaxis2=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)')
+)
+st.plotly_chart(fig17, width="stretch")
 
 st.markdown("---")
 st.markdown(
