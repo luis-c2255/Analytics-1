@@ -1163,50 +1163,86 @@ st.markdown(
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown(
-        Components.insight_box(
-            title="Assessments",
-            content=st.markdown("""
-                f"⚠️ Trend: BEARISH - Price below both moving averages"\n
-                f"🟡 RSI (32.7): NEUTRAL - No extreme conditions"\n
-                f"✅ MACD: BULLISH - MACD above signal line"\n
-                f"🟡 Bollinger Bands: Price within normal range"
-                """, unsafe_allow_html=True),
-            box_type="info"
-    ),
-    unsafe_allow_html=True
+        Components.metric_card(
+            title="Trend Assessment",
+            value=f"⚠️ BEARISH",
+            delta=f"Price below both moving averages",
+            card_type="warning"
+        ),
+        unsafe_allow_html=True
 )
-
 with col2:
     st.markdown(
-        Components.insight_box(
-            title="Volatility Analysis",
-            content=f"⚠️ Current volatility (5.34%) is HIGH - Increased risk",
-            box_type="error"
-    ),
-    unsafe_allow_html=True
+        Components.metric_card(
+            title="RSI Assessment",
+            value=f"🟡 (32.7) NEUTRAL",
+            delta=f"No extreme conditions",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
 )
-
 with col3:
     st.markdown(
-        Components.insight_box(
-            title="Volume Analysis",
-            content=f"⚡ Recent volume is ELEVATED - Strong interest/momentum",
-            box_type="success"
-    ),
-    unsafe_allow_html=True
+        Components.metric_card(
+            title="MACD Assessment",
+            value=f"✅ BULLISH",
+            delta=f"MACD above signal line",
+            card_type="success"
+        ),
+        unsafe_allow_html=True
 )
-
 with col4:
     st.markdown(
-        Components.insight_box(
-            title="Risk Assessment",
-            content=st.markdown("""
-                    f"🟡 Sharpe Ratio (0.03): MODERATE - Returns compensate for risk"\n
-                    f"⚠️ Max Drawdown (-48.0%): HIGH - Significant downside risk experienced"
-                    """, unsafe_allow_html=True),
-            box_type="warning"
-    ),
-    unsafe_allow_html=True
+        Components.metric_card(
+            title="Bollinger Bands Assessment",
+            value=f"🟡 NORMAL",
+            delta=f"Price within normal range",
+            card_type="info"
+        ),
+        unsafe_allow_html=True
+)
+
+st.markdown("---")
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Volatility Analysis",
+            value=f"⚠️ Current volatility (5.34%) is HIGH",
+            delta=f"Increased risk",
+            card_type="error"
+        ),
+        unsafe_allow_html=True
+)
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Volume Analysis",
+            value=f"⚡ Recent volume is ELEVATED",
+            delta=f"Strong interest/momentum",
+            card_type="success"
+        ),
+        unsafe_allow_html=True
+)
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Sharpen Ratio",
+            value=f"🟡 (0.03) MODERATE",
+            delta=f"Returns compensate for risk",
+            card_type="warning"
+        ),
+        unsafe_allow_html=True
+)
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Drawdown",
+            value=f"⚠️ (-48.0%) HIGH",
+            delta=f"Significant downside risk experienced",
+            card_type="error"
+        ),
+        unsafe_allow_html=True
 )
 
 st.markdown("---")
