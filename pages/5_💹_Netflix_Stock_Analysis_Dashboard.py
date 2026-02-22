@@ -767,20 +767,36 @@ st.markdown(
 )
 
 with st.container():
-    corr_data = df[['Open', 'High', 'Low', 'Close', 'Volume', 'Daily_Return', 'Volatility_30']].corr()
+    # Select numeric columns
+corr_data = df[['Open', 'High', 'Low', 'Close', 'Volume', 'Daily_Return', 'Volatility_30']].corr()
 
-    fig7 = px.imshow(
-        corr_data,
-        text_auto='.2f', 
-        color_continuous_scale='viridis', 
-        aspect="auto",
-        title='Feature Correlation Heatmap',
-        labels=dict(color="Correlation") 
-    )
-    fig7.update_xaxes(side='bottom')
+fig7 = go.Figure(data=go.Heatmap(
+    z=corr_data.values,
+    x=corr_data.columns,
+    y=corr_data.index,
+    colorscale='RdBu_r',
+    zmid=0,
+    text=corr_data.values,
+    texttemplate='%{text:.2f}',
+    textfont={"size": 10},
+    colorbar=dict(title='Correlation'),
+    xgap=1,
+    ygap=1
+))
 
-    fig7 = apply_chart_theme(fig7)
-    st.plotly_chart(fig7, width="stretch")
+fig7.update_layout(
+    title={
+        'text': 'Feature Correlation Heatmap',
+        'font': {'size': 16, 'family': 'Arial, sans-serif'},
+        'x': 0.5,
+        'xanchor': 'center'
+    },
+    width=1000,
+    height=700,
+    xaxis={'side': 'bottom'},
+    yaxis={'autorange': 'reversed'}
+)
+st.plotly_chart(fig7, width="stretch")
 
 st.markdown("---")
 st.markdown(
