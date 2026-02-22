@@ -938,7 +938,7 @@ fig10.add_trace(go.Scatter(
     y=prophet_df['y'],
     mode='markers',
     name='Actual',
-    marker=dict(color='black', size=3)
+    marker=dict(color='yellow', size=3)
 ))
 
 # Add forecast line
@@ -1014,14 +1014,14 @@ with col2:
             df_forecast.style
             .hide()
             .set_table_styles([
-                {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
-                {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
-                {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
+                {"selector": "table", "props": "width: 100%; display: block; border-collapse: collapse;"},
+                {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0; width: 25%;"},
+                {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd; width: 25%;"},
                 {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
             ])
             .to_html()
         )
-        return f'<div style="height: 380px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
+        return f'<div style="height: 380px; width: 100%; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
 st.markdown(style_table(df_forecast, color_theme="#2e7d32"), unsafe_allow_html=True)
 
 
@@ -1251,7 +1251,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 with st.container():
-    st.markdown("Bollinger Bands")
     
     # Calculate Bollinger Bands
     df['BB_Middle'] = df['Close'].rolling(window=20).mean()
@@ -1322,7 +1321,6 @@ st.plotly_chart(fig14, width="stretch")
 st.markdown("---")
 
 with st.container():
-    st.markdown("MACD (Moving Average Convergence Divergence)")
     # Calculate MACD
     exp1 = df['Close'].ewm(span=12, adjust=False).mean()
     exp2 = df['Close'].ewm(span=26, adjust=False).mean()
@@ -1511,4 +1509,126 @@ with col1:
     st.markdown(
         f'<div style="height: 400px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>',
         unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown(
+    Components.page_header("🎯 Actionable Insights & Recommendations"),
+    unsafe_allow_html=True
+)
+st.markdown("# 📍 CURRENT MARKET POSITION:")
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.markdown(
+        Components.insight_box(
+            title="Current Price:",
+            content=f"$410.17", 
+            box_type="info"
+        ), unsafe_allow_html=True
+)
+with col2:
+    st.markdown(
+        Components.insight_box(
+            title="Position vs 30-Day MA:",
+            content=f"Below ($504.08)",
+            box_type="warning"
+        ), unsafe_allow_html=True
+)
+with col3:
+    st.markdown(
+        Components.insight_box(
+            title="Position vs 90-Day MA:",
+            content=f"Below ($595.11)",
+            box_type="warning"
+        ), unsafe_allow_html=True
+)
+st.markdown("---")
+st.markdown("# 💡 STRATEGIC RECOMMENDATIONS:")
+st.markdown(
+    Components.insight_box(
+        title="Overall Signal Strength: 2/5",
+        content="🟠 MIXED SIGNALS: - Wait for clearer directional trend, - Avoid making large position changes",
+        box_type="info"
+    ), unsafe_allow_html=True
+)
+
+st.markdown("---")
+st.markdown("# 📋 ACTION ITEMS:")
+
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Monitor key support level:",
+            value=f"${df['Low'].iloc[-20:].min():.2f}",
+            delta="➡",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title=" Watch resistance at:",
+            value=f" ${df['High'].iloc[-20:].max():.2f}",
+            delta="➡",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Set stop-loss at:",
+            value=f"${current_price * 0.95:.2f} (5% below current)",
+            delta="⬆",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Target price (short-term):",
+            value=f"${current_price * 1.05:.2f} (5% above current)",
+            delta="⬇",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("---")
+st.markdown("# 📅 TIMING INSIGHTS:")
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Historically best day to buy:",
+            value="Friday",
+            delta="(lowest avg returns)",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Historically best day to sell:",
+            value="Tuesday",
+            delta="(highest avg returns)",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Historically strongest month:",
+            value="June",
+            delta="✔",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Historically weakest month:",
+            value="July",
+            delta="✖",
+            card_type="error"
+        ), unsafe_allow_html=True
     )
