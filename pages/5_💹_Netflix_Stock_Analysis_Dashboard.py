@@ -713,14 +713,14 @@ def style_table(df,color_theme):
         df.style
         .hide()
         .set_table_styles([
-            {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
-            {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
-            {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
+            {"selector": "table", "props": "width: 100%; display: block; table-layout: fixed; border-collapse: collapse;"},
+            {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0; width: 25%;"},
+            {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd; width: 25%;"},
             {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
         ])
         .to_html()
     )
-    return f'<div style="height: 380px; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
+    return f'<div style="height: 380px; width: 100%; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
 
 with col1:
     st.markdown(style_table(df_week, color_theme="#FF9F1C"), unsafe_allow_html=True)
