@@ -382,15 +382,27 @@ st.markdown(
     unsafe_allow_html=True
 )
 with st.container():
-    fig5 = px.line(
-    df,
-    x='Date',
-    y='Volatility_30',
-    title="Netflix Stock Volatility (30-Day Rolling Std)")
-
-    fig5.update_traces(line_color=Colors.CORAL_RED, line_width=3)
-    fig5 = apply_chart_theme(fig5)
-    st.plotly_chart(fig5, width="stretch", height=350)
+    fig5 = go.Figure()
+fig5.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['Volatility_30'],
+    mode='lines',
+    line=dict(color='crimson', width=1.5),
+    name='Volatility'
+))
+fig5.update_layout(
+    title=dict(
+        text='Netflix Stock Volatility (30-Day Rolling Std)',
+        font=dict(size=16, family='Arial, sans-serif')
+    ),
+    xaxis_title='Date',
+    yaxis_title='Volatility (%)',
+    xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    width=1400,
+    height=500
+)
+st.plotly_chart(fig5, width="stretch", height=350)
 
 st.markdown("---")
 st.markdown(
