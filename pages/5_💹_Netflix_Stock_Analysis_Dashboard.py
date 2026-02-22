@@ -735,18 +735,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(4)
 
 with col1:
-    st.markdown(
-        Components.metric_card(
-        title="Current RSI",
-        value=f"{df['RSI'].iloc[-1]:.2f}",
-        delta="RSI",
-        card_type="info"
-    ), unsafe_allow_html=True)
-
-with col2:
     st.markdown(
         Components.metric_card(
         title="7-Day MA",
@@ -755,7 +746,7 @@ with col2:
         card_type="info"
     ), unsafe_allow_html=True)
 
-with col3:
+with col2:
     st.markdown(
         Components.metric_card(
             title="30-Day MA",
@@ -764,7 +755,7 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
-with col4:
+with col3:
     st.markdown(
         Components.metric_card(
             title="90-Day MA",
@@ -810,6 +801,112 @@ fig7.update_layout(
     yaxis={'autorange': 'reversed'}
 )
 st.plotly_chart(fig7, width="stretch")
+
+st.markdown("---")
+
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown(
+        Components.insight_box(
+            title="Current RSI",
+            content=f"{df['RSI'].iloc[-1]:.2f}",
+            box_type="info"
+    ),
+    unsafe_allow_html=True
+)
+
+with col2:
+    rsi_status = "Overbought" if df['RSI'].iloc[-1] > 70 else "Oversold" if df['RSI'].iloc[-1] < 30 else "Neutral"
+    st.markdown(
+        Components.insight_box(
+            title="RSI Status",
+            content=f"{rsi_status}",
+            box_type="info"
+    ),
+    unsafe_allow_html=True
+)
+st.markdown("---")
+st.markdown(
+    Components.section_header("Predictive Modeling", "🔮"),
+    unsafe_allow_html=True
+)
+with st.container():
+    st.markdown("Simple Moving Average Crossover Strategy")
+    # Trading signal: Buy when MA_7 crosses above MA_30, Sell when it crosses below
+    df['Signal'] = 0
+    df.loc[df['MA_7'] > df['MA_30'], 'Signal'] = 1 # Buy signal
+    df.loc[df['MA_7'] < df['MA_30'], 'Signal'] = -1 # Sell signal
+
+    # Identify crossover points
+    df['Position'] = df['Signal'].diff()
+    fig8 = go.Figure()
+
+fig8.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['Close'],
+    mode='lines',
+    name='Close Price',
+    line=dict(color='black', width=1.5)
+))
+
+fig8.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['MA_7'],
+    mode='lines',
+    name='7-Day MA',
+    line=dict(color='blue', dash='dash')
+))
+
+fig8.add_trace(go.Scatter(
+    x=df['Date'],
+    y=df['MA_30'],
+    mode='lines',
+    name='30-Day MA',
+    line=dict(color='orange', dash='dash')
+))
+
+fig8.update_layout(
+    width=1400,
+    height=600
+)
+st.plotly_chart(fig8, width="stretch")
+
+st.markdown("---")
+
+# Mark buy signals
+buy_signals = df[df['Position'] == 2]
+
+# Mark sell signals
+sell_signals = df[df['Position'] == -2]
+
+fig9 = go.Figure()
+
+fig9.add_trace(go.Scatter(
+    x=buy_signals['Date'],
+    y=buy_signals['Close'],
+    mode='markers',
+    marker=dict(color='green', symbol='triangle-up', size=10, line=dict(width=0)),
+    name='Buy Signal'
+))
+
+fig9.add_trace(go.Scatter(
+    x=sell_signals['Date'],
+    y=sell_signals['Close'],
+    mode='markers',
+    marker=dict(color='red', symbol='triangle-down', size=10, line=dict(width=0)),
+    name='Sell Signal'
+))
+
+fig9.update_layout(
+    title=dict(text='Netflix Stock - Moving Average Crossover Strategy', font=dict(size=16, family='Arial, sans-serif')),
+    xaxis_title='Date',
+    yaxis_title='Price (USD)',
+    showlegend=True,
+    xaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    yaxis=dict(showgrid=True, gridcolor='rgba(128, 128, 128, 0.3)'),
+    plot_bgcolor='white'
+)
+st.plotly_chart(fig9, width="stretch")
 
 st.markdown("---")
 st.markdown(
