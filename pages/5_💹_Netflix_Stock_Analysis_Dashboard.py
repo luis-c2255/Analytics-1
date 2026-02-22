@@ -1014,9 +1014,9 @@ with col2:
             df.style
             .hide()
             .format({
-                yhat": "${:.3f}",
-                yhat_lower": "{:.3f}",
-                "yhat_upper": "{:.3f}"
+                "yhat": "${:.2f}",
+                "yhat_lower": "{:.2f}",
+                "yhat_upper": "{:.2f}"
             })
             .set_table_styles([
                 {"selector": "table", "props": "width: 100%; border-collapse: collapse;"},
