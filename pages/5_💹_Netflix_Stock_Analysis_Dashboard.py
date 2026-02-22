@@ -1012,16 +1012,16 @@ with col2:
     def style_table(df_forecast,color_theme):
         html = (
             df_forecast.style
-            .hide()
+            .hide(axis='index')
             .set_table_styles([
-                {"selector": "table", "props": "width: 100%; display: block; border-collapse: collapse;"},
-                {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0; width: 25%;"},
-                {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd; width: 25%;"},
+                {"selector": "table", "props": "border-collapse: collapse;"},
+                {"selector": "th", "props": f"background-color: {color_theme}; color: white; padding: 8px; text-align: center; position: sticky; top: 0;"},
+                {"selector": "td", "props": "padding: 8px; text-align: center; border-bottom: 1px solid #ddd;"},
                 {"selector": "tr:hover", "props": "background-color: #f5f5f5;"},
             ])
             .to_html()
         )
-        return f'<div style="height: 380px; width: 100%; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
+        return f'<div style="height: 380px; width: 100%; justify-content: center; align-items: center; overflow: auto; border: 1px solid #ccc; border-radius: 8px;">{html}</div>'
 st.markdown(style_table(df_forecast, color_theme="#2e7d32"), unsafe_allow_html=True)
 
 
