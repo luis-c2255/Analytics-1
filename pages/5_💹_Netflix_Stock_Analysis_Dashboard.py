@@ -1002,8 +1002,8 @@ for i, component in enumerate(components, 1):
         ),
         row=i, col=1
     )
-    fig11.update_xaxis(title_text='Date', row=i, col=1)
-    fig11.update_yaxis(title_text=component.capitalize(), row=i, col=1)
+    fig11.update_xaxes(title_text='Date', row=i, col=1)
+    fig11.update_yaxes(title_text=component.capitalize(), row=i, col=1)
 
 fig11.update_layout(height=300*len(components), showlegend=False)
 st.plotly_chart(fig11, width="stretch")
