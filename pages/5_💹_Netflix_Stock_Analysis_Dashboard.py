@@ -1007,7 +1007,7 @@ for i, component in enumerate(components, 1):
 fig11.update_layout(height=300*len(components), showlegend=False)
 st.plotly_chart(fig11, width="stretch")
 
-with st.container(horizontal=True, horizontal_alignment="center"):
+with st.container(horizontal=False, vertical_alignment="center"):
     def style_table(df_forecast,color_theme):
         html = (
             df_forecast.style
