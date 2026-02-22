@@ -152,46 +152,27 @@ st.markdown(
 )
 
 with st.container():
-    fig2 = make_subplots(
-        rows=2, cols=1,
-        shared_xaxes=True,
-        vertical_spacing=0.1,
-        subplot_titles=("Price", "Volume")
-    )
+    fig2 = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.08, subplot_titles=('', ''))
+
+# Price
+fig2.add_trace(go.Scatter(x=df['Date'], y=df['Close'], mode='lines', line=dict(color='#E50914', width=1.5), name='Close Price'), row=1, col=1)
+
+# Volume
+fig2.add_trace(go.Bar(x=df['Date'], y=df['Volume'], marker=dict(color='steelblue', opacity=0.6), name='Volume'), row=2, col=1)
+fig2.add_trace(go.Scatter(x=df['Date'], y=df['Volume_MA_30'], mode='lines', line=dict(color='orange', width=2), name='30-Day MA'), row=2, col=1)
+
+# Update layout
+fig2.update_xaxes(title_text='Date', title_font=dict(size=12), row=2, col=1)
+fig2.update_yaxes(title_text='Close Price (USD)', title_font=dict(size=12), row=1, col=1)
+fig2.update_yaxes(title_text='Volume', title_font=dict(size=12), row=2, col=1)
+
+fig2.update_layout(title=dict(text='Netflix Stock Price and Trading Volume', font=dict(size=16, family='Arial, sans-serif'), x=0.5, xanchor='center'), height=800, width=1400, showlegend=True, hovermode='x unified')
+
+# Add grid
+fig2.update_xaxes(showgrid=True, gridcolor='lightgray', gridwidth=0.5)
+fig2.update_yaxes(showgrid=True, gridcolor='lightgray', gridwidth=0.5)
     
-    fig2.add_trace(
-        go.Scatter(
-            x=df['Date'],
-            y=df['Close'],
-            name="Close Price",
-            line=dict(color="#E50914")
-        ),
-        row=1, col=1
-    )
-    fig2.add_trace(
-        go.Scatter(
-            x=df['Date'],
-            y=df['Volume'],
-            name="Volume",
-            line=dict(color='darkgreen', width=2)
-        ),
-        row=2, col=1
-    )
-    fig2.add_trace(
-        go.Scatter(
-            x=df['Date'],
-            y=df['Volume_MA_30'],
-            name="Vol MA 30",
-            line=dict(color='yellow', width=2.5, dash='dash')
-        ),
-        row=2, col=1
-    )
-    fig2.update_layout(
-        title_text="Netflix Stock Price and Trading Volume",
-        showlegend=True
-    )
-    fig2 = apply_chart_theme(fig2)
-    st.plotly_chart(fig2, width="stretch", height=600)
+st.plotly_chart(fig2, width="stretch", height=600)
 
 st.markdown("---")
 st.markdown(
