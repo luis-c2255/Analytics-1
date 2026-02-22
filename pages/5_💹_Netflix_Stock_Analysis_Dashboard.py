@@ -885,7 +885,7 @@ fig9.add_trace(go.Scatter(
     x=buy_signals['Date'],
     y=buy_signals['Close'],
     mode='markers',
-    marker=dict(color='blue', symbol='triangle-up', size=12, line=dict(width=0)),
+    marker=dict(color='blue', symbol='triangle-up', size=14, line=dict(width=0)),
     name='Buy Signal'
 ))
 
@@ -893,7 +893,7 @@ fig9.add_trace(go.Scatter(
     x=sell_signals['Date'],
     y=sell_signals['Close'],
     mode='markers',
-    marker=dict(color='orange', symbol='triangle-down', size=12, line=dict(width=0)),
+    marker=dict(color='orange', symbol='triangle-down', size=14, line=dict(width=0)),
     name='Sell Signal'
 ))
 
