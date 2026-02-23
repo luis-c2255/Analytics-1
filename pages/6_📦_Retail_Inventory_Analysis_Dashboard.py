@@ -18,7 +18,7 @@ except FileNotFoundError:
 
 @st.cache_data  
 def load_data():  
-df = pd.read_csv('retail_store_inventory.csv')  
+    df = pd.read_csv('retail_store_inventory.csv')  
 df['Date'] = pd.to_datetime(df['Date'])  
   
 # Feature engineering  
