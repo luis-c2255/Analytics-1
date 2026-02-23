@@ -33,7 +33,7 @@ def load_data():
     df['Stockout_Risk'] = (df['Inventory Level'] < df['Demand Forecast']).astype(int)  
     df['Overstock_Risk'] = (df['Inventory Level'] > 2 * df['Demand Forecast']).astype(int)  
   
-return df  
+    return df  
   
 df = load_data()  
 
