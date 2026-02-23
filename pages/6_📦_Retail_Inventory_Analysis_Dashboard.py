@@ -19,19 +19,19 @@ except FileNotFoundError:
 @st.cache_data  
 def load_data():  
     df = pd.read_csv('retail_store_inventory.csv')  
-df['Date'] = pd.to_datetime(df['Date'])  
+    df['Date'] = pd.to_datetime(df['Date'])  
   
-# Feature engineering  
-df['Year'] = df['Date'].dt.year  
-df['Month'] = df['Date'].dt.month  
-df['Quarter'] = df['Date'].dt.quarter  
-df['Revenue'] = df['Units Sold'] * df['Price'] * (1 - df['Discount']/100)  
-df['Forecast_Error'] = df['Units Sold'] - df['Demand Forecast']
-df['Forecast_Accuracy'] = 1 - abs(df['Forecast_Error']) / df['Demand Forecast']  
-df['Stock_to_Sales_Ratio'] = df['Inventory Level'] / (df['Units Sold'] + 1)  
-df['Price_vs_Competitor'] = df['Price'] - df['Competitor Pricing']  
-df['Stockout_Risk'] = (df['Inventory Level'] < df['Demand Forecast']).astype(int)  
-df['Overstock_Risk'] = (df['Inventory Level'] > 2 * df['Demand Forecast']).astype(int)  
+    # Feature engineering  
+    df['Year'] = df['Date'].dt.year  
+    df['Month'] = df['Date'].dt.month  
+    df['Quarter'] = df['Date'].dt.quarter  
+    df['Revenue'] = df['Units Sold'] * df['Price'] * (1 - df['Discount']/100)  
+    df['Forecast_Error'] = df['Units Sold'] - df['Demand Forecast']
+    df['Forecast_Accuracy'] = 1 - abs(df['Forecast_Error']) / df['Demand Forecast']  
+    df['Stock_to_Sales_Ratio'] = df['Inventory Level'] / (df['Units Sold'] + 1)  
+    df['Price_vs_Competitor'] = df['Price'] - df['Competitor Pricing']  
+    df['Stockout_Risk'] = (df['Inventory Level'] < df['Demand Forecast']).astype(int)  
+    df['Overstock_Risk'] = (df['Inventory Level'] > 2 * df['Demand Forecast']).astype(int)  
   
 return df  
   
