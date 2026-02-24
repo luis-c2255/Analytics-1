@@ -919,5 +919,5 @@ with col2:
         text='Forecast_Accuracy',
         color='Forecast_Accuracy',
         color_continuous_scale='Greens')
-    fig_e1.update_traces(texttemplate='%{text:.1%}', textposition='outside')
+    fig_e1.update_traces(texttemplate='%{text:.1%}', textposition='top right')
     st.plotly_chart(fig_e1, width="stretch")
