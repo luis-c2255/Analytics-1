@@ -871,8 +871,8 @@ st.markdown(
 monthly_forecast = filtered_df.groupby(['Year', 'Month']).agg({  
     'Forecast_Accuracy': 'mean'  
     }).reset_index()  
-    monthly_forecast['YearMonth'] = pd.to_datetime(  
-    monthly_forecast['Year'].astype(str) + '-' + monthly_forecast['Month'].astype(str)  
+monthly_forecast['YearMonth'] = pd.to_datetime(  
+monthly_forecast['Year'].astype(str) + '-' + monthly_forecast['Month'].astype(str)  
     )
     fig_time = px.line(
         monthly_forecast,
