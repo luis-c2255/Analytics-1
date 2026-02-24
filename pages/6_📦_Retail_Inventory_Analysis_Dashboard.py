@@ -1105,5 +1105,81 @@ st.markdown(
 )
 
 st.markdown("""
-    :red[REVENUE & SALES]""")
-col1, col2, col3, col4 = st.columns() 
+    :red[### 1. REVENUE & SALES]""")
+col1, col2, col3, col4 = st.columns(4) 
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Total Revenue",
+            value=f"${total_revenue:,.2f}",
+            delta="",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Total Units Sold",
+            value=f"{total_units:,}",
+            delta="",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Top Performing Category",
+            value=f"{top_category}",
+            delta="",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Top Performing Region",
+            value=f"{top_region}",
+            delta="",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+
+st.markdown("""
+    :blue[### 2. INVENTORY CHALLENGES]""")
+col5, col6, col7, col8 = st.columns(4) 
+with col5:
+    st.markdown(
+        Components.metric_card(
+            title="Stockout risk",
+            value=f"records show {stockout_pct:.1f}%",
+            delta="",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col6:
+    st.markdown(
+        Components.metric_card(
+            title="Overstock",
+            value=f"records show {overstock_pct:.1f}%",
+            delta="",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col7:
+    st.markdown(
+        Components.metric_card(
+            title="Average stock coverage",
+            value=f"{df['Stock_Coverage_Days'].mean():.1f} days",
+            delta="",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col8:
+    st.markdown(
+        Components.metric_card(
+            title="Critical categories",
+            value=f"{', '.join(critical_stockout.index[:3].tolist())}",
+            delta="",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
