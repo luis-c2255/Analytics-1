@@ -1154,7 +1154,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(
         Components.insight_box(
-            "THIS WEEK:",
+            "This Week:",
             """
             <ul style="margin: 0; padding-left: 20px;">
                 <li>Address 2585 products at stockout risk</li>
@@ -1170,7 +1170,7 @@ with col1:
 with col2:
     st.markdown(
         Components.insight_box(
-            "THIS MONTH:",
+            "This Month:",
             """
             <ul style="margin: 0; padding-left: 20px;">
                 <li>Implement ML forecasting model (potential -736.9% improvement)</li>
@@ -1186,7 +1186,7 @@ with col2:
 with col3:
     st.markdown(
         Components.insight_box(
-            "THIS QUARTER:",
+            "This Quarter:",
             """
             <ul style="margin: 0; padding-left: 20px;">
                 <li>Deploy real-time monitoring dashboard</li>
