@@ -1093,8 +1093,8 @@ with col3:
         Components.metric_card(
             title="Margin Impact",
             value=f"{margin_impact:+.1f}%",
-            delta="Lower" if margin_impact < 0 else "Higher"
-            card_type=
+            delta=f"{Lower" if margin_impact < 0 else "Higher}",
+            card_type="info"
         ), unsafe_allow_html=True
     )
 
