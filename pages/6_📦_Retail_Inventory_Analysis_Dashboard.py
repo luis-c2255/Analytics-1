@@ -1045,11 +1045,11 @@ st.markdown(
 )
 col1, col2, col3 = st.columns(3) 
 
-with col6:  
+with col1:  
     sim_discount = st.slider("Discount %", 0, 30, 10)  
-with col7:  
+with col2:  
     sim_price_change = st.slider("Price Change %", -20, 20, 0)  
-with col8:  
+with col3:  
     sim_promotion = st.selectbox("Promotion Active?", ["No", "Yes"]) 
 
 # Simple scenario calculation  
