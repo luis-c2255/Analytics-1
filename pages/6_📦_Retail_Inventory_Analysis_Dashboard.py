@@ -266,7 +266,7 @@ with st.container():
         y=weather_data.values,
         color=weather_data.values,
         color_continuous_scale=Colors.CHART_COLORS,
-        labels={'x': 'Weather Condition', 'y': 'Avg Units Sold'}
+        labels={'x': 'Weather Condition', 'y': 'Avg Units Sold'},
         title='Weather Impact on Sales') 
     fig4.update_layout(height=400, showlegend=False)
     fig4 = apply_chart_theme(fig4)
