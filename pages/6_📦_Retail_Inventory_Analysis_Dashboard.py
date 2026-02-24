@@ -311,16 +311,16 @@ with col2:
     st.plotly_chart(fig6, width="stretch")
 
 with col3:
-    fig7 = px.bar(
+    fig_bar = px.bar(
         promo_data,
         x='Holiday/Promotion',
         y='Discount',
         color='Holiday/Promotion',
         color_discrete_map={'No Promotion': '#ff7f0e', 'With Promotion': '#2ca02c'},
         title='Average Discount (%)')
-    fig7.update_layout(height=300, showlegend=False)
-    fig7 = apply_chart_theme(fig6)
-    st.plotly_chart(fig7, width="stretch")
+    fig_bar.update_layout(height=300, showlegend=False)
+    fig_bar = apply_chart_theme(fig_bar)
+    st.plotly_chart(fig_bar, width="stretch")
 
 st.markdown("---") 
 st.markdown(
