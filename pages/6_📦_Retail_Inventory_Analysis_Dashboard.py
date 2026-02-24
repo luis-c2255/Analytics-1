@@ -1031,10 +1031,4 @@ st.markdown(
     Components.page_header("📋 AI-Generated Recommendations"),
     unsafe_allow_html=True
 )
-st.error(
-    st.markdown("""
-    <div style='text-align: left;'>
-        <p><strong>1. 🚨 High stockout risk detected in Groceries</strong></p>
-        <p>Increase safety stock by 15-20% and review reorder points.</p>
-    </div>
-    """, unsafe_allow_html=True))
+st.error("1. High stockout risk detected in Groceries. Increase safety stock by 15-20% and review reorder points.", icon="🚨")
