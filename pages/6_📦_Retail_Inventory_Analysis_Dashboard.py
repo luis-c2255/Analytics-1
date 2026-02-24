@@ -402,7 +402,7 @@ with st.container():
         names='Risk Level',
         color='Risk Level',
         color_discrete_map=colors,
-        hole=0.4
+        hole=0.4,
         title="Risk Distribution")
     
     fig_pie.update_traces(textposition='inside', textinfo='percent+label')
