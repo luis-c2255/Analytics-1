@@ -481,7 +481,7 @@ with col1:
 with col2:
     st.markdown("📦 Overstock Items")
     overstock_items = filtered_df[filtered_df['Overstock_Risk'] == 'Overstock'][
-        ['Stock ID', 'Product ID', 'Category', 'Inventory Level', 'Units Sold', 'Stock_Coverage_Days']
+        ['Store ID', 'Product ID', 'Category', 'Inventory Level', 'Units Sold', 'Stock_Coverage_Days']
     ].sort_values('Stock_Coverage_Days', ascending=False).head(20)
 
     st.dataframe(
