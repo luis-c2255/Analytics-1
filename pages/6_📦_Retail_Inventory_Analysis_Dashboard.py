@@ -823,7 +823,7 @@ with st.container():
     title='Price Elasticity by Category (Correlation)',  
     text='Price_Elasticity',  
     color='Price_Elasticity',  
-    color_continuous_scale='RdYlGn')  
-    fig_corr.update_traces(texttemplate='%{text:.3f}', textposition='outside')  
+    color_continuous_scale=Colors.CHART_COLORS)  
+    fig_corr.update_traces(texttemplate='%{text:.3f}', textposition='inside')  
     fig_corr.add_hline(y=0, line_dash="dash", line_color="gray")  
     st.plotly_chart(fig_corr, width="stretch")  
