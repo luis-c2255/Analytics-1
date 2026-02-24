@@ -1046,11 +1046,11 @@ st.markdown(
 col1, col2, col3 = st.columns(3) 
 
 with col6:  
-sim_discount = st.slider("Discount %", 0, 30, 10)  
+    sim_discount = st.slider("Discount %", 0, 30, 10)  
 with col7:  
-sim_price_change = st.slider("Price Change %", -20, 20, 0)  
+    sim_price_change = st.slider("Price Change %", -20, 20, 0)  
 with col8:  
-sim_promotion = st.selectbox("Promotion Active?", ["No", "Yes"]) 
+    sim_promotion = st.selectbox("Promotion Active?", ["No", "Yes"]) 
 
 # Simple scenario calculation  
 base_sales = filtered_df['Units Sold'].mean()  
