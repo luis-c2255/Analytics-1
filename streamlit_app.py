@@ -161,6 +161,9 @@ for row_start in range(0, len(pages), 2):
                 <span class="card-arrow">→</span>
             </div>
         """, unsafe_allow_html=True)
+        if st.button("navigate", key=f"btn_{page['path']}"):
+            st.switch_page(page['path'])
+        st.markdown("</div", unsafe_allow_html=True)
 
 # Load custom CSS
 try:
