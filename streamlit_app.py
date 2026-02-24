@@ -34,12 +34,13 @@ st.markdown("""
             font-weight: bold;
         }
         .stLinkButton { 
-        border-radius: 18px; padding: 0; overflow: hidden; 
+        border-radius: 18px; padding: 0; overflow: hidden;
+        background-color: #06b6d4;
         background: rgba(6, 182, 212, 0.3); 
         backdrop-filter: blur(12px); border: 1px solid rgba(6, 182, 212, 0.5); 
         box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
         transition: transform 0.25s ease, 
-        box-shadow 0.25s ease, border-color 0.25s ease; cursor: pointer; 
+        box-shadow 0.25s ease, border-color 0.25s ease; cursor: pointer;
         }
         .stLinkButton:hover { 
         transform: translateY(-6px) scale(1.02); 
