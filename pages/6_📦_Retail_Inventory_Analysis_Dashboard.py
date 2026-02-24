@@ -827,3 +827,97 @@ with st.container():
     fig_corr.update_traces(texttemplate='%{text:.3f}', textposition='inside')  
     fig_corr.add_hline(y=0, line_dash="dash", line_color="gray")  
     st.plotly_chart(fig_corr, width="stretch")  
+
+st.markdown("---") 
+st.markdown(
+    Components.page_header("🎯 Demand Forecasting Analysis"),
+    unsafe_allow_html=True
+)
+with st.container():
+    forecast_acc = filtered_df.groupby('Category').agg({
+        'Forecast_Accuracy': 'mean',
+        'Forecast_Error': ['mean', 'std']
+    }).reset_index()
+    forecast_acc.columns = ['Category', 'Avg_Accuracy', 'Avg_Error', 'Error_StdDev']
+
+    fig_for = px.bar(
+        forecast_acc, 
+        x='Category', 
+        y='Avg_Accuracy',
+        title="Forecast Accuracy by Category",
+        text='Avg_Accuracy',
+        color='Avg_Accuracy',
+        color_continuous_scale='RdYlGn')
+    fig_for.update_traces(texttemplate='%{text:.1%}', textposition='outside')
+    st.plotly_chart(fig_for, width="stretch")
+
+st.markdown("---") 
+with st.container():
+    fig_err = px.histogram(
+        filtered_df,
+        x='Forecast_Error',
+        title="Forecast Error Distribution",
+        nbins=50,
+        labels={'Forecast_Error': 'Forecast Error (Actual - Forecast)'})
+    fig.add_vline(x=0, line_dash='dash', line_color='red',
+    annotation_text='Perfect Forecast')
+    st.plotly_chart(fig_err, width="stretch")
+
+st.markdown("---") 
+st.markdown(
+    Components.section_header("Forecast Accuracy Trends Over Time", "📅"),
+    unsafe_allow_html=True
+)
+monthly_forecast = filtered_df.groupby(['Year', 'Month']).agg({  
+    'Forecast_Accuracy': 'mean'  
+    }).reset_index()  
+    monthly_forecast['YearMonth'] = pd.to_datetime(  
+    monthly_forecast['Year'].astype(str) + '-' + monthly_forecast['Month'].astype(str)  
+    )
+    fig_time = px.line(
+        monthly_forecast,
+        x='YearMonth',
+        y='Forecast_Accuracy',
+        title="Monthly Forecast Accuracy Trend",
+        markers=True,
+        labels={'Forecast_Accuracy': 'Average Accuracy'})
+    fig_time.update_yaxes(tickformat='.0%')
+    st.plotly_chart(fig_time, width="stretch")
+
+st.markdown("---") 
+st.markdown(
+    Components.section_header("Environmental Factors Impact", "⛅"),
+    unsafe_allow_html=True
+)
+col1, col2 = st-columns(2)
+with col1:
+    weather_forecast = filtered_df.groupby('Weather Condition').agg({
+        'Forecast_Accuracy': 'mean',
+        'Units Sold': 'mean'
+    }).reset_index()
+    fig_w1 = px.bar(
+        weather_forecast,
+        x='Weather Condition',
+        y='Forecast_Accuracy',
+        title="Forecast Accuracy by Weather Condition",
+        text='Forecast_Accuracy',
+        color='Forecast_Accuracy',
+        color_continuous_scale='Blues')
+    fig.update_traces(texttemplate='%{text:.1%}', textposition='outside')
+    st.plotly_chart(fig_w1, width="stretch")
+
+with col2:
+    season_forecast = filtered_df.groupby('Seasonality').agg({
+        'Forecast_Accuracy': 'mean',
+        'Forecast_Error': 'mean'
+    }).reset_index()
+    fig_e1 = px.bar(
+        season_forecast,
+        x='Seasonality', 
+        y='Forecast_Accuracy',
+        title="Forecast Accuracy by Season",
+        text='Forecast_Accuracy',
+        color='Forecast_Accuracy',
+        color_continuous_scale='Greens')
+    fig_e1.update_traces(texttemplate='%{text:.1%}', textposition='outside')
+    st.plotly_chart(fig_e1, width="stretch")
