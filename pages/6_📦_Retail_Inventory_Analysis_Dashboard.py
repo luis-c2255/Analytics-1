@@ -874,15 +874,15 @@ monthly_forecast = filtered_df.groupby(['Year', 'Month']).agg({
 monthly_forecast['YearMonth'] = pd.to_datetime(  
 monthly_forecast['Year'].astype(str) + '-' + monthly_forecast['Month'].astype(str)  
     )
-    fig_time = px.line(
+fig_time = px.line(
         monthly_forecast,
         x='YearMonth',
         y='Forecast_Accuracy',
         title="Monthly Forecast Accuracy Trend",
         markers=True,
         labels={'Forecast_Accuracy': 'Average Accuracy'})
-    fig_time.update_yaxes(tickformat='.0%')
-    st.plotly_chart(fig_time, width="stretch")
+fig_time.update_yaxes(tickformat='.0%')
+st.plotly_chart(fig_time, width="stretch")
 
 st.markdown("---") 
 st.markdown(
