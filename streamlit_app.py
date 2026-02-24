@@ -16,6 +16,7 @@ pages = [
         "path": "pages/1_🎯_Employee_Analytics_Dashboard.py",
         "color": "#4F46E5",
         "bg": "#EEF2FF",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/employee.png",
     },
     {
         "title": "Sales Performance",
@@ -24,6 +25,7 @@ pages = [
         "path": "pages/2_📊_Sales_Performance_Dashboard.py",
         "color": "#059669",
         "bg": "#ECFDF5",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/sales.png",
     },
     {
         "title": "Healthcare Symptoms",
@@ -32,6 +34,7 @@ pages = [
         "path": "pages/3_🏥_Healthcare_Symptoms_Analytics_Dashboard.py",
         "color": "#DC2626",
         "bg": "#FEF2F2",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/healthcare.png",
     },
     {
         "title": "Madrid Weather",
@@ -40,6 +43,7 @@ pages = [
         "path": "pages/4_🌤️_Madrid_Daily_Weather_Analysis_Dashboard.py",
         "color": "#D97706",
         "bg": "#FFFBEB",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/weather.png",
     },
     {
         "title": "Netflix Stock",
@@ -48,6 +52,7 @@ pages = [
         "path": "pages/5_💹_Netflix_Stock_Analysis_Dashboard.py",
         "color": "#E50914",
         "bg": "#FFF1F2",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/stocks.png",
     },
     {
         "title": "Retail Inventory",
@@ -56,6 +61,7 @@ pages = [
         "path": "pages/6_📦_Retail_Inventory_Analysis_Dashboard.py",
         "color": "#7C3AED",
         "bg": "#F5F3FF",
+        "image": "https://raw.githubusercontent.com/luis-c2255/blank-app/main/utils/retail.png",
     },
 ]
 st.markdown("""
@@ -84,39 +90,21 @@ st.markdown("""
             color: white !important;
             font-weight: bold;
         }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-        }
         .card {
             border-radius: 16px;
             padding: 2rem;
-            text-decoration: none;
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
             border: 1.5px solid transparent;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
+            pointer-events: none;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-        }
-        .card-title  {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0;
-        }
-        .card-desc {
-            font-size: 0.875rem;
-            margin: 0;
-            opacity: 0.75;
-            line-height: 1.5;
-        }
+        .card-emoji { font-size: 2.5rem; line-weight: 1; }
+        .card-title  { font-size: 1.2rem; font-weight: 700; margin: 0; }
+        .card-desc { font-size: 0.875rem; margin: 0; opacity: 0.75; line-height: 1.5; }
         .card-arrow {
             position: absolute;
             right: 1.5rem;
@@ -124,32 +112,55 @@ st.markdown("""
             transform: translateY(-50%);
             font-size: 1.25rem;
             opacity: 0.4;
-            transition: opacity 0.2s, right 0.2s;
         }
-        .card:hover .card-arrow {
-            opacity: 0.9;
-            right: 1.25rem;
+        .card-wrapper {
+            position: relative;
+            border-radius: 16px;
+            margin-bottom: 1rem;
         }
-    </style>
+        .card-wrapper:hover .card {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+        .card-wrapper:hover .card-arrow { opacity: 0.9; }
+        /* The invisible Streamlit button stretched over the card */
+        .card-wrapper .stButton {
+            position: absolute !important;
+            inset: 0 !important;
+            z-index: 10 !important;
+        }
+        .card-wrapper .stButton > button {
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0 !important;
+            cursor: pointer !important;
+            border-radius: 16px !important;
+        }
+        </style>
 """, unsafe_allow_html=True)
 
 st.markdown(
     Components.page_header("📊 Multiple Analysis Dashboard"), unsafe_allow_html=True)
     
-card_html = '<div class="card-grid">'
-for page in pages:
-    cards_html += f"""
-    <a class="card" href="{page['path'].replace('pages/', '').replace('.py', '').replace(' ', '_')}"
-        style="background-color: {page['bg']}; color: {page['color']}; border-color: {page['color']}22;">
-        <span class="card-emoji">{page['emoji']}</span>
-        <p class="card-title">{page['title']}</p>
-        <p class="card-desc">{page['description']}</p>
-        <span class="card-arrow">→</span>
-    </a>
-    """
-cards_html += '</div>'
-
-st.markdown(cards_html, unsafe_allow_html=True)
+for row_start in range(0, len(pages), 2):
+    row_pages = pages[row_start : row_start +2]
+    cols = st.columns(2, gap="medium")
+    
+    for col, page in zip(cols, row_pages):
+        with col:
+            st.markdown(f"""
+            <div class="card-wrapper">
+                <div class="card" style="border-color:{page['color']}22;">
+                <img src="{page['image']}"
+                    style="width:100%; height: 160px; object-fit:cover; border-radius:10px; margin-bottom:0.5rem;">
+                <div style="background:{page['bg']}; padding:0.5rem; border-radius:8px; color:{page['color']};">
+                    <span class="card-emoji">{page['emoji']}</span>
+                    <p class="card-title">{page['title']}</p>
+                    <p class="card-desc">{page['description']}</p>
+                </div>
+                <span class="card-arrow">→</span>
+            </div>
+        """, unsafe_allow_html=True)
 
 # Load custom CSS
 try:
