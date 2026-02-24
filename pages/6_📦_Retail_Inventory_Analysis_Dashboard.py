@@ -385,7 +385,7 @@ with st.container():
     fig8 = go.Figure()
     fig8.add_trace(go.Bar(name='High Risk', x=top_stores.index, y=top_stores['High Risk'], marker_color='#d62728'))
     fig8.add_trace(go.Bar(name='Medium Risk', x=top_stores.index, y=top_stores['Medium Risk'], marker_color='#ff7f0e'))
-    fig8.add_trace(go.Bar(name='Low Risk', name=top_stores.index, y=top_stores['Low Risk'], marker_color='#2ca02c'))
+    fig8.add_trace(go.Bar(name='Low Risk', x=top_stores.index, y=top_stores['Low Risk'], marker_color='#2ca02c'))
 
     fig8.update_layout(
         barmode='stack',
