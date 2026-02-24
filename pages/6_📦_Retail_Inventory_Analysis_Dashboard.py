@@ -1120,7 +1120,7 @@ with col2:
     st.markdown(
         Components.metric_card(
             title="Total Units Sold",
-            value=f"{total_units:,}",
+            value=f"{df['Units Sold'].sum():.2f}",
             delta="",
             card_type="error"
         ), unsafe_allow_html=True
