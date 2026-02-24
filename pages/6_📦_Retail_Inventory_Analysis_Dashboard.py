@@ -213,7 +213,6 @@ with st.container():
         yaxis_title="Units Sold",  
         showlegend=True  
     ) 
-    fig = apply_chart_theme(fig)  
     st.plotly_chart(fig, width="stretch")  
 
 with st.container():
@@ -224,11 +223,10 @@ with st.container():
         y=category_revenue.index,
         orientation='h',
         color=category_revenue.values,
-        color_continuous_scale=Colors.CHART_COLORS,
+        color_continuous_scale='Blues',
         labels={'x': 'Revenue ($)', 'y': 'Category'},
         title='Top Categories')
           
-    fig2 = apply_chart_theme(fig2)
     fig2.update_layout(height=400, showlegend=False)
     st.plotly_chart(fig2, width="stretch") 
 
@@ -250,11 +248,10 @@ with st.container():
         values='Revenue',
         names='Region',
         hole=0.4,
-        color_discrete_sequence=Colors.CHART_COLORS,
+        color_discrete_sequence=px.colors.qualitative.Set3,
         title='Regional Performance')            
     fig3.update_traces(textinfo='percent+label', textposition='inside')  
     fig3.update_layout(height=400)
-    fig3 = apply_chart_theme(fig3)
     st.plotly_chart(fig3, width="stretch")  
 
 with st.container():
@@ -265,11 +262,10 @@ with st.container():
         x=weather_data.index,
         y=weather_data.values,
         color=weather_data.values,
-        color_continuous_scale=Colors.CHART_COLORS,
+        color_continuous_scale="Viridis",
         labels={'x': 'Weather Condition', 'y': 'Avg Units Sold'},
         title='Weather Impact on Sales') 
     fig4.update_layout(height=400, showlegend=False)
-    fig4 = apply_chart_theme(fig4)
     st.plotly_chart(fig4, width="stretch")  
 
 st.markdown("---") 
@@ -295,7 +291,6 @@ with col1:
         color_discrete_map={'No Promotion': '#ff7f0e', 'With Promotion': '#2ca02c'},
         title='Average Units Sold')  
     fig5.update_layout(height=300, showlegend=False)
-    fig5 = apply_chart_theme(fig5)
     st.plotly_chart(fig5, use_container_width=True)
 
 with col2:
@@ -307,7 +302,6 @@ with col2:
         color_discrete_map={'No Promotion': '#ff7f0e', 'With Promotion': '#2ca02c'},
         title='Average Revenue')
     fig6.update_layout(height=300, showlegend=False)
-    fig6 = apply_chart_theme(fig6)
     st.plotly_chart(fig6, width="stretch")
 
 with col3:
@@ -319,7 +313,6 @@ with col3:
         color_discrete_map={'No Promotion': '#ff7f0e', 'With Promotion': '#2ca02c'},
         title='Average Discount (%)')
     fig_bar.update_layout(height=300, showlegend=False)
-    fig_bar = apply_chart_theme(fig_bar)
     st.plotly_chart(fig_bar, width="stretch")
 
 st.markdown("---") 
@@ -394,5 +387,4 @@ with st.container():
         yaxis_title='Number of Items',
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
     )
-    fig8 = apply_chart_theme(fig8)
     st.plotly_chart(fig8, width='stretch')
