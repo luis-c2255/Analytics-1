@@ -388,3 +388,160 @@ with st.container():
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
     )
     st.plotly_chart(fig8, width='stretch')
+
+with st.container():
+    risk_dist = filtered_df['Stockout_Risk'].value_counts().reset_index()  
+    risk_dist.columns = ['Risk Level', 'Count']  
+  
+    colors = {'High Risk': '#d62728', 'Medium Risk': '#ff7f0e', 'Low Risk': '#2ca02c'}  
+    risk_dist['Color'] = risk_dist['Risk Level'].map(colors) 
+
+    fig_pie = px.pie(
+        risk_dist,
+        values='Count',
+        names='Risk Level',
+        color='Risk Level',
+        color_discrete_map=colors,
+        hole=0.4
+        title="Risk Distribution")
+    
+    fig_pie.update_traces(textposition='inside', textinfo='percent+label')
+    fig_pie.update_layout(height=400)
+    st.plotly_chart(fig_pie, width="stretch")
+
+st.markdown("---") 
+st.markdown(
+    Components.section_header("Inventory Turnover & Overstock Analysis", "🔄"),
+    unsafe_allow_html=True
+)
+
+with st.container():
+    turnover_data = filtered_df.groupby('Category').agg({
+        'Units Sold': 'sum',
+        'Inventory Level': 'mean'
+    }).reset_index()
+    turnover_data['Turnover_Ratio'] = (turnover_data['Units Sold'] / turnover_data['Inventory Level']).round(2)
+    turnover_data = turnover_data.sort_values('Turnover_Ratio', ascending=True)
+
+    fig_bar2 = px.bar(
+        turnover_data,
+        x='Turnover_Ratio',
+        y='Category',
+        orientation='h',
+        color='Turnover_Ratio',
+        color_continuous_scale='RdYlGn',
+        title="Inventory Turnover by Category",
+        labels={'Turnover_Ratio': 'Turnover Ratio'}
+    )
+    fig_bar2.update_layout(height=400)
+    st.plotly_chart(fig_bar2, width="stretch")
+
+with st.container():
+    overstock_data = filtered_df[filtered_df['Overstock_Risk'] == 'Overstock'].groupby('Category').agg({
+        'Product ID': 'count',
+        'Inventory Level': 'mean'
+    }).reset_index()
+    overstock_data.columns = ['Category', 'Overstock_Count', 'Avg_Inventory']
+    overstock_data = overstock_data.sort_values('Overstock_Count', ascending=False)
+
+    fig_bar3 = px.bar(
+        overstock_data,
+        x='Category',
+        y='Overstock_Count',
+        color='Avg_Inventory',
+        color_continuous_scale='Reds',
+        labels={'Overstock_Count': 'Number of Overstock Items'}
+    )
+    fig_bar3.update_layout(height=400)
+    st.plotly_chart(fig_bar3, width="stretch")
+
+st.markdown("---") 
+st.markdown(
+    Components.section_header("Critical Inventory Items", "📋"),
+    unsafe_allow_html=True
+)
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("### 🚨 High Stockout Risk")
+    high_risk_items = filtered_df[filtered_df['Stockout_Risk'] == 'High Risk'][
+        ['Store ID', 'Product ID', 'Category', 'Inventory Level', 'Units Sold', 'Stock_Coverage_Days']
+    ].sort_values('Stock_Coverage_Days').head(20)
+
+    st.dataframe(
+        high_risk_items.style.background_gradient(subset=['Stock_Coverage_Days'], cmap='Reds_r'),
+        width="stretch", height=400
+    )
+    csv = high_risk_items.to_csv(index=False)
+    st.download_button(
+        label="📥 Download High Risk Items",
+        data=csv,
+        file_name='high_stockout_risk_items.csv',
+        mime='text/csv'
+    )
+with col2:
+    st.markdown("📦 Overstock Items")
+    overstock_items = filtered_df[filtered_df['Overstock_Risk'] == 'Overstock'][
+        ['Stock ID', 'Product ID', 'Category', 'Inventory Level', 'Units Sold', 'Stock_Coverage_Days']
+    ].sort_values('Stock_Coverage_Days', ascending=False).head(20)
+
+    st.dataframe(
+        overstock_items.style.background_gradient(subset=['Stock_Coverage_Days'], cmap='Oranges'),
+        width="stretch", height=400
+    )
+    csv = overstock_items.to_csv(index=False)
+    st.download_button(
+        label="📥 Download Overstock Items",
+        data=csv,
+        file_name='overstock_items.csv',
+        mime='text/csv'
+    )
+
+st.markdown("---") 
+st.markdown(
+    Components.page_header("📈 Sales Analytics"),
+    unsafe_allow_html=True
+)
+col1, col2, col3, col4 = st.columns(4)  
+  
+total_revenue = filtered_df['Revenue'].sum()  
+avg_daily_sales = filtered_df.groupby('Date')['Units Sold'].sum().mean()  
+best_category = filtered_df.groupby('Category')['Revenue'].sum().idxmax()  
+growth_rate = ((filtered_df.groupby('Date')['Revenue'].sum().iloc[-30:].mean() /  
+filtered_df.groupby('Date')['Revenue'].sum().iloc[:30].mean() - 1) * 100)  
+
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Total Revenue",
+            value=f"${total_revenue:,.0f}",
+            delta="💰",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Avg Daily Sales",
+            value=f"{avg_daily_sales:.0f} units",
+            delta="📊",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Top Category",
+            value=f"{best_category}",
+            delta="🏆",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Growth Rate",
+            value=f"{growth_rate:.1f}%",
+            delta=f"{growth_rate:.1f}%",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
