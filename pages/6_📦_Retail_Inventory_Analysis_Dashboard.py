@@ -454,12 +454,8 @@ with st.container():
     )
     fig_bar3.update_layout(height=400)
     st.plotly_chart(fig_bar3, width="stretch")
-
+    
 st.markdown("---") 
-st.markdown(
-    Components.section_header("Critical Inventory Items", "📋"),
-    unsafe_allow_html=True
-)
 
 with st.container():
     stock_ratio = filtered_df.groupby('Category')['Stock_to_Sales_Ratio'].mean().reset_index()
@@ -476,6 +472,11 @@ with st.container():
     annotation_text='Optimal Max (2.0x)')
     st.plotly_chart(fig_stock, width="stretch", height=600) 
 
+st.markdown("---") 
+st.markdown(
+    Components.section_header("Critical Inventory Items", "📋"),
+    unsafe_allow_html=True
+)
 st.markdown("---") 
 col1, col2 = st.columns(2)
 with col1:
