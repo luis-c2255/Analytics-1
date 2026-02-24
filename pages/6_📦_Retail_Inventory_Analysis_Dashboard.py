@@ -467,7 +467,8 @@ with st.container():
         stock_ratio,
         x='Category',
         y='Stock_to_Sales_Ratio',
-        color_continuous_scale='RdYlGn')
+        color='Category',
+        color_continuous_scale='RdYlGn_r')
     fig_stock.update_traces(texttemplate='%{text:.2f}', textposition='inside')
     fig_stock.add_hline(y=1.5, line_dash='dash', line_color='green',
     annotation_text='Optimal Min (1.5x)')
