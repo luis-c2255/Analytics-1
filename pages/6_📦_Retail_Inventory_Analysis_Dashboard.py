@@ -1103,83 +1103,44 @@ st.markdown(
     Components.page_header("🎯 KEY FINDINGS RECAP"),
     unsafe_allow_html=True
 )
+with st.expander("1. REVENUE & SALES"):
+    st.markdown("""
+    - **Total Revenue**: $550,228,884.91
+    - **Total Units Sold**: 9,975,582
+    - **Top Performing Category**: Furniture
+    - **Top Performing Region**: East
+    """)
 
-st.markdown("""
-    :red[### 1. REVENUE & SALES]""")
-col1, col2, col3, col4 = st.columns(4) 
-with col1:
-    st.markdown(
-        Components.metric_card(
-            title="Total Revenue",
-            value=f"${total_revenue:,.2f}",
-            delta="",
-            card_type="error"
-        ), unsafe_allow_html=True
-    )
-with col2:
-    st.markdown(
-        Components.metric_card(
-            title="Total Units Sold",
-            value=f"{df['Units Sold'].sum():.2f}",
-            delta="",
-            card_type="error"
-        ), unsafe_allow_html=True
-    )
-with col3:
-    st.markdown(
-        Components.metric_card(
-            title="Top Performing Category",
-            value=f"{top_category}",
-            delta="",
-            card_type="error"
-        ), unsafe_allow_html=True
-    )
-with col4:
-    st.markdown(
-        Components.metric_card(
-            title="Top Performing Region",
-            value=f"{top_region}",
-            delta="",
-            card_type="error"
-        ), unsafe_allow_html=True
-    )
+with st.expander("2. INVENTORY CHALLENGES"):
+    st.markdown("""
+    - **3.5%** of records show stockout risk
+    - **47.9%** of records show overstock
+    - **Average stock coverage**: 6.1 days
+    - **Critical categories**: Groceries, Furniture, Clothing
+    """)
+with st.expander("3. DEMAND FORECASTING"):
+    st.markdown("""
+    - **Current forecast MAPE**: 23.16%
+    - **ML model achieves**: 51.14% MAPE
+    - **Potential improvement**: -736.91% 
+    - **Top predictive features**: Inventory Level, Price, Competitor Pricing  
+    """)
+with st.expander("4. PROMOTIONAL EFFECTIVENESS"):
+    st.markdown("""
+    - **Promotions increase sales by**: +-0.1%
+    - **Optimal discount range**: 10-20% (best ROI)
+    - **Best season for promotions**: Winter  
+    """)
+with st.expander("5. EXTERNAL FACTORS"):
+    st.markdown("""
+    - **Weather impact**: Sunny conditions drive highest sales
+    - **Seasonality**: Autumn is peak season
+    - **Price positioning**: Slightly Cheaper yields best results  
+    """)
+with st.expander("6. MODEL PERFORMANCE"):
+    st.markdown("""
+    - **Random Forest R² Score**: 0.3193
+    - **Mean Absolute Error**: 69.78 units
+    - **Model beats baseline by**: -736.91% 
+    """)
 
-st.markdown("""
-    :blue[### 2. INVENTORY CHALLENGES]""")
-col5, col6, col7, col8 = st.columns(4) 
-with col5:
-    st.markdown(
-        Components.metric_card(
-            title="Stockout risk",
-            value=f"records show {stockout_pct:.1f}%",
-            delta="",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
-with col6:
-    st.markdown(
-        Components.metric_card(
-            title="Overstock",
-            value=f"records show {overstock_pct:.1f}%",
-            delta="",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
-with col7:
-    st.markdown(
-        Components.metric_card(
-            title="Average stock coverage",
-            value=f"{df['Stock_Coverage_Days'].mean():.1f} days",
-            delta="",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
-with col8:
-    st.markdown(
-        Components.metric_card(
-            title="Critical categories",
-            value=f"{', '.join(critical_stockout.index[:3].tolist())}",
-            delta="",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
