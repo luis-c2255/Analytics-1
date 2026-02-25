@@ -709,20 +709,79 @@ with roi_col3:
 st.markdown("---")  
   
 st.subheader("🚀 Implementation Roadmap")  
-  
-roadmap_data = {  
-"Phase": ["Phase 1 (Immediate)", "Phase 2 (1-3 months)", "Phase 3 (3-6 months)", "Phase 4 (Ongoing)"],  
-"Actions": [  
-"• Deploy churn prediction model\n• Identify top 10% at-risk customers\n• Launch emergency retention offers",  
-"• Implement geographic-specific campaigns\n• Re-engage inactive members\n• Optimize product bundles",  
-"• Roll out personalized communication\n• Launch age-targeted programs\n• Develop loyalty rewards system",  
-"• Monitor KPIs monthly\n• Refine ML models\n• A/B testretention strategies\n• Continuous customer feedback loops"  
-],  
-"Expected Impact": ["5-10% churn reduction", "10-15% churn reduction", "15-25% churn reduction", "Sustained improvement"]  
-}  
 
-roadmap_df = pd.DataFrame(roadmap_data)  
-st.table(roadmap_df)  
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown(
+        Components.insight_box(
+            "Phase 1 (Immediate)",
+            """
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Deploy churn prediction model(32,44%)</li>
+                <li>Identify top 10% at-risk customers</li>
+                <li>Launch emergency retention offers</li>
+                <br>
+                <li>Expected Impact: 5-10% churn reduction</li>
+            </ul>
+            """,
+            "error"
+        ),
+        unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.insight_box(
+            "Phase 2 (1-3 months)",
+            """
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Implement geographic-specific campaigns</li>
+                <li>Launch age-targeted programs</li>
+                <li>Optimize product bundles</li>
+                <br>
+                <li>Expected Impact: 10-15% churn reduction</li>
+            </ul>
+            """,
+            "warning"
+        ),
+        unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.insight_box(
+            "Phase 3 (3-6 months)",
+            """
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Roll out personalized communication</li>
+                <li>Identify top 10% at-risk customers</li>
+                <li>Develop loyalty rewards system</li>
+                <br>
+                <li>Expected Impact: 15-25% churn reduction</li>
+            </ul>
+            """,
+            "info"
+        ),
+        unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.insight_box(
+            "Phase 4 (Ongoing)",
+            """
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Monitor KPIs monthly</li>
+                <li>Refine ML models</li>
+                <li>A/B testretention strategies</li>
+                <li>Continuous customer feedback loops</li>
+                <br>
+                <li>Expected Impact: Sustained improvement</li>
+            </ul>
+            """,
+            "success"
+        ),
+        unsafe_allow_html=True
+    )
+
   
 st.markdown("---")  
   
