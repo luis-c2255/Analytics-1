@@ -522,5 +522,5 @@ with col2:
         values='Count',
         names='Cluster',
         title='Customer Distribution Across Segments',
-        color_continuous_sequence=px.colors.qualitative.Set3)
+        color_discrete_sequence=px.colors.qualitative.Set3)
     st.plotly_chart(fig13, width="stretch")
