@@ -252,7 +252,7 @@ fig8 = px.imshow(
     aspect="auto",
     title="Feature Correlation Matrix",
     color_continuous_scale="Viridis")
-fig8.update_layout(height=600)
+fig8.update_layout(height=800)
 st.plotly_chart(fig8, width="stretch")
 
 st.markdown(
