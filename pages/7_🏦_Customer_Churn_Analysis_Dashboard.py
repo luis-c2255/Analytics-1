@@ -252,6 +252,7 @@ fig8 = px.imshow(
     aspect="auto",
     title="Feature Correlation Matrix",
     color_continuous_scale="Inferno")
+fig8.update_layout(height=600)
 st.plotly_chart(fig8, width="stretch")
 
 st.markdown(
