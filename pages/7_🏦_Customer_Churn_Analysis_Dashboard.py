@@ -317,6 +317,14 @@ with col2:
         color='Importance',
         color_continuous_scale='Viridis')
     st.plotly_chart(fig10, width='stretch')
+    st.markdown(
+    Components.metric_card(
+        title="Top Feature",
+        value=f"Age",
+        delta="📈",
+        card_type="info"
+    ), unsafe_allow_html=True
+)
 
 st.markdown("---")
 st.subheader("🔮 Predict Individual Customer Churn")
