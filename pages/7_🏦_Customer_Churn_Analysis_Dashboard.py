@@ -68,10 +68,9 @@ df_filtered = df[
 ]
 
 st.markdown(
-    Components.section_header(
-        "Key Performance Indicators", "📈"
-    )
+    Components.section_header("Key Performance Indicators", "📈")
 )
+
 st.markdown("---")
 col1, col2, col3, col4 = st.columns(4)
 
