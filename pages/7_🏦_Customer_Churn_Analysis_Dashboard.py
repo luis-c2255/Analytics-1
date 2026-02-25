@@ -336,7 +336,7 @@ pred_col1, pred_col2, pred_col3 = st.columns(3)
 with pred_col1:
     pred_credit = st.number_input("Credit Score", 300, 850, 650)
     pred_age = st.number_input("Age", 18, 100, 40)
-    pred_ternure = st.number_input("Tenure (years)", 0, 10, 5)
+    pred_tenure = st.number_input("Tenure (years)", 0, 10, 5)
     pred_balance = st.number_input("Balance", 0, 250000, 100000)
 
 with pred_col2:
@@ -360,7 +360,7 @@ if st.button ("🎯 Predict Churn Probability"):
     input_data = pd.DataFrame({
         'CreditScore': [pred_credit],
         'Age': [pred_age],
-        'Tenure': [pred_ternure],
+        'Tenure': [pred_tenure],
         'Balance': [pred_balance],
         'NumOfProducts': [pred_products],
         'HasCrCard': [1 if pred_card == 'Yes' else 0],
