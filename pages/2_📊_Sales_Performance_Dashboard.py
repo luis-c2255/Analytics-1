@@ -25,13 +25,11 @@ df = pd.read_csv('Sales_Data.csv')
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Filters
-st.markdown(
-    Components.section_header("Filters", "🔍"), unsafe_allow_html=True
-)
+st.sidebar.header("🔍 Filters")
 
-date_range = st.date_input("Date Range", [df['Date'].min(), df['Date'].max()])
-regions = st.multiselect("Region", df['Region'].unique(), default=df['Region'].unique())
-categories = st.multiselect("Category", df['Product Category'].unique(),
+date_range = st.sidebar.date_input("Date Range", [df['Date'].min(), df['Date'].max()])
+regions = st.sidebar.multiselect("Region", df['Region'].unique(), default=df['Region'].unique())
+categories = st.sidebar.multiselect("Category", df['Product Category'].unique(),
 default=df['Product Category'].unique())
 
 # Filter data
