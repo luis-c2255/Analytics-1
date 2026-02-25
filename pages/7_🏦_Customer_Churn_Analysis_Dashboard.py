@@ -177,7 +177,7 @@ with st.container():
         opacity=0.7,
         labels={'Exited': 'Churned'},
         color_discrete_map={0: 'green', 1: 'red'})
-        st.plotly_chart(fig3, width="stretch")
+    st.plotly_chart(fig3, width="stretch")
 st.markdown("---")
 with st.container():
     # Number of products vs churn
