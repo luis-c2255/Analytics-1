@@ -371,11 +371,8 @@ if st.button ("🎯 Predict Churn Probability"):
         'Geography_Spain': [1 if pred_geography == 'Spain' else 0]
     })
 
-    # Ensure all required columns are present
-    for col in feature_cols:
-        if col not in input_data.columns:
-            input_data[col] = 0
-            input_data = input_data[feature_cols]
+
+    input_data = input_data.reindex(columns=feature_cols, fill_value=0)
 
 
     # Make prediction
