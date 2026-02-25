@@ -446,7 +446,7 @@ def perform_clustering(data, n_clusters=4):
     X_scaled = scaler.fit_transform(X_cluster)
 
     kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-    clusters = kmeans.fit_transform(X_scaled)
+    clusters = kmeans.fit_predict(X_scaled)
 
     # PCA for visualization
     pca = PCA(n_components=2)
