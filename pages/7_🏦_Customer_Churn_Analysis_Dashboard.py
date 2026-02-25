@@ -247,8 +247,7 @@ st.markdown("---")
 st.subheader("Feature Correlations")  
 df_corr = df_filtered.select_dtypes(include=[np.number]).corr()
 fig8 = px.imshow(
-    df_corr,
-    corr.round(2),
+    df_corr.round(2),
     text_auto=True,
     aspect="auto",
     title="Feature Correlation Matrix",
