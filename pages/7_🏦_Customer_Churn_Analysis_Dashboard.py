@@ -268,7 +268,7 @@ def train_model(data):
     df_model = df_model.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
     df_model = pd.get_dummies(df_model, columns=['Geography'], drop_first=True)
     df_model['Gender'] = df_model['Gender'].map({'Male': 1, 'Female': 0})
-    x = df_model.drop('Exited', axis=1)
+    X = df_model.drop('Exited', axis=1)
     y = df_model['Exited']
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
