@@ -449,10 +449,10 @@ def perform_clustering(data, n_clusters=4):
     clusters = kmeans.fit_transform(X_scaled)
     return clusters, X_pca, cluster_features
 
-    n_clusters = st.slider("Select Number of Clusters", 2, 8, 4)
-    clusters, X_pca, cluster_features = perform_clustering(df_filtered, n_clusters)
+n_clusters = st.slider("Select Number of Clusters", 2, 8, 4)
+clusters, X_pca, cluster_features = perform_clustering(df_filtered, n_clusters)
 
-    df_filtered['Cluster'] = clusters
+df_filtered['Cluster'] = clusters
 
 # Cluster visualization with PCA
 st.subheader("Customer Segments Visualization")
