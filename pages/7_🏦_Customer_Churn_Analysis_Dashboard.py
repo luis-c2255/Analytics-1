@@ -473,7 +473,7 @@ with st.container():
         color_continuous_scale='Viridis')
     st.plotly_chart(fig11, width="stretch")
 
-with .stcontainer():
+with st.container():
     # Cluster profiles
     st.subheader("Cluster Profiles")
     cluster_summary = df_filtered.groupby('Cluster').agg({
