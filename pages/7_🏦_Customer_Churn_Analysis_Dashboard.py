@@ -248,10 +248,11 @@ st.subheader("Feature Correlations")
 df_corr = df_filtered.select_dtypes(include=[np.number]).corr()
 fig8 = px.imshow(
     df_corr,
+    corr.round(2),
     text_auto=True,
     aspect="auto",
     title="Feature Correlation Matrix",
-    color_continuous_scale="Inferno")
+    color_continuous_scale="Viridis")
 fig8.update_layout(height=600)
 st.plotly_chart(fig8, width="stretch")
 
