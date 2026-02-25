@@ -289,14 +289,6 @@ st.markdown("---")
 col1, col2 = st.columns(2)
 with col1:
     st.subheader("Model Performance")
-    st.markdown(
-        Components.metric_card(
-            title="ROC-AUC Score",
-            value=f"{auc_score:.4f}",
-            delta="📈",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
     fig9 = px.imshow(
         cm,
         labels=dict(x='Predicted', y='Actual', color='Count'),
@@ -306,6 +298,14 @@ with col1:
         color_continuous_scale='Blues',
         text_auto=True)
     st.plotly_chart(fig9, width='stretch')
+    st.markdown(
+    Components.metric_card(
+        title="ROC-AUC Score",
+        value=f"{auc_score:.4f}",
+        delta="📈",
+        card_type="info"
+    ), unsafe_allow_html=True
+)
 with col2:
     st.subheader("Top Features")
     fig10 = px.bar(
