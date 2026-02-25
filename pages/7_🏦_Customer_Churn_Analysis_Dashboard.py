@@ -67,9 +67,8 @@ df_filtered = df[
     (df['Age'] <= age_range[1])
 ]
 
-st.markdown(
-    Components.section_header("Key Performance Indicators", "📈")
-)
+st.subheader("📈 Key Performance Indicators")
+
 
 st.markdown("---")
 col1, col2, col3, col4 = st.columns(4)
@@ -322,11 +321,8 @@ with col2:
     st.plotly_chart(fig10, width='stretch')
 
 st.markdown("---")
-st.markdown(
-    Components.section_header(
-        "Predict Individual Customer Churn", "🔮"
-    )
-)
+st.subheader("🔮 Predict Individual Customer Churn")
+
 st.markdown("Enter customer details to predict churn probability:")
 
 pred_col1, pred_col2, pred_col3 = st.columns(3)
