@@ -115,18 +115,9 @@ with col4:
     )
 
 st.markdown("---")
-# Tab navigation
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 Overview",
-    "🔍 Deep Dive",
-    "🤖 Predictions",
-    "👥 Segmentation",
-    "💡 Insights"
-])
 
-# Tab 1: Overview
-with tab1:
-    st.markdown(
+
+st.markdown(
         Components.page_header("📊 Overview Analytics"), unsafe_allow_html=True
     )
 
@@ -148,6 +139,7 @@ with st.container():
     fig1.update_traces(texttemplate='%{text} customers', textposition='inside')
     fig1.update_layout(height=500)
     st.plotly_chart(fig1, width="stretch")
+
 st.markdown("---")
 with st.container():
     # Churn by Gender
@@ -165,6 +157,7 @@ with st.container():
             color_continuous_scale='Blues')
     fig2.update_traces(texttemplate='%{text} customers', textposition='inside')
     st.plotly_chart(fig2, width="stretch")
+
 st.markdown("---")
 with st.container():
     # Age distribution by churn
@@ -178,6 +171,7 @@ with st.container():
         labels={'Exited': 'Churned'},
         color_discrete_map={0: 'green', 1: 'red'})
     st.plotly_chart(fig3, width="stretch")
+
 st.markdown("---")
 with st.container():
     # Number of products vs churn
@@ -196,9 +190,7 @@ with st.container():
     fig4.update_traces(texttemplate='%{text} customers', textposition='inside')
     st.plotly_chart(fig4, width="stretch")
         
-# Tab 2: Deep Dive
-with tab2:
-       st.markdown(
+st.markdown(
         Components.page_header("🔍 Deep Dive"), unsafe_allow_html=True
     )
 
@@ -215,6 +207,7 @@ with st.container():
         opacity=0.6,
         hover_data=['CreditScore', 'Tenure'])
     st.plotly_chart(fig5, width='stretch')
+
 st.markdown("---")
 with st.container():
     # Credit score distribution
@@ -256,9 +249,7 @@ sns.heatmap(df_corr, annot=True, cmap='coolwarm', center=0, ax=ax, fmt='.2f')
 plt.title('Feature Correlation Matrix')
 st.pyplot(fig8)
 
-# Tab 3: Predictions
-with tab3:
-    st.markdown(
+st.markdown(
         Components.page_header("🤖 Churn Prediction Model"), unsafe_allow_html=True
     )
 # Prepare data for modeling
