@@ -234,8 +234,8 @@ st.subheader("Activity Status Impact")
 
 activity_churn = df_filtered.groupby([
     'IsActiveMember', 'Exited']).size().reset_index(name='count')
-    activity_churn['IsActiveMember'] = activity_churn['IsActiveMember'].map({0: 'Inactive', 1: 'Active'})
-    activity_churn['Exited'] = activity_churn['Exited'].map({0: 'Retained', 1: 'Churned'})
+activity_churn['IsActiveMember'] = activity_churn['IsActiveMember'].map({0: 'Inactive', 1: 'Active'})
+activity_churn['Exited'] = activity_churn['Exited'].map({0: 'Retained', 1: 'Churned'})
 
 fig7 = px.bar(
     activity_churn,
