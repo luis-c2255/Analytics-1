@@ -106,7 +106,7 @@ with col3:
         ), unsafe_allow_html=True
     )
 with col4:
-    avg_ternure = df_filtered['Tenure'].mean()
+    avg_tenure = df_filtered['Tenure'].mean()
     st.markdown(
         Components.metric_card(
             title="Avg Tenure",
