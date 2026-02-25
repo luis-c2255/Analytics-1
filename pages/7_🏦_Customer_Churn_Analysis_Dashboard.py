@@ -213,7 +213,7 @@ with st.container():
         labels={'Exited': 'Churned'},
         color_discrete_map={0: 'blue', 1: 'red'},
         opacity=0.6,
-        hover_data=['CreditScore', 'Ternure'])
+        hover_data=['CreditScore', 'Tenure'])
     st.plotly_chart(fig5, width='stretch')
 st.markdown("---")
 with st.container():
