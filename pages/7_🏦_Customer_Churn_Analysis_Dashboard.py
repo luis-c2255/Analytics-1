@@ -640,7 +640,7 @@ with col2:
                 <li>Inactive Member Churn: 26.85%</li>
             </ul>
             """,
-            "info"
+            "warning"
         ),
         unsafe_allow_html=True
     )
