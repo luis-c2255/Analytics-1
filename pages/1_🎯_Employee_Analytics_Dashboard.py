@@ -101,13 +101,12 @@ with col5:
 st.markdown("---")
 
 # Filters
-st.markdown(
-    Components.section_header("Filters", "🔍"),
-    unsafe_allow_html=True
-)
-dept_filter = st.multiselect("Department", options=df['dept'].unique(),
+st.sidebar.header("🔍 Filters")
+
+dept_filter = st.sidebar.multiselect("Department", options=df['dept'].unique(),
 default=df['dept'].unique())
-salary_filter = st.multiselect("Salary Level",
+
+salary_filter = st.sidebar.multiselect("Salary Level",
 options=['low', 'medium', 'high'],
 default=['low', 'medium', 'high'])
 
