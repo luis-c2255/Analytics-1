@@ -106,11 +106,11 @@ with col3:
         ), unsafe_allow_html=True
     )
 with col4:
-    avg_ternure = df_filtered['Ternure'].mean()
+    avg_ternure = df_filtered['Tenure'].mean()
     st.markdown(
         Components.metric_card(
-            title="Avg Ternure",
-            value=f"{avg_ternure:.1f} years",
+            title="Avg Tenure",
+            value=f"{avg_tenure:.1f} years",
             delta="🚩",
             card_type="info"
         ), unsafe_allow_html=True
@@ -334,7 +334,7 @@ pred_col1, pred_col2, pred_col3 = st.columns(3)
 with pred_col1:
     pred_credit = st.number_input("Credit Score", 300, 850, 650)
     pred_age = st.number_input("Age", 18, 100, 40)
-    pred_ternure = st.number_input("Ternure (years)", 0, 10, 5)
+    pred_ternure = st.number_input("Tenure (years)", 0, 10, 5)
     pred_balance = st.number_input("Balance", 0, 250000, 100000)
 
 with pred_col2:
@@ -358,7 +358,7 @@ if st.button ("🎯 Predict Churn Probability"):
     input_data = pd.DataFrame({
         'CreditScore': [pred_credit],
         'Age': [pred_age],
-        'Ternure': [pred_ternure],
+        'Tenure': [pred_ternure],
         'Balance': [pred_balance],
         'NumOfProducts': [pred_products],
         'HasCrCard': [1 if pred_card == 'Yes' else 0],
