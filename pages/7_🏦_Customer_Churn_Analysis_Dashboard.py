@@ -612,25 +612,22 @@ st.subheader("📊 Summary Statistics")
 
 col1, col2 = st.columns(2, border=True)
 with col1:
-    st.info(
-        st.markdown(f"""
+    st.markdown(f"""
         ### Churn Overview
         - **Overall Churn Rate:** {overall_churn:.2f}%
         - **Total Customers Analyzed:** {len(df_filtered):,}
         - **Churned Customers:** {df_filtered['Exited'].sum():,}
         - **Retained Customers:** {len(df_filtered) - df_filtered['Exited'].sum():,}
-        """, icon=" ")
-    )
+        """)
+    
 with col2:
-    st.warning(
-        st.markdown(f"""
+    st.markdown(f"""
         ### High-Risk Indicators
         - **Highest Risk Geography:** {highest_churn_geo}({highest_churn_geo_rate:.2f}%)
         - **Avg Age of Churners:** {age_high_risk:.1f} years
         - **Highest Risk Product Count:** {highest_risk_products} products ({highest_risk_products_rate:.2f}%)
         - **Inactive Member Churn:** {active_churn:.2f}%
-        """, icon=" ")
-    )
+        """)
 
 st.markdown("---")  
 
