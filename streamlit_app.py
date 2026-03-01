@@ -57,7 +57,8 @@ st.markdown("""
 
 st.markdown(
     Components.page_header("📊 Multiple Analysis Dashboard"), unsafe_allow_html=True)
-
+st.markdown("   ")
+st.markdown("   ")
 with st.container(height="content", width="stretch", horizontal_alignment="center"):    
     st.image("img.svg")
 
@@ -78,7 +79,7 @@ with col3:
     "https://blank-app-ssh25yo5mc.streamlit.app/Healthcare_Symptoms_Analytics_Dashboard", 
     icon="🏥", icon_position="left", width="stretch"
     )
-st.markdown("---")
+st.markdown("   ")
 col4, col5, col6 = st.columns(3)
 with col4:
     st.link_button("Madrid Weather Dashboard", 
@@ -95,7 +96,7 @@ with col6:
     "https://blank-app-ssh25yo5mc.streamlit.app/Retail_Inventory_Analysis_Dashboard", 
     icon="📦", icon_position="left", width="stretch"
     )
-st.markdown("---")
+st.markdown("   ")
 col7, col8, col9 = st.columns(3)
 with col7:
     st.link_button("Customer Churn Analysis Dashboard", 
