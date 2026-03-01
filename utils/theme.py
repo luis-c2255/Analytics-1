@@ -46,7 +46,7 @@ class Components:
         """Create a styled page header"""
         return f"""
         <div style='background: linear-gradient(135deg, {Colors.BLUE_ENERGY} 0%, {Colors.PRUSSIAN_BLUE} 100%);
-            padding: 0.8rem; border-radius: 8px; margin-bottom: 0.8rem;'>
+            padding: 0.7rem; border-radius: 8px; margin-bottom: 0.7rem;'>
             <h1 style='color: white; margin: 0; text-align: center; font-size: 2.5rem;'>{title}</h1>
         </div>
         """
