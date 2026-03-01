@@ -28,10 +28,9 @@ st.markdown(
     Components.page_header(
         "💹 Netflix Stock Analysis Dashboard"), unsafe_allow_html=True)
 
-st.markdown("---")
+st.markdown("   ")
 
-st.markdown(
-    Components.section_header('Key Metrics', '🎯'), unsafe_allow_html=True)
+st.subheader('🎯 :red[Key Metrics]' divider='red')
 
 col1, col2, col3 = st.columns(3)
 
@@ -61,11 +60,8 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Price Trend Visualization", "📈"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📈 :blue[Price Trend Visualization]", divider="blue")
 
 with st.container():
     fig = go.Figure()
@@ -110,11 +106,8 @@ fig.update_layout(
 
 st.plotly_chart(fig, width='stretch', height=500)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Price Statistics", "💰"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💰 :yellow[Price Statistics]", divider="yellow")
 
 col1, col2, col3 = st.columns(3)
 
@@ -145,11 +138,8 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
-st.markdown("---")
-st.markdown(
-    Components.section_header("Volume Analysis", "📇"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📇 :violet[Volume Analysis]", divider="violet")
 
 with st.container():
     fig2 = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.08, subplot_titles=('', ''))
@@ -174,11 +164,8 @@ fig2.update_yaxes(showgrid=True, gridcolor='lightgray', gridwidth=0.5)
     
 st.plotly_chart(fig2, width="stretch", height=600)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Volume vs. Daily Correlation", "💱"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💱 :blue[Volume vs. Daily Correlation]", divider="blue")
 with st.container():
     fig3 = go.Figure()
 
@@ -208,11 +195,8 @@ fig3.update_layout(
 )
 st.plotly_chart(fig3, width="stretch")
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Key Volume Metrics", "💹"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💹 :green[Key Volume Metrics]", divider="green")
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -245,11 +229,8 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("RSI (Relative Strength Index)", "📈"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📈 :blue[RSI (Relative Strength Index)]", divider="blue")
 def calculate_rsi(data, window=14):
     delta = data.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
@@ -376,11 +357,8 @@ with col2:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Volatility Analysis", "📇"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📇 :rainbow[Volatility Analysis]", divider="rainbow")
 with st.container():
     fig5 = go.Figure()
 fig5.add_trace(go.Scatter(
@@ -404,11 +382,8 @@ fig5.update_layout(
 )
 st.plotly_chart(fig5, width="stretch", height=350)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Distribution of Daily Return", "🔙"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🔙 :violet[Distribution of Daily Return]", divider="violet")
 with st.container():
     data = df['Daily_Return'].dropna()
     mean_val = data.mean()
@@ -485,10 +460,7 @@ with st.container():
     )
     st.plotly_chart(fig8, width="stretch")
 
-    st.markdown(
-    Components.section_header("Volatility Analysis", "📇"),
-    unsafe_allow_html=True
-)
+    st.subheader("📇 :blue[Volatility Analysis]", divider="blue")
 
 st.markdown("---")
 col1, col2, col3 = st.columns(3)
@@ -521,11 +493,8 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Returns Distribution", "📉"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📉 :red[Returns Distribution]", divider="red")
 df['DayOfWeek'] = df['Date'].dt.day_name()
 df['DayOfWeek_Num'] = df['Date'].dt.dayofweek
 
@@ -618,11 +587,8 @@ with col2:
 
 
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Returns & Volatility Metrics", "📇"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📇 :violet[Returns & Volatility Metrics]", divider="violet")
 
 col1, col2, col3 = st.columns(3)
 
@@ -653,7 +619,7 @@ with col3:
             card_type="warning"
         ), unsafe_allow_html=True
     )
-st.markdown("---")
+st.markdown("   ")
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -684,11 +650,8 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Monthly & Weekly Performance", "🔝"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🔝 :violet[Monthly & Weekly Performance]", divider="violet")
 data = {
 	'Day_of_Week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
 	'mean': [0.243, 0.243, 0.110, 0.174, -0.354],
@@ -729,11 +692,8 @@ with col2:
     st.markdown(style_table(df_month, color_theme="#508CA4"), unsafe_allow_html=True)
 
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Technical Indicators", "🎯"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🎯 :red[Technical Indicators]", divider="red")
 
 col1, col2, col3 = st.columns(3)
 
@@ -765,10 +725,7 @@ with col3:
         ), unsafe_allow_html=True
     )
 st.markdown("---")
-st.markdown(
-    Components.section_header("Correlation Heatmap", "🔥"),
-    unsafe_allow_html=True
-)
+st.subheader("🔥 :orange[Correlation Heatmap]", divider="orange")
 
 with st.container():
     # Select numeric columns
@@ -802,7 +759,7 @@ fig7.update_layout(
 )
 st.plotly_chart(fig7, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 
 col1, col2 = st.columns(2)
 with col1:
@@ -825,11 +782,8 @@ with col2:
     ),
     unsafe_allow_html=True
 )
-st.markdown("---")
-st.markdown(
-    Components.section_header("Predictive Modeling", "🔮"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🔮 :rainbow[Predictive Modeling]", divider="rainbow")
 with st.container():
     st.markdown("Simple Moving Average Crossover Strategy")
     # Trading signal: Buy when MA_7 crosses above MA_30, Sell when it crosses below
@@ -871,7 +825,7 @@ fig8.update_layout(
 )
 st.plotly_chart(fig8, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 
 # Mark buy signals
 buy_signals = df[df['Position'] == 2]
@@ -907,11 +861,8 @@ fig9.update_layout(
 )
 st.plotly_chart(fig9, width="stretch")
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Time Series Forecasting with Prophet", "🎲"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🎲 :green[Time Series Forecasting with Prophet]", divider="green")
 from prophet import Prophet
 
 
@@ -1024,11 +975,9 @@ with st.container(horizontal=False, vertical_alignment="center"):
 st.markdown(style_table(df_forecast, color_theme="#2e7d32"), unsafe_allow_html=True)
 
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Trend & Risk Analysis", "💹"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💹 :green[Trend & Risk Analysis]", divider="green")
+
 col1, col2, col3 = st.columns(3)
 with col1:
     # Trend analysis
