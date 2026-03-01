@@ -36,7 +36,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("---")
+st.markdown("   ")
 # Filters
 st.sidebar.header("🔍 Filters")
 
@@ -55,10 +55,7 @@ filtered_df = df[(df['Year'] >= year_range[0]) &
 (df['Season'].isin(season_filter))]
 
 # Filters
-st.markdown(
-    Components.section_header("Key Metrics", "🎯"),
-    unsafe_allow_html=True
-)
+st.subheader("🎯 :red[Key Metrics]", divider="red")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -102,17 +99,14 @@ with col4:
         ),
         unsafe_allow_html=True
     )
-st.markdown("---")
+st.markdown("   ")
 
 st.markdown(
     Components.page_header("🌡️ Temperature Analysis"),
     unsafe_allow_html=True
 )
 
-st.markdown(
-    Components.section_header("Annual Temperature Trend", "📈"),
-    unsafe_allow_html=True
-)
+st.subheader("📈 :blue[Annual Temperature Trend]", divider="blue")
 
 with st.container():
     annual_temp = filtered_df.groupby('Year')['Mean TemperatureC'].mean().reset_index()
@@ -125,11 +119,9 @@ with st.container():
     fig1 = apply_chart_theme(fig1)
     st.plotly_chart(fig1, width="stretch", height=500)
 
-st.markdown("---")
+st.markdown("   ")
 st.markdown(
-    Components.section_header("Monthly Temperature Pattern", "📊"),
-    unsafe_allow_html=True
-)
+    Components.section_header("📊 :rainbow[Monthly Temperature Pattern]", divider="rainbow")
 with st.container():
     monthly_temp = filtered_df.groupby('Month')['Mean TemperatureC'].mean().reset_index()
     fig2 = px.bar(
@@ -142,11 +134,8 @@ with st.container():
     fig2 = apply_chart_theme(fig2)
     st.plotly_chart(fig2, width="stretch", height=500)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Precipitation Analysis", "💧"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💧 :blue[Precipitation Analysis]", divider="blue")
 with st.container():
     annual_precip = filtered_df.groupby('Year')['Precipitationmm'].sum().reset_index()
     fig3 = px.area(
@@ -158,11 +147,9 @@ with st.container():
     fig3 = apply_chart_theme(fig3)
     st.plotly_chart(fig3, width="stretch", height=500)
 
-st.markdown("---")
+st.markdown("   ")
 st.markdown(
-    Components.section_header("Weather Events Distribution", "🌦️"),
-    unsafe_allow_html=True
-)
+    Components.section_header("🌦️ :violet[Weather Events Distribution]", divider="violet")
 with st.container():
     event_counts = filtered_df['Events'].value_counts().reset_index()
     event_counts.columns = ['Event', 'Count']
@@ -178,11 +165,8 @@ with st.container():
     fig4.update_layout(uniformtext_minsize=12, uniformtext_mode='hide')
     st.plotly_chart(fig4, width="stretch", height=500)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Temperature vs Humidity", "🌡️"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🌡️ :orange[Temperature vs Humidity]", divider="orange")
 
 with st.container():
     fig5 = px.scatter(
@@ -196,11 +180,8 @@ with st.container():
     fig5 = apply_chart_theme(fig5)
     st.plotly_chart(fig5, width="stretch", height=500)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Wind Speed Patterns", "💨"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("💨 :green[Wind Speed Patterns]", divider="green")
 with st.container():
     monthly_wind = filtered_df.groupby('Month')['Mean Wind SpeedKm/h'].mean().reset_index()
     fig6 = px.line(
@@ -213,11 +194,8 @@ with st.container():
     fig6 = apply_chart_theme(fig6)
     st.plotly_chart(fig6, width="stretch", height=500)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Seasonal Weather Comparison", "🍂"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🍂 :yellow[Seasonal Weather Comparison]", divider="yellow")
 
 col1, col2, col3 = st.columns(3)
 
@@ -238,11 +216,8 @@ with col3:
     fig9 = apply_chart_theme(fig9)
     st.plotly_chart(fig9, width='content')
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Raw Data Preview", "📋"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📋 :blue[Raw Data Preview]", divider="blue")
 
 st.dataframe(filtered_df.head(100), width="stretch")
 
