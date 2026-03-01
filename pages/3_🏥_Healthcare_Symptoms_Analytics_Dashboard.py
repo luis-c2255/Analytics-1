@@ -35,9 +35,7 @@ def load_model():
 df = load_data()
 model, gender_enc = load_model()
 
-st.markdown(
-    Components.section_header("Metrics", "🎯"), unsafe_allow_html=True
-)
+st.subheader("🎯 :red[Metrics]", divider="red")
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
@@ -76,10 +74,8 @@ with col4:
             card_type="error"
         ), unsafe_allow_html=True
     )
-st.markdown("---")
-st.markdown(
-    Components.section_header("Disease Distribution", "📈"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📈 :blue[Disease Distribution]", divider="blue")
 with st.container():
     disease_counts = df['Disease'].value_counts().head(15)
     fig = px.bar(
@@ -93,10 +89,8 @@ with st.container():
     fig.update_traces(marker_color=Colors.CHART_COLORS)
     st.plotly_chart(fig, width="stretch", height=600)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Age Distribution", "📅"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📅 :yellow[Age Distribution]", divider="yellow")
 with st.container():
     fig_age = px.histogram(
         df, 
@@ -108,10 +102,8 @@ with st.container():
     fig_age.update_traces(opacity=0.75, marker_color=Colors.CHART_COLORS)
     st.plotly_chart(fig_age, width="stretch", height=600)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Gender Distribution", "👥"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("👥 :violet[Gender Distribution]", divider="violet")
 
 with st.container():
     fig_gender = px.pie(
@@ -123,7 +115,7 @@ with st.container():
     fig_gender = apply_chart_theme(fig_gender)
     st.plotly_chart(fig_gender, width="stretch", height=600)
 
-st.markdown("---")
+st.markdown("   ")
 st.markdown(
     Components.page_header("🔬 Disease Analysis"), unsafe_allow_html=True
 )
@@ -163,10 +155,8 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Age Distribution for This Disease", "📊"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📊 :green[Age Distribution for This Disease]", divider="green")
 
 with st.container():
     fig = px.box(
@@ -177,10 +167,8 @@ with st.container():
     fig = apply_chart_theme(fig)
     st.plotly_chart(fig, width="stretch", height=600)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Gender Distribution for This Disease", "👥"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("👥 :violet[Gender Distribution for This Disease]", divider="violet")
 with st.container():
     gender_dist = disease_df['Gender'].value_counts()
     fig1 = px.pie(
@@ -193,10 +181,8 @@ with st.container():
     fig1 = apply_chart_theme(fig1)
     st.plotly_chart(fig1, width="stretch", height=600)
 
-st.markdown("---")
-st.markdown(
-    Components.section_header(f"Most Common Symptoms for {selected_disease}", "🎯"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader(f"🎯 :red[Most Common Symptoms for {selected_disease}]", divider="red")
 with st.container():
     # Most common symptoms for this disease
     all_symptoms_disease = []
@@ -215,7 +201,7 @@ with st.container():
     fig2.update_layout(showlegend=False)
     st.plotly_chart(fig2, width="stretch", height=600)
 
-st.markdown("---")
+st.markdown("   ")
 # Page 3: Symptom Analyst
 st.markdown(
     Components.page_header("💊 Symptom Analysis"), unsafe_allow_html=True
@@ -228,10 +214,8 @@ for symptoms in df['Symptoms']:
 
 symptom_counts = pd.Series(all_symptoms).value_counts()
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Most Common Symptoms Across All Patients", "📝"), unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📝 :orange[Most Common Symptoms Across All Patients]", divider="orange")
 
 with st.container():
     fig = px.bar(
@@ -244,7 +228,7 @@ with st.container():
     fig.update_traces(marker_color=Colors.CHART_COLORS)
     st.plotly_chart(fig, width="stretch", height=600)
 
-st.markdown("---")
+st.markdown("   ")
 
 with st.container():
     # Relationship between age and symptom count
