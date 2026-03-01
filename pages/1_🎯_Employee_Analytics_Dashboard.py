@@ -34,7 +34,7 @@ st.markdown(
     ), unsafe_allow_html=True
 )
 
-st.markdown("---")
+st.markdown("   ")
 
 # KPI Row
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -98,7 +98,7 @@ with col5:
         unsafe_allow_html=True
     )
 
-st.markdown("---")
+st.markdown("   ")
 
 # Filters
 st.sidebar.header("🔍 Filters")
@@ -116,7 +116,7 @@ df_filtered = df[(df['dept'].isin(dept_filter)) & (df['salary'].isin(salary_filt
 # Visualizations
 
 with st.container():
-    st.subheader("📊 Satisfaction Distribution")
+    st.subheader("📊 :blue[Satisfaction Distribution]", divider="blue")
     fig1 = px.histogram(
         df_filtered, 
         x='satisfaction_level', 
@@ -132,7 +132,7 @@ with st.container():
     st.plotly_chart(fig1, width="stretch", height=600)
 
 with st.container():
-    st.subheader("🏢 Department Satisfaction")
+    st.subheader("🏢 :green[Department Satisfaction]",divider="green")
     dept_sat = df_filtered.groupby('dept')['satisfaction_level'].mean().sort_values()
     fig2 = px.bar(
         dept_sat, 
@@ -147,7 +147,7 @@ with st.container():
 
 
 with st.container():
-    st.subheader("⚡ Workload Analysis")
+    st.subheader("⚡ _orange[Workload Analysis]", divider="orange")
     fig3 = px.scatter(
         df_filtered, 
         x='number_project', 
@@ -164,7 +164,7 @@ with st.container():
     st.plotly_chart(fig3, width="stretch", height=600)
 
 with st.container():
-    st.subheader("🎯 Performance vs Satisfaction")
+    st.subheader("🎯 :red[Performance vs Satisfaction]", divider="red")
     fig4 = px.density_contour(
         df_filtered, 
         x='last_evaluation',
@@ -176,7 +176,7 @@ with st.container():
     st.plotly_chart(fig4, width="stretch", height=600)
 
 with st.container():
-    st.subheader("Satisfaction by Department & Salary")
+    st.subheader(":rainbow[Satisfaction by Department & Salary]", divider="rainbow")
     fig5 = px.box(
         df_filtered, 
         x='dept', 
@@ -205,11 +205,8 @@ with st.container():
     st.plotly_chart(fig6, width='stretch', height=800)
     
 # High-risk employees table
-st.markdown("---")
-st.markdown(
-    Components.section_header("High-Risk Employees (Low Satisfaction + High Performance)", "⚠️"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("⚠️ :orange[High-Risk Employees (Low Satisfaction + High Performance)]", divider="orange")
 
 at_risk = df_filtered[(df_filtered['satisfaction_level'] < 0.4) &
 (df_filtered['last_evaluation'] > 0.7)][
@@ -228,9 +225,8 @@ st.download_button(
 )
 
 # Department deep dive
-st.markdown("---")
-st.markdown(
-    Components.section_header("Department Deep Dive", "🔬"), unsafe_allow_html=True)
+st.markdown("   ")
+st.subheader("🔬 :blue[Department Deep Dive]", divider="blue")
 
 selected_dept = st.selectbox("Select Department", df_filtered['dept'].unique())
 dept_data = df_filtered[df_filtered['dept'] == selected_dept]
@@ -267,7 +263,7 @@ with col3:
         unsafe_allow_html=True
     )
 
-st.markdown("---")
+st.markdown("   ")
 
 # Department metrics
 fig = go.Figure()
@@ -282,7 +278,7 @@ for metric in metrics:
 # ============================================
 # FOOTER
 # ============================================
-st.markdown("---")
+st.markdown("   ")
 st.markdown("""
 <div style='text-align: center; color: #666;'>
     <p><strong>📊 Multiple Analysis Dashboard</strong></p>
