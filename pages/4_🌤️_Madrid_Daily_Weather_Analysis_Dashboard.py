@@ -148,8 +148,7 @@ with st.container():
     st.plotly_chart(fig3, width="stretch", height=500)
 
 st.markdown("   ")
-st.markdown(
-    Components.section_header("🌦️ :violet[Weather Events Distribution]", divider="violet")
+st.subheader("🌦️ :violet[Weather Events Distribution]", divider="violet")
 with st.container():
     event_counts = filtered_df['Events'].value_counts().reset_index()
     event_counts.columns = ['Event', 'Count']
