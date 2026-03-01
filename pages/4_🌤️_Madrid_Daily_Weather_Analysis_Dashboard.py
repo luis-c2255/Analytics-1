@@ -120,8 +120,8 @@ with st.container():
     st.plotly_chart(fig1, width="stretch", height=500)
 
 st.markdown("   ")
-st.markdown(
-    Components.section_header("📊 :rainbow[Monthly Temperature Pattern]", divider="rainbow")
+st.subheader("📊 :rainbow[Monthly Temperature Pattern]", divider="rainbow")
+
 with st.container():
     monthly_temp = filtered_df.groupby('Month')['Mean TemperatureC'].mean().reset_index()
     fig2 = px.bar(
