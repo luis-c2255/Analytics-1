@@ -147,7 +147,7 @@ with st.container():
 
 
 with st.container():
-    st.subheader("⚡ _orange[Workload Analysis]", divider="orange")
+    st.subheader("⚡ :orange[Workload Analysis]", divider="orange")
     fig3 = px.scatter(
         df_filtered, 
         x='number_project', 
