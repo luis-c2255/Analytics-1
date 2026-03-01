@@ -46,7 +46,7 @@ class Components:
         """Create a styled page header"""
         return f"""
         <div style='background: linear-gradient(135deg, {Colors.BLUE_ENERGY} 0%, {Colors.PRUSSIAN_BLUE} 100%);
-            padding: 2rem; border-radius: 10px; margin-bottom: 2rem;'>
+            padding: 0.8rem; border-radius: 8px; margin-bottom: 0.8rem;'>
             <h1 style='color: white; margin: 0; text-align: center; font-size: 2.5rem;'>{title}</h1>
         </div>
         """
@@ -212,4 +212,5 @@ def format_percentage(value: float, decimals: int = 1) -> str:
 
 def format_number(value: float, decimals: int = 0) -> str:
     """Format number with thousands separator"""
+
     return f"{value:,.{decimals}f}"
