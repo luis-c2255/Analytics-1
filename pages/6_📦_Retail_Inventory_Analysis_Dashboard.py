@@ -452,7 +452,7 @@ with st.container():
 
 st.markdown("    ") 
 st.subheader("📋 :yellow[Critical Inventory Items]", divider="yellow")
-st.markdow("   ") 
+st.markdown("   ") 
 col1, col2 = st.columns(2)
 with col1:
     st.markdown("### 🚨 High Stockout Risk")
