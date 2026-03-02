@@ -1450,7 +1450,7 @@ st.markdown(
     Components.page_header("🎯 Actionable Insights & Recommendations"),
     unsafe_allow_html=True
 )
-st.markdown("### 📍 CURRENT MARKET POSITION:")
+st.subheader("📍 :red[CURRENT MARKET POSITION:]", divider="red")
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(
@@ -1476,8 +1476,8 @@ with col3:
             box_type="warning"
         ), unsafe_allow_html=True
 )
-st.markdown("---")
-st.markdown("### 💡 STRATEGIC RECOMMENDATIONS:")
+st.markdown("   ")
+st.subheader("💡 :yellow[STRATEGIC RECOMMENDATIONS:]", divider="yellow")
 st.markdown(
     Components.insight_box(
         title="Overall Signal Strength: 2/5",
@@ -1486,8 +1486,8 @@ st.markdown(
     ), unsafe_allow_html=True
 )
 
-st.markdown("---")
-st.markdown("### 📋 ACTION ITEMS:")
+st.markdown("   ")
+st.subheader("📋 :orange[ACTION ITEMS:]", divider="orange")
 
 # Current market position
 current_price = df['Close'].iloc[-1]
@@ -1535,8 +1535,8 @@ with col4:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
-st.markdown("### 📅 TIMING INSIGHTS:")
+st.markdown("   ")
+st.subheader("📅 :blue[TIMING INSIGHTS:]", divider="blue")
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown(
