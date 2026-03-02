@@ -65,7 +65,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("---")
+st.markdown("   ")
 
 st.sidebar.header("🔍 Filters")
 
@@ -122,10 +122,7 @@ else:
     filtered_df = df.copy()
 
 
-st.markdown(
-    Components.section_header("Executive Summary", "📊"),
-    unsafe_allow_html=True
-)
+st.subheader("📊 :rainbow[Executive Summary]", divider="rainbow")
 
 # KPI Metrics Row
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -180,11 +177,8 @@ with col5:
             card_type="error"
         ), unsafe_allow_html=True
     )
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Sales Trend & Category Performance", "📈"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("📈 :blue[Sales Trend & Category Performance]", divider="blue")
 
 with st.container():
     # Daily sales trend  
@@ -226,11 +220,8 @@ with st.container():
     fig2.update_layout(height=400, showlegend=False)
     st.plotly_chart(fig2, width="stretch") 
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Regional Performance & Weather Impact", "🗺️"),
-    unsafe_allow_html=True
-)
+st.markdown("    ") 
+st.subheader("🗺️ :blue[Regional Performance & Weather Impact]", divider="blue")
 
 with st.container():
     # Regional performance  
@@ -264,11 +255,8 @@ with st.container():
     fig4.update_layout(height=400, showlegend=False)
     st.plotly_chart(fig4, width="stretch")  
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Promotional Impact Analysis", "🎉"),
-    unsafe_allow_html=True
-)
+st.markdown("    ") 
+st.subheader("🎉 :red[Promotional Impact Analysis]", divider="red")
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -311,7 +299,7 @@ with col3:
     fig_bar.update_layout(height=300, showlegend=False)
     st.plotly_chart(fig_bar, width="stretch")
 
-st.markdown("---") 
+st.markdown("   ") 
 st.markdown(
     Components.page_header("📦 Inventory Health & Optimization"),
     unsafe_allow_html=True
@@ -360,11 +348,8 @@ with col4:
             card_type="success"
         ), unsafe_allow_html=True
     )
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Stockout Risk Analysis", "🚨"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("🚨 :orange[Stockout Risk Analysis]", divider="orange")
 with st.container():
     stockout_by_store = filtered_df.groupby(['Store ID', 'Stockout_Risk']).size().reset_index(name='Count')  
     stockout_pivot = stockout_by_store.pivot(index='Store ID', columns='Stockout_Risk', values='Count').fillna(0)  
@@ -405,11 +390,8 @@ with st.container():
     fig_pie.update_layout(height=400)
     st.plotly_chart(fig_pie, width="stretch")
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Inventory Turnover & Overstock Analysis", "🔄"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("🔄 :blue[Inventory Turnover & Overstock Analysis]", divider="blue")
 
 with st.container():
     turnover_data = filtered_df.groupby('Category').agg({
@@ -451,7 +433,7 @@ with st.container():
     fig_bar3.update_layout(height=400)
     st.plotly_chart(fig_bar3, width="stretch")
 
-st.markdown("---") 
+st.markdown("    ") 
 
 with st.container():
     stock_ratio = filtered_df.groupby('Category')['Stock_to_Sales_Ratio'].mean().reset_index()
@@ -468,12 +450,9 @@ with st.container():
     annotation_text='Optimal Max (2.0x)')
     st.plotly_chart(fig_stock, width="stretch") 
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Critical Inventory Items", "📋"),
-    unsafe_allow_html=True
-)
-st.markdown("---") 
+st.markdown("    ") 
+st.subheader("📋 :yellow[Critical Inventory Items]", divider="yellow")
+st.markdow("   ") 
 col1, col2 = st.columns(2)
 with col1:
     st.markdown("### 🚨 High Stockout Risk")
@@ -510,7 +489,7 @@ with col2:
         mime='text/csv'
     )
 
-st.markdown("---") 
+st.markdown("   ") 
 st.markdown(
     Components.page_header("📈 Sales Analytics"),
     unsafe_allow_html=True
@@ -560,11 +539,8 @@ with col4:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Sales & Revenue Trends", "📈"),
-    unsafe_allow_html=True
-)
+st.markdown("    ") 
+st.subheader("📈 :blue[Sales & Revenue Trends]", divider="blue")
 trend_option = st.radio(
     "Select Aggregation",
     ['Daily', 'Weekly', 'Monthly'],
@@ -610,7 +586,7 @@ else:
 
     st.plotly_chart(fig_trend, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 col1, col2 = st.columns(2)
 with col1:
     st.markdown("### 📦 Sales by Category")
@@ -652,11 +628,8 @@ with col2:
     st.plotly_chart(fig_reg, width="stretch")
 
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Seasonality & Day of Week Analysis", "🍂"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("🍂 :orange[Seasonality & Day of Week Analysis]", divider="orange")
 with st.container():
     seasonal_data = filtered_df.groupby('Seasonality').agg({  
     'Units Sold': 'sum',  
@@ -727,7 +700,7 @@ with st.container():
     fig_prod.update_layout(height=400, title="Top Performing Products")
     st.plotly_chart(fig_prod, width="stretch")
 
-st.markdown("---") 
+st.markdown("   ") 
 st.markdown(
     Components.page_header("💰 Pricing Strategy"),
     unsafe_allow_html=True
@@ -824,7 +797,7 @@ with st.container():
     fig_corr.add_hline(y=0, line_dash="dash", line_color="gray")  
     st.plotly_chart(fig_corr, width="stretch")  
 
-st.markdown("---") 
+st.markdown("   ") 
 st.markdown(
     Components.page_header("🎯 Demand Forecasting Analysis"),
     unsafe_allow_html=True
@@ -847,7 +820,7 @@ with st.container():
     fig_for.update_traces(texttemplate='%{text:.1%}', textposition='outside')
     st.plotly_chart(fig_for, width="stretch")
 
-st.markdown("---") 
+st.markdown("    ") 
 with st.container():
     fig_err = px.histogram(
         filtered_df,
@@ -859,11 +832,8 @@ with st.container():
     annotation_text='Perfect Forecast')
     st.plotly_chart(fig_err, width="stretch")
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Forecast Accuracy Trends Over Time", "📅"),
-    unsafe_allow_html=True
-)
+st.markdown("    ") 
+st.subheader("📅 :blue[Forecast Accuracy Trends Over Time]", divider="blue")
 monthly_forecast = filtered_df.groupby(['Year', 'Month']).agg({  
     'Forecast_Accuracy': 'mean'  
     }).reset_index()  
@@ -880,11 +850,8 @@ fig_time = px.line(
 fig_time.update_yaxes(tickformat='.0%')
 st.plotly_chart(fig_time, width="stretch")
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("Environmental Factors Impact", "⛅"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("⛅ :yellow[Environmental Factors Impact]", divider="yellow")
 col1, col2 = st.columns(2)
 with col1:
     weather_forecast = filtered_df.groupby('Weather Condition').agg({
@@ -918,7 +885,7 @@ with col2:
     fig_e1.update_traces(texttemplate='%{text:.1%}', textposition='inside')
     st.plotly_chart(fig_e1, width="stretch")
 
-st.markdown("---") 
+st.markdown("    ") 
 st.markdown(
     Components.page_header("🔮 Predictive Analytics & ML Insights"),
     unsafe_allow_html=True
@@ -1022,7 +989,7 @@ with st.container():
     line=dict(color='red', dash='dash', width=2))  
     st.plotly_chart(fig_comp, use_container_width=True)  
 
-st.markdown("---") 
+st.markdown("    ") 
 st.markdown(
     Components.page_header("📋 AI-Generated Recommendations"),
     unsafe_allow_html=True
@@ -1034,11 +1001,8 @@ st.warning("4. Only 50.0% of products priced below competitors. Review pricing s
 st.info("5. Current forecast accuracy is 85.4%. Implement ML model to improve to 33.8%.", icon="🎯")
 st.success("6. Winter is your strongest season. Plan inventory buildup 4-6 weeks in advance.", icon="🌟")
 
-st.markdown("---") 
-st.markdown(
-    Components.section_header("What-If Scenario Simulator", "🧪"),
-    unsafe_allow_html=True
-)
+st.markdown("   ") 
+st.subheader("🧪 :green[What-If Scenario Simulator]", divider="green")
 col1, col2, col3 = st.columns(3) 
 
 with col1:  
@@ -1094,7 +1058,7 @@ with col3:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---") 
+st.markdown("    ") 
 st.markdown(
     Components.page_header("🎯 KEY FINDINGS RECAP"),
     unsafe_allow_html=True
@@ -1141,7 +1105,7 @@ with st.expander("6. MODEL PERFORMANCE"):
     """)
 
 
-st.markdown("---") 
+st.markdown("   ") 
 st.markdown(
     Components.page_header("💡 IMMEDIATE ACTION ITEMS"),
     unsafe_allow_html=True
