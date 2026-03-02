@@ -462,7 +462,7 @@ with st.container():
 
     st.subheader("📇 :blue[Volatility Analysis]", divider="blue")
 
-st.markdown("---")
+st.markdown("   ")
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -1020,11 +1020,8 @@ with col3:
             card_type="error"
         ), unsafe_allow_html=True
     )
-st.markdown("---")
-st.markdown(
-    Components.section_header("Netflix Stock Analysis Dashboard", "📊"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("📊 :rainbow[Netflix Stock Analysis Dashboard]", divider="rainbow")
 with st.container():
     # Create subplots
     fig12 = make_subplots(
@@ -1102,11 +1099,8 @@ fig12.update_xaxes(title_text="Date", row=3, col=1)
 
 st.plotly_chart(fig12, width="stretch")
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Technical Analysis Signals", "🎯"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🎯 :red[Technical Analysis Signals]", divider="red")
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
@@ -1150,7 +1144,7 @@ with col4:
         unsafe_allow_html=True
 )
 
-st.markdown("---")
+st.markdown("   ")
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown(
@@ -1193,11 +1187,8 @@ with col4:
         unsafe_allow_html=True
 )
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Advanced Analytics", "🚀"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("🚀 :orange[Advanced Analytics]", divider="orange")
 with st.container():
     
     # Calculate Bollinger Bands
@@ -1266,7 +1257,7 @@ fig14.update_layout(
 )
 st.plotly_chart(fig14, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 
 with st.container():
     # Calculate MACD
@@ -1356,11 +1347,8 @@ fig17.update_layout(
 )
 st.plotly_chart(fig17, width="stretch")
 
-st.markdown("---")
-st.markdown(
-    Components.section_header("Advanced Analysis & Insights", "✨"),
-    unsafe_allow_html=True
-)
+st.markdown("   ")
+st.subheader("✨ :yellow[Advanced Analysis & Insights]", divider="yellow")
 
 col1, col2, col3 = st.columns(3)
 def style_table(df,color_theme):
@@ -1396,8 +1384,6 @@ with col1:
 
     st.markdown(style_table(top_volatile, color_theme="#2e7d32"), unsafe_allow_html=True)
 
-
-
 with col2:
     st.markdown("Top 10 Days with Highest Negative Returns")
     bottom_volatile = df.nsmallest(10, 'Daily_Return')[['Date', 'Close', 'Daily_Return', 'Volume']]
@@ -1412,7 +1398,7 @@ with col3:
 
     st.markdown(style_table(high_volume_days, color_theme="#FFB84D"), unsafe_allow_html=True)
 
-st.divider()
+st.markdown("   ")
 
 col1, col2 = st.columns(2)
 
@@ -1459,7 +1445,7 @@ with col1:
         unsafe_allow_html=True
     )
 
-st.markdown("---")
+st.markdown("   ")
 st.markdown(
     Components.page_header("🎯 Actionable Insights & Recommendations"),
     unsafe_allow_html=True
