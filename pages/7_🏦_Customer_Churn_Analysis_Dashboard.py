@@ -71,10 +71,10 @@ df_filtered = df[
 
 
 
-st.subheader("📈 Key Performance Indicators")
+st.subheader("📈 :blue[Key Performance Indicators]", divider="blue")
 
 
-st.markdown("---")
+st.markdown("    ")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -118,7 +118,7 @@ with col4:
         ), unsafe_allow_html=True
     )
 
-st.markdown("---")
+st.markdown("   ")
 
 
 st.markdown(
@@ -144,7 +144,7 @@ with st.container():
     fig1.update_layout(height=500)
     st.plotly_chart(fig1, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 with st.container():
     # Churn by Gender
     churn_gender = df_filtered.groupby('Gender')['Exited'].agg([
@@ -162,7 +162,7 @@ with st.container():
     fig2.update_traces(texttemplate='%{text} customers', textposition='inside')
     st.plotly_chart(fig2, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 with st.container():
     # Age distribution by churn
     fig3 = px.histogram(
@@ -176,7 +176,7 @@ with st.container():
         color_discrete_map={0: 'green', 1: 'red'})
     st.plotly_chart(fig3, width="stretch")
 
-st.markdown("---")
+st.markdown("   ")
 with st.container():
     # Number of products vs churn
     churn_products = df_filtered.groupby('NumOfProducts')['Exited'].agg([
@@ -213,7 +213,7 @@ with st.container():
     fig5.update_layout(height=500)
     st.plotly_chart(fig5, width='stretch')
 
-st.markdown("---")
+st.markdown("    ")
 with st.container():
     # Credit score distribution
     fig6 = px.box(
@@ -227,9 +227,9 @@ with st.container():
     fig6.update_layout(height=500)
     st.plotly_chart(fig6, width='stretch')
 
-st.markdown("---")
+st.markdown("   ")
 # Active vs Inactive members
-st.subheader("Activity Status Impact") 
+st.subheader(":violet[Activity Status Impact]", divider="violet") 
 
 activity_churn = df_filtered.groupby([
     'IsActiveMember', 'Exited']).size().reset_index(name='count')
@@ -246,9 +246,9 @@ fig7 = px.bar(
     color_discrete_map={'Retained': 'green', 'Churned': 'red'})
 st.plotly_chart(fig7, width='stretch')
 
-st.markdown("---")
+st.markdown("   ")
 # Correlation heatmap
-st.subheader("Feature Correlations")  
+st.subheader(":green[Feature Correlations]", divider="green")  
 df_corr = df_filtered.select_dtypes(include=[np.number]).corr()
 fig8 = px.imshow(
     df_corr.round(2),
@@ -289,10 +289,10 @@ def train_model(data):
     return model, auc_score, cm, feature_importance, X.columns
 model, auc_score, cm, feature_importance, feature_cols = train_model(df)
 
-st.markdown("---")
+st.markdown("   ")
 col1, col2 = st.columns(2)
 with col1:
-    st.subheader("Model Performance")
+    st.subheader(":red[Model Performance]", divider="red")
     fig9 = px.imshow(
         cm,
         labels=dict(x='Predicted', y='Actual', color='Count'),
@@ -311,7 +311,7 @@ with col1:
     ), unsafe_allow_html=True
 )
 with col2:
-    st.subheader("Top Features")
+    st.subheader(":orange[Top Features]", divider="orange")
     fig10 = px.bar(
         feature_importance.head(10),
         x='Importance',
@@ -330,8 +330,8 @@ with col2:
     ), unsafe_allow_html=True
 )
 
-st.markdown("---")
-st.subheader("🔮 Predict Individual Customer Churn")
+st.markdown("   ")
+st.subheader("🔮 :yellow[Predict Individual Customer Churn]", divider="yellow")
 
 st.markdown("Enter customer details to predict churn probability:")
 
@@ -388,7 +388,7 @@ if st.button ("🎯 Predict Churn Probability"):
     st.session_state.churn_prediction = churn_prediction
 
 
-st.markdown("---")  
+st.markdown("    ")  
 result_col1, result_col2 = st.columns(2)
 
 with result_col1:
@@ -409,7 +409,7 @@ with result_col2:
             card_type=( "warning" if st.session_state.churn_prediction == "HIGH RISK ⚠️" else "success" if st.session_state.churn_prediction == "LOW RISK ✅" else "info")
         ), unsafe_allow_html=True
     )
-st.markdown("---")  
+st.markdown("    ")  
 # Gauge chart
 if st.session_state.churn_prob is not None:
     fig_gauge = go.Figure(go.Indicator(
@@ -463,7 +463,7 @@ clusters, X_pca, cluster_features = perform_clustering(df_filtered, n_clusters)
 df_filtered['Cluster'] = clusters
 
 # Cluster visualization with PCA
-st.subheader("Customer Segments Visualization")
+st.subheader(":rainbow[Customer Segments Visualization]", divider="rainbow")
 df_pca = pd.DataFrame({
     'PC1': X_pca[:, 0],
     'PC2': X_pca[:, 1],
@@ -481,10 +481,10 @@ with st.container():
         labels={'Exited': 'Churned'},
         color_continuous_scale='Viridis')
     st.plotly_chart(fig11, width="stretch")
-st.markdown("---")  
+st.markdown("   ")  
 with st.container():
     # Cluster profiles
-    st.subheader("Cluster Profiles")
+    st.subheader(":blue[Cluster Profiles]", divider="blue")
     cluster_summary = df_filtered.groupby('Cluster').agg({
         'Age': 'mean',
         'Balance': 'mean',
@@ -497,7 +497,7 @@ with st.container():
 
 cluster_summary.columns = ['Avg Age', 'Avg Balance', 'Avg Credit', 'Avg Products', 'Avg Tenure', 'Avg Salary', 'Churn Rate', 'Customer Count']
 cluster_summary['Churn Rate'] = (cluster_summary['Churn Rate'] * 100).round(2)
-st.markdown("---")  
+st.markdown("   ")  
 with st.container():
     st.dataframe(cluster_summary, width="stretch")
 
@@ -527,9 +527,9 @@ with col2:
         title='Customer Distribution Across Segments',
         color_discrete_sequence=px.colors.qualitative.Set3)
     st.plotly_chart(fig13, width="stretch")
-st.markdown("---")  
+st.markdown("   ")  
 # Detailed cluster characteristics
-st.subheader("Detailed Segment Characteristics")
+st.subheader(":green[Detailed Segment Characteristics]", divider="green")
 selected_cluster = st.selectbox("Select Cluster to Analyze", sorted(df_filtered['Cluster'].unique()))
 
 cluster_data = df_filtered[df_filtered['Cluster'] == selected_cluster]
@@ -571,7 +571,7 @@ with col4:
             card_type="error"
         ), unsafe_allow_html=True
     )
-st.markdown("---")  
+st.markdown("   ")  
 # Cluster characteristics radar chart  
 cluster_means = df_filtered.groupby('Cluster')[cluster_features].mean()  
 selected_cluster_data = cluster_means.loc[selected_cluster]  
@@ -591,7 +591,7 @@ with st.container():
     st.plotly_chart(fig14, width="stretch")
 
 
-st.markdown("---")  
+st.markdown("   ")  
 st.markdown(
         Components.page_header("💡 Key Insights & Recommendations"), unsafe_allow_html=True
     )
@@ -614,7 +614,7 @@ active_churn = df_filtered[df_filtered['IsActiveMember'] == 0]['Exited'].mean() 
 inactive_churn = df_filtered[df_filtered['IsActiveMember'] == 1]['Exited'].mean() * 100 
 
 # Display insights  
-st.subheader("📊 Summary Statistics")
+st.subheader("📊 :rainbow[Summary Statistics]", divider="rainbow")
 
 col1, col2 = st.columns(2, border=True)
 with col1:
@@ -651,9 +651,9 @@ with col2:
         unsafe_allow_html=True
     )
 
-st.markdown("---")  
+st.markdown("    ")  
 
-st.subheader("🎯 Strategic Recommendations")  
+st.subheader("🎯 :red[Strategic Recommendations]", divider="red")  
 
 recommendations = [  
 {  
@@ -693,8 +693,8 @@ for rec in recommendations:
         st.markdown(f"**Insight:** {rec['insight']}")
         st.markdown(f"**Recommended Actions:**\n{rec['action']}")
 
-st.markdown("---")  
-st.subheader("📈 ROI Estimation") 
+st.markdown("   ")  
+st.subheader("📈 :blue[ROI Estimation]", divider="blue") 
 
 # Calculate potential savings  
 avg_customer_value = df_filtered['Balance'].mean()  
@@ -712,9 +712,9 @@ with roi_col3:
     revenue_saved = customers_saved * avg_customer_value  
     st.metric("Potential Revenue Saved", f"${revenue_saved:,.0f}")  
 
-st.markdown("---")  
+st.markdown("   ")  
   
-st.subheader("🚀 Implementation Roadmap")  
+st.subheader("🚀 :red[Implementation Roadmap]", divider="red")  
 
 col1, col2 = st.columns(2)
 
@@ -753,7 +753,7 @@ with col2:
         unsafe_allow_html=True
     )
 
-st.markdown("---")  
+st.markdown("   ")  
 col3, col4 = st.columns(2)
 with col3:
     st.markdown(
@@ -792,9 +792,9 @@ with col4:
     )
 
   
-st.markdown("---")  
+st.markdown("   ")  
   
-st.subheader("📋 Action Items Checklist")  
+st.subheader("📋 :yellow[Action Items Checklist]", divider="yellow")  
 
 col1, col2 = st.columns(2)  
   
@@ -814,9 +814,9 @@ with col2:
     st.checkbox("✓ Conduct customer satisfaction surveys")  
     st.checkbox("✓ Analyze campaign effectiveness")  
   
-st.markdown("---")  
+st.markdown("   ")  
   
-st.subheader("📊 Download Reports")  
+st.subheader("📊 :violet[Download Reports]", divider="violet")  
   
 download_col1, download_col2, download_col3 = st.columns(3)  
   
