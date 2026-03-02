@@ -30,7 +30,7 @@ st.markdown(
 
 st.markdown("   ")
 
-st.subheader('🎯 :red[Key Metrics]' divider='red')
+st.subheader('🎯 :red[Key Metrics]', divider='red')
 
 col1, col2, col3 = st.columns(3)
 
