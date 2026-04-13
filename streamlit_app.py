@@ -80,7 +80,7 @@ with col3:
     icon="🏥", icon_position="left", width="stretch"
     )
 st.markdown("   ")
-col4, col5, col6 = st.columns(3)
+col4, col5, col6, col7 = st.columns(4)
 with col4:
     st.link_button("Madrid Weather Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Madrid_Daily_Weather_Analysis_Dashboard", 
@@ -96,23 +96,12 @@ with col6:
     "https://blank-app-ssh25yo5mc.streamlit.app/Retail_Inventory_Analysis_Dashboard", 
     icon="📦", icon_position="left", width="stretch"
     )
-st.markdown("   ")
-col7, col8, col9 = st.columns(3)
 with col7:
     st.link_button("Customer Churn Analysis Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Customer_Churn_Analysis_Dashboard", 
     icon="🏦", icon_position="left", width="stretch"
     )
-with col8:
-    st.link_button("Customer Churn Analysis Dashboard", 
-    "https://blank-app-ssh25yo5mc.streamlit.app/Customer_Churn_Analysis_Dashboard", 
-    icon="🏦", icon_position="left", width="stretch"
-    )
-with col9:
-    st.link_button("Customer Churn Analysis Dashboard", 
-    "https://blank-app-ssh25yo5mc.streamlit.app/Customer_Churn_Analysis_Dashboard", 
-    icon="🏦", icon_position="left", width="stretch"
-    )
+
 
 # Load custom CSS
 try:
