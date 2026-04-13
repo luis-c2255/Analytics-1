@@ -62,7 +62,7 @@ st.markdown("   ")
 with st.container(height="content", width="stretch", horizontal_alignment="center"):    
     st.image("img.svg")
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 with col1:
     st.link_button("Employee Analytics Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Employee_Analytics_Dashboard",
@@ -74,18 +74,19 @@ with col2:
     "https://blank-app-ssh25yo5mc.streamlit.app/Sales_Performance_Dashboard",
     icon="📊", icon_position="left", width="stretch"
     )
+col3, col4 = st.columns(2)
 with col3:
     st.link_button("Healthcare Symptoms Analytics Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Healthcare_Symptoms_Analytics_Dashboard", 
     icon="🏥", icon_position="left", width="stretch"
     )
 st.markdown("   ")
-col4, col5, col6, col7 = st.columns(4)
 with col4:
     st.link_button("Madrid Weather Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Madrid_Daily_Weather_Analysis_Dashboard", 
     icon="🌤️", icon_position="left", width="stretch"
     )
+col5, col6, col7 = st.columns(3)
 with col5:
     st.link_button("Netflix Stock Analysis Dashboard", 
     "https://blank-app-ssh25yo5mc.streamlit.app/Netflix_Stock_Analysis_Dashboard", 
